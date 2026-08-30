@@ -56,7 +56,6 @@ endif()
 add_executable(kal-auth
     src/auth/main.cpp
     src/auth/AuthServer.cpp
-    src/auth/SessionManager.cpp
 )
 
 target_link_libraries(kal-auth PRIVATE kal_common)
