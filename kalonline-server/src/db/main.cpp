@@ -1,7 +1,7 @@
 #include "common/logger/Logger.hpp"
 #include "common/config/Config.hpp"
 #include "common/network/Network.hpp"
-#include "db/DbServer.hpp"
+#include "DBServer.hpp"
 #include <iostream>
 #include <csignal>
 #include <memory>

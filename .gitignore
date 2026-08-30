@@ -1,28 +1,27 @@
 ```
-# Build directories
+# Build artifacts
 build/
-cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
 
-# Compiled objects
+# Compiled files
 *.o
 *.obj
 *.a
 *.lib
 *.so
 *.dll
-*.dylib
-
-# CMake files
-CMakeFiles/
-CMakeCache.txt
-cmake_install.cmake
-Makefile
+*.exe
+*.out
 
 # Dependencies
 vendor/
+.externalNativeBuild/
 
-# Logs
+# Logs and temp files
 *.log
+*.tmp
+*.swp
 
 # Environment
 .env
@@ -32,20 +31,13 @@ vendor/
 # Editors
 .vscode/
 .idea/
-*.swp
-*.swo
-
-# OS
-.DS_Store
-Thumbs.db
 
 # Coverage
 coverage/
 htmlcov/
 .coverage
 
-# Package managers
-node_modules/
-.npm/
-.yarn/
+# OS generated files
+.DS_Store
+Thumbs.db
 ```

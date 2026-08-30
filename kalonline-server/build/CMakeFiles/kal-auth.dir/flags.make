@@ -6,5 +6,5 @@ CXX_DEFINES = -DBOOST_ALL_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DFMT_SHARED
 
 CXX_INCLUDES = -I/workspace/kalonline-server/src -I/usr/include/postgresql
 
-CXX_FLAGS = -std=gnu++23
+CXX_FLAGS = -O3 -DNDEBUG -std=gnu++23
 

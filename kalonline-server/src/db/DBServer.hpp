@@ -9,9 +9,6 @@
 
 namespace kal::db {
 
-using namespace kal::network;
-using namespace kal::database;
-
 struct DBStats {
     std::chrono::system_clock::time_point start_time;
     uint64_t totalQueries;
@@ -19,10 +16,10 @@ struct DBStats {
     uint64_t activeConnections;
 };
 
-class DBServer : public TcpServer {
+class DBServer : public network::TcpServer {
 public:
     DBServer(asio::io_context& io_context, uint16_t port,
-             std::shared_ptr<DatabasePool> db_pool);
+             std::shared_ptr<database::Database> db);
     ~DBServer();
 
     void Start();
@@ -31,29 +28,29 @@ public:
     DBStats GetStats() const;
 
 protected:
-    void OnMessage(std::shared_ptr<TcpConnection> conn, 
+    void OnMessage(network::ConnectionPtr conn, 
                    std::span<const uint8_t> data) override;
-    void OnConnect(std::shared_ptr<TcpConnection> conn) override;
-    void OnDisconnect(std::shared_ptr<TcpConnection> conn) override;
+    void OnConnect(network::ConnectionPtr conn) override;
+    void OnDisconnect(network::ConnectionPtr conn) override;
 
 private:
     void RegisterHandlers();
     
     // Query handlers
-    void HandleCharacterLoad(std::shared_ptr<TcpConnection> conn, 
+    void HandleCharacterLoad(network::ConnectionPtr conn, 
                             std::span<const uint8_t> packet);
-    void HandleCharacterSave(std::shared_ptr<TcpConnection> conn, 
+    void HandleCharacterSave(network::ConnectionPtr conn, 
                             std::span<const uint8_t> packet);
-    void HandleInventoryLoad(std::shared_ptr<TcpConnection> conn, 
+    void HandleInventoryLoad(network::ConnectionPtr conn, 
                             std::span<const uint8_t> packet);
-    void HandleInventorySave(std::shared_ptr<TcpConnection> conn, 
+    void HandleInventorySave(network::ConnectionPtr conn, 
                             std::span<const uint8_t> packet);
-    void HandleSkillLoad(std::shared_ptr<TcpConnection> conn, 
+    void HandleSkillLoad(network::ConnectionPtr conn, 
                         std::span<const uint8_t> packet);
-    void HandleGuildLoad(std::shared_ptr<TcpConnection> conn, 
+    void HandleGuildLoad(network::ConnectionPtr conn, 
                         std::span<const uint8_t> packet);
     
-    std::shared_ptr<DatabasePool> m_db_pool;
+    std::shared_ptr<database::Database> m_db;
     std::unique_ptr<QueryRouter> m_query_router;
     
     mutable std::mutex m_stats_mutex;

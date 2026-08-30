@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <chrono>
 #include <cstring>
-#include <cmath>
+#include <stdexcept>
 
 namespace kal::utils {
 
@@ -38,16 +38,39 @@ std::string trim(const std::string& str) {
     return (start < end) ? std::string(start, end) : std::string();
 }
 
-std::string to_lower(std::string str) {
-    std::transform(str.begin(), str.end(), str.begin(), 
+std::string to_lower(const std::string& str) {
+    std::string result = str;
+    std::transform(result.begin(), result.end(), result.begin(), 
                    [](unsigned char c) { return std::tolower(c); });
-    return str;
+    return result;
 }
 
-std::string to_upper(std::string str) {
-    std::transform(str.begin(), str.end(), str.begin(), 
+std::string to_upper(const std::string& str) {
+    std::string result = str;
+    std::transform(result.begin(), result.end(), result.begin(), 
                    [](unsigned char c) { return std::toupper(c); });
-    return str;
+    return result;
+}
+
+bool starts_with(const std::string& str, const std::string& prefix) {
+    if (prefix.size() > str.size()) return false;
+    return str.compare(0, prefix.size(), prefix) == 0;
+}
+
+bool ends_with(const std::string& str, const std::string& suffix) {
+    if (suffix.size() > str.size()) return false;
+    return str.compare(str.size() - suffix.size(), suffix.size(), suffix) == 0;
+}
+
+std::string join(const std::vector<std::string>& parts, const std::string& delimiter) {
+    if (parts.empty()) return "";
+    
+    std::ostringstream oss;
+    oss << parts[0];
+    for (size_t i = 1; i < parts.size(); ++i) {
+        oss << delimiter << parts[i];
+    }
+    return oss.str();
 }
 
 // ============================================================================
@@ -213,7 +236,7 @@ int64_t current_timestamp_sec() {
 std::vector<uint8_t> read_file_binary(const std::string& path) {
     std::ifstream file(path, std::ios::binary | std::ios::ate);
     if (!file.is_open()) {
-        throw std::runtime_error(std::format("Failed to open file: {}", path));
+        throw std::runtime_error("Failed to open file: " + path);
     }
     
     auto size = file.tellg();
@@ -221,7 +244,7 @@ std::vector<uint8_t> read_file_binary(const std::string& path) {
     
     std::vector<uint8_t> buffer(static_cast<size_t>(size));
     if (!file.read(reinterpret_cast<char*>(buffer.data()), size)) {
-        throw std::runtime_error(std::format("Failed to read file: {}", path));
+        throw std::runtime_error("Failed to read file: " + path);
     }
     
     return buffer;
@@ -230,7 +253,7 @@ std::vector<uint8_t> read_file_binary(const std::string& path) {
 std::string read_file_text(const std::string& path) {
     std::ifstream file(path, std::ios::ate);
     if (!file.is_open()) {
-        throw std::runtime_error(std::format("Failed to open file: {}", path));
+        throw std::runtime_error("Failed to open file: " + path);
     }
     
     auto size = file.tellg();
@@ -238,7 +261,7 @@ std::string read_file_text(const std::string& path) {
     
     std::string buffer(static_cast<size_t>(size), '\0');
     if (!file.read(buffer.data(), size)) {
-        throw std::runtime_error(std::format("Failed to read file: {}", path));
+        throw std::runtime_error("Failed to read file: " + path);
     }
     
     return buffer;
