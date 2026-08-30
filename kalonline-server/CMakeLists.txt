@@ -32,6 +32,7 @@ add_library(kal_common STATIC
     src/common/network/Network.cpp
     src/common/database/Database.cpp
     src/common/utils/Utils.cpp
+    src/assets/AssetLoader.cpp
 )
 
 target_include_directories(kal_common PUBLIC
