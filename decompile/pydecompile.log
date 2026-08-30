@@ -1,0 +1,30 @@
+
+============================================================
+Decompiling: /workspace/AuthSvrT.exe
+PDB: /workspace/AuthSvrT.pdb
+============================================================
+
+Traceback (most recent call last):
+  File "org.jpype.Reflector0.java", line 0, in org.jpype.Reflector0.callMethod
+Exception: Java Exception
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/site-packages/jpype/imports.py", line 199, in find_spec
+    cls = _jpype._java_lang_Class.forName(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+java.lang.java.lang.ClassNotFoundException: java.lang.ClassNotFoundException: ghidra.framework.Project
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/decompile/scripts/decompile_pyghidra.py", line 226, in <module>
+    main()
+  File "/workspace/decompile/scripts/decompile_pyghidra.py", line 210, in main
+    decompile_binary(exe_path, pdb_path if os.path.exists(pdb_path) else None, output_dir)
+  File "/workspace/decompile/scripts/decompile_pyghidra.py", line 60, in decompile_binary
+    from ghidra.framework import Project, DomainFile
+  File "/usr/local/lib/python3.12/site-packages/jpype/imports.py", line 209, in find_spec
+    raise ImportError("Failed to import '%s'" % name) from ex
+ImportError: Failed to import 'ghidra.framework.Project'

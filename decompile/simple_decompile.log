@@ -1,0 +1,14 @@
+
+============================================================
+Decompiling: /workspace/AuthSvrT.exe
+============================================================
+
+Traceback (most recent call last):
+  File "/workspace/decompile/scripts/decompile_simple.py", line 146, in <module>
+    main()
+  File "/workspace/decompile/scripts/decompile_simple.py", line 131, in main
+    decompile_binary(exe_path, output_dir)
+  File "/workspace/decompile/scripts/decompile_simple.py", line 34, in decompile_binary
+    program = FlatProgramAPI.openProgram(exe_file, None, False)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'ghidra.program.flatapi.FlatProgramAPI' has no attribute 'openProgram'. Did you mean: 'saveProgram'?

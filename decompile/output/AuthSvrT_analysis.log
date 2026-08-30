@@ -1,0 +1,215 @@
+openjdk version "21.0.2" 2024-01-16
+OpenJDK Runtime Environment (build 21.0.2+13-58)
+OpenJDK 64-Bit Server VM (build 21.0.2+13-58, mixed mode)
+INFO  Using log config file: jar:file:/workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: /root/.config/ghidra/ghidra_12.1.3_PUBLIC/application.log (LoggingInitialization)  
+INFO  Loading user preferences: /root/.config/ghidra/ghidra_12.1.3_PUBLIC/preferences (Preferences)  
+INFO  Searching for classes... (ClassSearcher)  
+INFO  Class search complete (1746 ms) (ClassSearcher)  
+INFO  Initializing SSL Context (DefaultSSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (DefaultTrustManagerFactory)  
+INFO  Starting cache cleanup: /var/tmp/root-ghidra/fscache2 (FileCacheMaintenanceDaemon)  
+INFO  Finished cache cleanup, estimated storage used: 0 (FileCacheMaintenanceDaemon)  
+INFO  Headless startup complete (5480 ms) (AnalyzeHeadless)  
+INFO  Class searcher loaded 59 extension points (20 false positives) (ClassSearcher)  
+INFO  HEADLESS Script Paths:
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Features/Decompiler/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Features/Base/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Features/PDB/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Features/FunctionID/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Features/BytePatterns/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Processors/8051/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Processors/Atmel/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Processors/DATA/ghidra_scripts
+    /workspace/decompile/scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Features/VersionTracking/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Debug/Debugger/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Processors/PIC/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Features/FileFormats/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Processors/JVM/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Features/PyGhidra/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Features/GnuDemangler/ghidra_scripts
+    /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Features/BSim/ghidra_scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Creating temporary project: /workspace/decompile/ghidra_project/KalOnline_AuthSvrT (HeadlessAnalyzer)  
+INFO  Creating project: /workspace/decompile/ghidra_project/KalOnline_AuthSvrT (DefaultProject)  
+INFO  REPORT: Processing input files:  (HeadlessAnalyzer)  
+INFO       project: /workspace/decompile/ghidra_project/KalOnline_AuthSvrT (HeadlessAnalyzer)  
+INFO  IMPORTING: file:///workspace/AuthSvrT.exe (HeadlessAnalyzer)  
+INFO  Using Loader: Portable Executable (PE) (ProgramLoader)  
+INFO  Using Language/Compiler: x86:LE:32:default:windows (ProgramLoader)  
+INFO  Using Library Search Path: [., /bin, /lib, /lib64, /lib/x86_64-linux-gnu, /lib/aarch64-linux-gnu, /usr/bin, /usr/lib, /usr/X11R6/bin, /usr/X11R6/lib, /usr/java/packages/lib, /usr/lib64] (ProgramLoader)  
+INFO  Additional info:
+Loading file:///workspace/AuthSvrT.exe?MD5=2f22b9d99fedc8e18c48db10b0960535...
+------------------------------------------------
+
+Searching 8 paths for library ADVAPI32.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library DBGHELP.DLL...
+Loading file:///workspace/dbghelp.dll?MD5=3b5f0bf4125688a531fa21c823ea6193...
+Created exports file: /root/.config/ghidra/ghidra_12.1.3_PUBLIC/symbols/win32/dbghelp.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 8 paths for library GDI32.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library IPHLPAPI.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library KERNEL32.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library ODBC32.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library OLE32.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library USER32.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 8 paths for library WS2_32.DLL...
+Library not found.
+------------------------------------------------
+
+Applying cached symbols from DBGHELP.DLL
+Linking the External Programs of 'AuthSvrT.exe' to imported libraries...
+  [DBGHELP.DLL] -> not found in project
+  [WS2_32.DLL] -> not found in project
+  [IPHLPAPI.DLL] -> not found in project
+  [KERNEL32.DLL] -> not found in project
+  [USER32.DLL] -> not found in project
+  [GDI32.DLL] -> not found in project
+  [ADVAPI32.DLL] -> not found in project
+  [OLE32.DLL] -> not found in project
+  [ODBC32.DLL] -> not found in project
+------------------------------------------------
+
+ (ProgramLoader)  
+INFO  IMPORTING: Loaded 0 additional files (HeadlessAnalyzer)  
+INFO  ANALYZING all memory and code: file:///workspace/AuthSvrT.exe (HeadlessAnalyzer)  
+WARN  Ignoring leading '_' chars on no-return name '___raise_securityfailure' specified in file: /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Features/Base/data/PEFunctionsThatDoNotReturn (NoReturnFunctionAnalyzer)  
+WARN  Ignoring leading '_' chars on no-return name '___report_rangecheckfailure' specified in file: /workspace/decompile/tools/ghidra_12.1.3_PUBLIC/Ghidra/Features/Base/data/PEFunctionsThatDoNotReturn (NoReturnFunctionAnalyzer)  
+INFO  PDB analyzer parsing file: /workspace/AuthSvrT.pdb (PdbUniversalAnalyzer)  
+WARN  PDB UNION reconstruction failed to align /AuthSvrT.pdb/_IMAGE_AUX_SYMBOL (CompositeTypeApplier)  
+WARN  PDB STRUCTURE reconstruction failed to align /AuthSvrT.pdb/std/basic_istream<unsigned_short,std::char_traits<unsigned_short>_> (CppCompositeType)  
+WARN  PDB STRUCTURE reconstruction failed to align /AuthSvrT.pdb/std/basic_istream<char,std::char_traits<char>_> (CppCompositeType)  
+WARN  PDB STRUCTURE reconstruction failed to align /AuthSvrT.pdb/std/_Tree_ptr<std::_Tmap_traits<int,CSocket_*,std::less<int>,std::allocator<std::pair<int_const_,CSocket_*>_>,0>_> (CppCompositeType)  
+WARN  PDB STRUCTURE reconstruction failed to align /AuthSvrT.pdb/std/_Tree_val<std::_Tmap_traits<int,CSocket_*,std::less<int>,std::allocator<std::pair<int_const_,CSocket_*>_>,0>_> (CppCompositeType)  
+WARN  PDB STRUCTURE reconstruction failed to align /AuthSvrT.pdb/std/_Tree_ptr<std::_Tmap_traits<unsigned_long,CSocket_*,std::less<unsigned_long>,std::allocator<std::pair<unsigned_long_const_,CSocket_*>_>,0>_> (CppCompositeType)  
+WARN  PDB STRUCTURE reconstruction failed to align /AuthSvrT.pdb/std/_Tree_val<std::_Tmap_traits<unsigned_long,CSocket_*,std::less<unsigned_long>,std::allocator<std::pair<unsigned_long_const_,CSocket_*>_>,0>_> (CppCompositeType)  
+WARN  PDB STRUCTURE reconstruction failed to align /AuthSvrT.pdb/std/_Tree_ptr<std::_Tmap_traits<int,CUser_*,std::less<int>,std::allocator<std::pair<int_const_,CUser_*>_>,0>_> (CppCompositeType)  
+WARN  PDB STRUCTURE reconstruction failed to align /AuthSvrT.pdb/std/_Tree_val<std::_Tmap_traits<int,CUser_*,std::less<int>,std::allocator<std::pair<int_const_,CUser_*>_>,0>_> (CppCompositeType)  
+WARN  PDB STRUCTURE reconstruction failed to align /AuthSvrT.pdb/std/_Tree_ptr<std::_Tmap_traits<char_const_*,CLogin_*,StrCmp,std::allocator<std::pair<char_const_*_const,CLogin_*>_>,0>_> (CppCompositeType)  
+WARN  PDB STRUCTURE reconstruction failed to align /AuthSvrT.pdb/std/_Tree_val<std::_Tmap_traits<char_const_*,CLogin_*,StrCmp,std::allocator<std::pair<char_const_*_const,CLogin_*>_>,0>_> (CppCompositeType)  
+WARN  PDB STRUCTURE reconstruction failed to align /AuthSvrT.pdb/std/_Tree_ptr<std::_Tmap_traits<char_const_*,CBillingLogin_*,StrCmp,std::allocator<std::pair<char_const_*_const,CBillingLogin_*>_>,0>_> (CppCompositeType)  
+WARN  PDB STRUCTURE reconstruction failed to align /AuthSvrT.pdb/std/_Tree_val<std::_Tmap_traits<char_const_*,CBillingLogin_*,StrCmp,std::allocator<std::pair<char_const_*_const,CBillingLogin_*>_>,0>_> (CppCompositeType)  
+WARN  PDB STRUCTURE reconstruction failed to align /AuthSvrT.pdb/std/basic_istream<wchar_t,std::char_traits<wchar_t>_> (CppCompositeType)  
+WARN  PDB STRUCTURE reconstruction failed to align /AuthSvrT.pdb/_JMP_BUF (CppCompositeType)  
+WARN  PDB STRUCTURE reconstruction failed to align /AuthSvrT.pdb/_EXCEPTION_RECORD (CppCompositeType)  
+INFO  resolveCount: 9764 (DefaultPdbApplicator)  
+INFO  conflictCount: 26 (DefaultPdbApplicator)  
+INFO  PDB Types and Main Symbols Processing Terminated Normally (DefaultPdbApplicator)  
+INFO  PDB Universal: scheduling PDB Function Internals Analysis (PdbUniversalAnalyzer)  
+INFO  Packed database cache: /var/tmp/root-ghidra/packed-db-cache (PackedDatabaseCache)  
+INFO  Applied data type archive: windows_vs12_32 (ApplyDataArchiveAnalyzer)  
+INFO  Applied data type archive: windows_vs12_32 (ApplyDataArchiveAnalyzer)  
+INFO  PDB Function Internals Processing Terminated Normally (DefaultPdbApplicator)  
+INFO  PDB Applicator Reporting (DefaultPdbApplicator)  
+INFO  ===Begin PdbApplicatorMetrics Report===
+Could not apply one or more instances of an unsupported PDB data type: MethodListMsType
+Could not apply one or more instances of an unsupported PDB symbol type: Compile2MsSymbol
+Could not apply one or more instances of an unsupported PDB symbol type: RegisterMsSymbol
+Could not apply one or more instances of an unsupported PDB symbol type: ObjectNameMsSymbol
+Could not apply one or more instances of an unsupported PDB symbol type: BasePointerRelative32MsSymbol
+Could not apply one or more instances of an unsupported PDB symbol type: ConstantMsSymbol
+Could not nest one or more instances of a PDB symbol type: UserDefinedTypeMsSymbol
+Could not nest one or more instances of a PDB symbol type: RegisterMsSymbol
+Could not nest one or more instances of a PDB symbol type: BasePointerRelative32MsSymbol
+Could not process C11Lines
+====End PdbApplicatorMetrics Report====
+ (PdbApplicatorMetrics)  
+INFO  PDB Applicator Reporting Terminated Normally (DefaultPdbApplicator)  
+INFO  -----------------------------------------------------
+    ASCII Strings                              0.838 secs
+    Apply Data Archives                        0.512 secs
+    Call Convention ID                         0.072 secs
+    Call-Fixup Installer                       0.107 secs
+    Create Address Tables                      0.188 secs
+    Create Address Tables - One Time           0.117 secs
+    Create Function                            0.161 secs
+    Data Reference                             0.203 secs
+    Decompiler Parameter ID                    2.017 secs
+    Decompiler Switch Analysis                 8.594 secs
+    Demangler Microsoft                        0.303 secs
+    Disassemble Entry Points                   3.875 secs
+    Disassemble Entry Points - One Time        0.022 secs
+    Embedded Media                             0.060 secs
+    External Entry References                  0.000 secs
+    Function ID                                6.108 secs
+    Function Start Pre Search                  0.016 secs
+    Function Start Search                      0.504 secs
+    Function Start Search After Code           0.094 secs
+    Function Start Search After Data           0.227 secs
+    Non-Returning Functions - Discovered       0.694 secs
+    Non-Returning Functions - Known            0.009 secs
+    PDB Universal                              8.805 secs
+    PDB Universal Function Internals           0.207 secs
+    PDB Universal Reporting                    0.001 secs
+    Reference                                  0.420 secs
+    Scalar Operand References                  1.201 secs
+    Shared Return Calls                        0.324 secs
+    Stack                                      7.285 secs
+    Subroutine References                      0.422 secs
+    Subroutine References - One Time           0.021 secs
+    Windows x86 PE Exception Handling          7.067 secs
+    Windows x86 PE RTTI Analyzer               0.258 secs
+    Windows x86 Thread Environment Block (TEB) Analyzer     0.022 secs
+    WindowsResourceReference                  12.391 secs
+    X86 Function Callee Purge                  0.590 secs
+    x86 Constant Reference Analyzer            5.860 secs
+-----------------------------------------------------
+     Total Time   69 secs
+-----------------------------------------------------
+ (AutoAnalysisManager)  
+INFO  REPORT: Analysis succeeded for file: file:///workspace/AuthSvrT.exe (HeadlessAnalyzer)  
+INFO  REPORT: Execute script: DecompileAndExport.java '/workspace/decompile/output'  (HeadlessAnalyzer)  
+ERROR REPORT SCRIPT ERROR: DecompileAndExport.java : The class could not be found. It must be the public class of the .java file: Failed to get OSGi bundle containing script: /workspace/decompile/scripts/DecompileAndExport.java (HeadlessAnalyzer) ghidra.app.script.GhidraScriptLoadException: The class could not be found. It must be the public class of the .java file: Failed to get OSGi bundle containing script: /workspace/decompile/scripts/DecompileAndExport.java
+	at ghidra.app.script.JavaScriptProvider.getScriptInstance(JavaScriptProvider.java:114)
+	at ghidra.app.util.headless.HeadlessAnalyzer.runScriptsList(HeadlessAnalyzer.java:915)
+	at ghidra.app.util.headless.HeadlessAnalyzer.analyzeProgram(HeadlessAnalyzer.java:1085)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processFileWithImport(HeadlessAnalyzer.java:1583)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processWithLoader(HeadlessAnalyzer.java:1743)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processWithImport(HeadlessAnalyzer.java:1684)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processWithImport(HeadlessAnalyzer.java:1768)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processLocal(HeadlessAnalyzer.java:452)
+	at ghidra.app.util.headless.AnalyzeHeadless.launch(AnalyzeHeadless.java:199)
+	at ghidra.GhidraLauncher.launch(GhidraLauncher.java:81)
+	at ghidra.Ghidra.main(Ghidra.java:54)
+Caused by: java.lang.ClassNotFoundException: Failed to get OSGi bundle containing script: /workspace/decompile/scripts/DecompileAndExport.java
+	at ghidra.app.script.JavaScriptProvider.loadClass(JavaScriptProvider.java:163)
+	at ghidra.app.script.JavaScriptProvider.getScriptInstance(JavaScriptProvider.java:97)
+	... 10 more
+ 
+INFO  ANALYZING changes made by post scripts: file:///workspace/AuthSvrT.exe (HeadlessAnalyzer)  
+INFO  REPORT: Post-analysis succeeded for file: file:///workspace/AuthSvrT.exe (HeadlessAnalyzer)  
+INFO  /AuthSvrT.exe: file created (root) (LocalFileSystem)  
+INFO  REPORT: Save succeeded for: /AuthSvrT.exe (KalOnline_AuthSvrT:/AuthSvrT.exe) (HeadlessAnalyzer)  
+INFO  REPORT: Import succeeded (HeadlessAnalyzer)  
