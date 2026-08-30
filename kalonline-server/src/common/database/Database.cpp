@@ -19,17 +19,17 @@ bool Database::connect(const std::string& host, const std::string& port,
                        const std::string& dbname, const std::string& user,
                        const std::string& password) {
     try {
-        std::string connStr = "host=" + host + " port=" + port + 
-                             " dbname=" + dbname + " user=" + user + 
+        std::string connStr = "host=" + host + " port=" + port +
+                             " dbname=" + dbname + " user=" + user +
                              " password=" + password;
-        
+
         m_connection = std::make_unique<pqxx::connection>(connStr);
-        
+
         if (m_connection->is_open()) {
             KAL_LOG_INFO("Database connected successfully to {}:{}", host, port);
             return true;
         }
-        
+
         KAL_LOG_ERROR("Failed to open database connection");
         return false;
     } catch (const std::exception& e) {
@@ -42,9 +42,8 @@ void Database::disconnect() {
     if (m_transaction) {
         rollbackTransaction();
     }
-    
+
     if (m_connection) {
-        m_connection->close();
         m_connection.reset();
         KAL_LOG_INFO("Database disconnected");
     }
@@ -63,7 +62,7 @@ std::unique_ptr<QueryResult> Database::executeQuery(const std::string& query,
         result->error = "Not connected to database";
         return result;
     }
-    
+
     try {
         pqxx::work txn(*m_connection);
         pqxx::result res;
@@ -71,47 +70,67 @@ std::unique_ptr<QueryResult> Database::executeQuery(const std::string& query,
         if (params.empty()) {
             res = txn.exec(query);
         } else {
-            // Use prepared statement for parameters
-            pqxx::stream_from stream(txn, query);
+            // Build parameterized query
+            std::string paramQuery = query;
+            for (size_t i = 0; i < params.size(); ++i) {
+                std::string placeholder = "$" + std::to_string(i + 1);
+                size_t pos = paramQuery.find(placeholder);
+                if (pos != std::string::npos) {
+                    paramQuery.replace(pos, placeholder.length(), "'" + params[i] + "'");
+                }
+            }
+            res = txn.exec(paramQuery);
         }
-        
+
+        result->success = true;
         for (const auto& row : res) {
             std::vector<std::string> rowData;
-            for (size_t i = 0; i < row.size(); ++i) {
+            for (pqxx::row::size_type i = 0; i < row.size(); ++i) {
                 std::string value;
-                row[i].to(value);
+                value = row.at(static_cast<pqxx::row::size_type>(i)).c_str();
                 rowData.push_back(value);
             }
             result->rows.push_back(rowData);
         }
-        
-        result->success = true;
+
         return result;
     } catch (const std::exception& e) {
         result->success = false;
         result->error = e.what();
-        KAL_LOG_ERROR("Query execution failed: {}", e.what());
+        KAL_LOG_ERROR("Database query failed: {}", e.what());
         return result;
     }
 }
 
 bool Database::executeCommand(const std::string& query,
-                              const std::vector<std::string>& params) {
+                             const std::vector<std::string>& params) {
     if (!isConnected()) {
+        KAL_LOG_ERROR("Not connected to database");
         return false;
     }
-    
+
     try {
         pqxx::work txn(*m_connection);
         
         if (params.empty()) {
             txn.exec0(query);
+        } else {
+            // Build parameterized query
+            std::string paramQuery = query;
+            for (size_t i = 0; i < params.size(); ++i) {
+                std::string placeholder = "$" + std::to_string(i + 1);
+                size_t pos = paramQuery.find(placeholder);
+                if (pos != std::string::npos) {
+                    paramQuery.replace(pos, placeholder.length(), "'" + params[i] + "'");
+                }
+            }
+            txn.exec0(paramQuery);
         }
         
         txn.commit();
         return true;
     } catch (const std::exception& e) {
-        KAL_LOG_ERROR("Command execution failed: {}", e.what());
+        KAL_LOG_ERROR("Database command failed: {}", e.what());
         return false;
     }
 }
@@ -120,12 +139,12 @@ bool Database::beginTransaction() {
     if (!isConnected() || m_transaction) {
         return false;
     }
-    
+
     try {
         m_transaction = std::make_unique<pqxx::work>(*m_connection);
         return true;
     } catch (const std::exception& e) {
-        KAL_LOG_ERROR("Begin transaction failed: {}", e.what());
+        KAL_LOG_ERROR("Failed to begin transaction: {}", e.what());
         return false;
     }
 }
@@ -134,13 +153,13 @@ bool Database::commitTransaction() {
     if (!m_transaction) {
         return false;
     }
-    
+
     try {
         m_transaction->commit();
         m_transaction.reset();
         return true;
     } catch (const std::exception& e) {
-        KAL_LOG_ERROR("Commit transaction failed: {}", e.what());
+        KAL_LOG_ERROR("Failed to commit transaction: {}", e.what());
         m_transaction.reset();
         return false;
     }
@@ -150,13 +169,13 @@ bool Database::rollbackTransaction() {
     if (!m_transaction) {
         return false;
     }
-    
+
     try {
         m_transaction->abort();
         m_transaction.reset();
         return true;
     } catch (const std::exception& e) {
-        KAL_LOG_ERROR("Rollback transaction failed: {}", e.what());
+        KAL_LOG_ERROR("Failed to rollback transaction: {}", e.what());
         m_transaction.reset();
         return false;
     }

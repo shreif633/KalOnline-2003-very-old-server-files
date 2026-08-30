@@ -18,37 +18,39 @@ AuthManager::LoginResult AuthManager::Authenticate(
     
     // Check if IP is blocked
     if (IsIpBlocked(ip)) {
-        KAL_LOG_WARN("Login attempt from blocked IP: {}", ip);
+        KAL_LOG_WARNING("Login attempt from blocked IP: {}", ip);
         return LoginResult::AccountLocked;
     }
     
     try {
-        auto db = kal::database::Database::GetInstance();
+        auto db = kal::database::Database::getInstance();
         
         // Query user from database
-        auto result = db->ExecuteQuery(
+        auto result = db->executeQuery(
             "SELECT id, password_hash, is_locked FROM users WHERE username = $1",
             {username}
         );
         
         if (!result || !result->Next()) {
-            KAL_LOG_WARN("Login failed: User {} not found", username);
+            KAL_LOG_WARNING("Login failed: User {} not found", username);
+            RecordFailedAttempt(ip);
             return LoginResult::InvalidCredentials;
         }
         
         outUserId = static_cast<uint32_t>(result->GetInt(0));
         std::string storedHash = result->GetString(1);
-        bool isLocked = result->GetBool(2);
+        bool isLocked = (result->GetString(2) == "t");
         
         if (isLocked) {
-            KAL_LOG_WARN("Login failed: Account {} is locked", username);
+            KAL_LOG_WARNING("Login failed: Account {} is locked", username);
             return LoginResult::AccountLocked;
         }
         
         // Verify password hash
         std::string inputHash = HashPassword(password);
         if (inputHash != storedHash) {
-            KAL_LOG_WARN("Login failed: Invalid password for user {}", username);
+            KAL_LOG_WARNING("Login failed: Invalid password for user {}", username);
+            RecordFailedAttempt(ip);
             return LoginResult::InvalidCredentials;
         }
         
@@ -71,101 +73,53 @@ AuthManager::LoginResult AuthManager::Authenticate(
         
     } catch (const std::exception& e) {
         KAL_LOG_ERROR("Database error during authentication: {}", e.what());
-        return LoginResult::DatabaseError;
-    }
-}
-        
-        if (!result || !result->Next()) {
-            RecordFailedAttempt(ip);
-            return LoginResult::InvalidCredentials;
-        }
-        
-        uint32_t userId = result->GetInt(0);
-        std::string passwordHash = result->GetString(1);
-        bool isLocked = result->GetBool(2);
-        
-        if (isLocked) {
-            Logger::Warn("Login attempt on locked account: {}", username);
-            return LoginResult::AccountLocked;
-        }
-        
-        // Verify password (BCrypt)
-        if (!Crypto::VerifyPassword(password, passwordHash)) {
-            RecordFailedAttempt(ip);
-            return LoginResult::InvalidCredentials;
-        }
-        
-        // Check if already logged in
-        auto it = userToToken_.find(userId);
-        if (it != userToToken_.end() && !it->second.empty()) {
-            auto existingSession = GetSession(it->second);
-            if (existingSession && existingSession->isActive) {
-                Logger::Info("User {} already logged in, forcing logout", username);
-                Logout(it->second);
-            }
-        }
-        
-        // Generate session token
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<> dis(0, 15);
-        
-        std::string token;
-        token.reserve(32);
-        for (int i = 0; i < 32; ++i) {
-            token += "0123456789ABCDEF"[dis(gen)];
-        }
-        
-        // Create session
-        auto session = std::make_shared<UserSession>();
-        session->userId = userId;
-        session->username = username;
-        session->sessionToken = token;
-        session->ipAddress = ip;
-        session->loginTime = std::chrono::steady_clock::now();
-        session->isActive = true;
-        
-        sessions_[token] = session;
-        userToToken_[userId] = token;
-        
-        // Update last login in database
-        db->ExecuteQuery(
-            "UPDATE users SET last_login = NOW(), last_ip = $1 WHERE id = $2",
-            {ip, std::to_string(userId)}
-        );
-        
-        outToken = token;
-        outUserId = userId;
-        
-        ClearFailedAttempts(ip);
-        Logger::Info("User {} logged in successfully (ID: {})", username, userId);
-        
-        return LoginResult::Success;
-        
-    } catch (const std::exception& e) {
-        Logger::Error("Database error during authentication: {}", e.what());
         RecordFailedAttempt(ip);
         return LoginResult::DatabaseError;
     }
 }
 
-bool AuthManager::Logout(const std::string& token) {
+AuthManager::RegisterResult AuthManager::Register(
+    const std::string& username,
+    const std::string& password,
+    const std::string& ip)
+{
     std::lock_guard<std::mutex> lock(mutex_);
     
-    auto it = sessions_.find(token);
-    if (it == sessions_.end()) {
-        return false;
+    if (!ValidateUsername(username)) {
+        return RegisterResult::InvalidUsername;
     }
     
-    auto session = it->second;
-    uint32_t userId = session->userId;
+    if (!ValidatePassword(password)) {
+        return RegisterResult::InvalidPassword;
+    }
     
-    // Remove from maps
-    userToToken_.erase(userId);
-    sessions_.erase(it);
-    
-    Logger::Info("User {} logged out", session->username);
-    return true;
+    try {
+        auto db = kal::database::Database::getInstance();
+        
+        // Check if user exists
+        auto checkResult = db->executeQuery(
+            "SELECT id FROM users WHERE username = $1",
+            {username}
+        );
+        
+        if (checkResult && checkResult->Next()) {
+            return RegisterResult::AccountExists;
+        }
+        
+        // Insert new user
+        std::string passwordHash = HashPassword(password);
+        db->executeCommand(
+            "INSERT INTO users (username, password_hash, created_at) VALUES ($1, $2, NOW())",
+            {username, passwordHash}
+        );
+        
+        KAL_LOG_INFO("New user registered: {}", username);
+        return RegisterResult::Success;
+        
+    } catch (const std::exception& e) {
+        KAL_LOG_ERROR("Database error during registration: {}", e.what());
+        return RegisterResult::ServerError;
+    }
 }
 
 bool AuthManager::ValidateSession(const std::string& token) {
@@ -176,108 +130,46 @@ bool AuthManager::ValidateSession(const std::string& token) {
         return false;
     }
     
-    auto session = it->second;
-    
-    // Check timeout
+    // Check if session expired (30 minutes)
     auto now = std::chrono::steady_clock::now();
-    auto elapsed = std::chrono::duration_cast<std::chrono::minutes>(now - session->loginTime);
+    auto elapsed = std::chrono::duration_cast<std::chrono::minutes>(
+        now - it->second.lastActivity);
     
-    if (elapsed.count() > SESSION_TIMEOUT_MINUTES) {
-        Logger::Info("Session expired for user {}", session->username);
-        return false;
-    }
-    
-    return session->isActive;
-}
-
-std::shared_ptr<UserSession> AuthManager::GetSession(const std::string& token) {
-    std::lock_guard<std::mutex> lock(mutex_);
-    
-    auto it = sessions_.find(token);
-    if (it != sessions_.end()) {
-        return it->second;
-    }
-    
-    return nullptr;
-}
-
-void AuthManager::RemoveSession(const std::string& token) {
-    std::lock_guard<std::mutex> lock(mutex_);
-    
-    auto it = sessions_.find(token);
-    if (it != sessions_.end()) {
-        uint32_t userId = it->second->userId;
-        userToToken_.erase(userId);
+    if (elapsed.count() > 30) {
         sessions_.erase(it);
-    }
-}
-
-void AuthManager::CleanupExpiredSessions() {
-    std::lock_guard<std::mutex> lock(mutex_);
-    
-    auto now = std::chrono::steady_clock::now();
-    std::vector<std::string> toRemove;
-    
-    for (const auto& pair : sessions_) {
-        auto elapsed = std::chrono::duration_cast<std::chrono::minutes>(
-            now - pair.second->loginTime);
-        
-        if (elapsed.count() > SESSION_TIMEOUT_MINUTES) {
-            toRemove.push_back(pair.first);
-        }
-    }
-    
-    for (const auto& token : toRemove) {
-        auto session = sessions_[token];
-        Logger::Info("Cleaning up expired session for user {}", session->username);
-        uint32_t userId = session->userId;
-        userToToken_.erase(userId);
-        sessions_.erase(token);
-    }
-}
-
-bool AuthManager::IsIpBlocked(const std::string& ip) {
-    auto it = failedAttempts_.find(ip);
-    if (it == failedAttempts_.end()) {
         return false;
     }
     
-    // Block for 15 minutes after max failed attempts
-    auto now = std::chrono::steady_clock::now();
-    auto elapsed = std::chrono::duration_cast<std::chrono::minutes>(now - it->second.time);
-    
-    if (it->second.count >= MAX_FAILED_ATTEMPTS && elapsed.count() < 15) {
-        return true;
-    }
-    
-    // Reset if enough time passed
-    if (elapsed.count() >= 15) {
-        failedAttempts_.erase(it);
-    }
-    
-    return false;
+    return true;
 }
 
-void AuthManager::RecordFailedAttempt(const std::string& ip) {
-    auto it = failedAttempts_.find(ip);
-    if (it == failedAttempts_.end()) {
-        FailedAttempt attempt;
-        attempt.ip = ip;
-        attempt.time = std::chrono::steady_clock::now();
-        attempt.count = 1;
-        failedAttempts_[ip] = attempt;
-    } else {
-        it->second.count++;
-        it->second.time = std::chrono::steady_clock::now();
-        
-        if (it->second.count >= MAX_FAILED_ATTEMPTS) {
-            Logger::Warn("IP {} blocked due to multiple failed login attempts", ip);
-        }
+void AuthManager::InvalidateSession(const std::string& token) {
+    std::lock_guard<std::mutex> lock(mutex_);
+    sessions_.erase(token);
+}
+
+void AuthManager::UpdateSessionActivity(const std::string& token) {
+    std::lock_guard<std::mutex> lock(mutex_);
+    
+    auto it = sessions_.find(token);
+    if (it != sessions_.end()) {
+        it->second.lastActivity = std::chrono::steady_clock::now();
     }
 }
 
-void AuthManager::ClearFailedAttempts(const std::string& ip) {
-    failedAttempts_.erase(ip);
+bool AuthManager::IsIpBlocked(const std::string& ip) const {
+    return blockedIps_.find(ip) != blockedIps_.end();
+}
+
+void AuthManager::BlockIp(const std::string& ip, int durationMinutes) {
+    std::lock_guard<std::mutex> lock(mutex_);
+    blockedIps_.insert(ip);
+    KAL_LOG_WARNING("IP blocked: {}", ip);
+}
+
+void AuthManager::UnblockIp(const std::string& ip) {
+    std::lock_guard<std::mutex> lock(mutex_);
+    blockedIps_.erase(ip);
 }
 
 size_t AuthManager::GetActiveSessionCount() const {
@@ -285,16 +177,48 @@ size_t AuthManager::GetActiveSessionCount() const {
     return sessions_.size();
 }
 
-std::vector<std::shared_ptr<UserSession>> AuthManager::GetAllActiveSessions() const {
+size_t AuthManager::GetBlockedIpCount() const {
     std::lock_guard<std::mutex> lock(mutex_);
-    std::vector<std::shared_ptr<UserSession>> result;
-    result.reserve(sessions_.size());
+    return blockedIps_.size();
+}
+
+std::string AuthManager::GenerateSessionToken() {
+    static const char* chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    static std::uniform_int_distribution<> dis(0, 61);
     
-    for (const auto& pair : sessions_) {
-        if (pair.second->isActive) {
-            result.push_back(pair.second);
+    std::string token;
+    token.reserve(32);
+    for (int i = 0; i < 32; ++i) {
+        token += chars[dis(gen)];
+    }
+    return token;
+}
+
+bool AuthManager::ValidateUsername(const std::string& username) const {
+    if (username.length() < 4 || username.length() > 20) {
+        return false;
+    }
+    for (char c : username) {
+        if (!std::isalnum(c) && c != '_') {
+            return false;
         }
     }
-    
-    return result;
+    return true;
 }
+
+bool AuthManager::ValidatePassword(const std::string& password) const {
+    return password.length() >= 6;
+}
+
+std::string AuthManager::HashPassword(const std::string& password) const {
+    return kal::crypto::SHA256(password);
+}
+
+void AuthManager::RecordFailedAttempt(const std::string& ip) {
+    // Simple implementation - could be enhanced with time-based tracking
+    KAL_LOG_DEBUG("Failed login attempt from IP: {}", ip);
+}
+
+} // namespace kal::auth

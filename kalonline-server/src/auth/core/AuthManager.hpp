@@ -81,6 +81,7 @@ private:
     bool ValidateUsername(const std::string& username) const;
     bool ValidatePassword(const std::string& password) const;
     std::string HashPassword(const std::string& password) const;
+    void RecordFailedAttempt(const std::string& ip);
 
     mutable std::mutex mutex_;
     std::unordered_map<std::string, SessionInfo> sessions_; // token -> session

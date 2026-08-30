@@ -1,22 +1,28 @@
 ```
-# Build artifacts
-kalonline-server/build/
+# Build directories
+build/
+cmake-build-*/
+
+# Compiled objects
 *.o
 *.obj
-*.exe
-*.dll
-*.so
 *.a
-*.out
+*.lib
+*.so
+*.dll
+*.dylib
+
+# CMake files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
 
 # Dependencies
-kalonline-server/external/
-kalonline-server/lib/
+vendor/
 
-# Logs and temp files
+# Logs
 *.log
-*.tmp
-*.swp
 
 # Environment
 .env
@@ -29,18 +35,17 @@ kalonline-server/lib/
 *.swp
 *.swo
 
-# OS files
+# OS
 .DS_Store
 Thumbs.db
 
-# Coverage reports
+# Coverage
 coverage/
 htmlcov/
-*.coverage
+.coverage
 
-# CMake specific
-CMakeFiles/
-CMakeCache.txt
-cmake_install.cmake
-Makefile
+# Package managers
+node_modules/
+.npm/
+.yarn/
 ```
