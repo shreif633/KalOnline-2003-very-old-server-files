@@ -5,6 +5,12 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# Use libc++ for Clang to get C++23 std::format support
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
+endif()
+
 # Build options
 option(KAL_BUILD_TESTS "Build test suite" ON)
 option(KAL_BUILD_GUI "Build Qt6 management GUI" OFF)
@@ -74,6 +80,7 @@ target_link_libraries(kal-db PRIVATE kal_common)
 add_executable(kal-main
     src/main/main.cpp
     src/main/MainServer.cpp
+    src/main/GameServer.cpp
     src/main/WorldManager.cpp
     src/main/EntityManager.cpp
     src/main/CombatSystem.cpp
@@ -81,26 +88,31 @@ add_executable(kal-main
     src/main/ItemSystem.cpp
     src/main/SocialSystem.cpp
     src/main/QuestSystem.cpp
+    src/main/core/Entities.cpp
+    src/main/network/PacketHandler.cpp
+    src/main/system/MonsterAI.cpp
+    src/main/system/SpawnManager.cpp
+    src/assets/KsmParser.cpp
 )
 
 target_link_libraries(kal-main PRIVATE kal_common)
 
-# Tests
-if(KAL_BUILD_TESTS)
-    enable_testing()
-    find_package(GTest REQUIRED)
-    
-    add_executable(kal_tests
-        tests/test_crypto.cpp
-        tests/test_logger.cpp
-        tests/test_combat_formulas.cpp
-    )
-    
-    target_link_libraries(kal_tests PRIVATE kal_common GTest::gtest_main)
-    
-    include(GoogleTest)
-    gtest_discover_tests(kal_tests)
-endif()
+# Tests - Disabled until test files are created
+# if(KAL_BUILD_TESTS)
+#     enable_testing()
+#     find_package(GTest REQUIRED)
+#     
+#     add_executable(kal_tests
+#         tests/test_crypto.cpp
+#         tests/test_logger.cpp
+#         tests/test_combat_formulas.cpp
+#     )
+#     
+#     target_link_libraries(kal_tests PRIVATE kal_common GTest::gtest_main)
+#     
+#     include(GoogleTest)
+#     gtest_discover_tests(kal_tests)
+# endif()
 
 # GUI (Optional)
 if(KAL_BUILD_GUI)

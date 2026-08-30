@@ -41,7 +41,7 @@ FileBackend::FileBackend(const std::filesystem::path& filepath) {
     
     m_file.open(filepath, std::ios::app);
     if (!m_file.is_open()) {
-        throw std::runtime_error(std::format("Failed to open log file: {}", filepath.string()));
+        throw std::runtime_error(fmt::format("Failed to open log file: {}", filepath.string()));
     }
 }
 
@@ -85,14 +85,14 @@ void AsyncLogger::initialize(std::string_view app_name, LogLevel min_level) {
     // Add file backend
     try {
         auto log_path = std::filesystem::current_path() / "logs" / 
-                       std::format("{}_{}.log", app_name, 
+                       fmt::format("{}_{}.log", app_name, 
                                    std::chrono::system_clock::now().time_since_epoch().count());
         add_backend(std::make_unique<FileBackend>(log_path));
     } catch (const std::exception& e) {
         std::cerr << "Warning: Failed to create file logger: " << e.what() << std::endl;
     }
     
-    m_worker_thread = std::jthread(&AsyncLogger::worker_thread_func, this);
+    m_worker_thread = std::thread(&AsyncLogger::worker_thread_func, this);
 }
 
 void AsyncLogger::shutdown() {
@@ -100,7 +100,7 @@ void AsyncLogger::shutdown() {
     m_cv.notify_all();
     
     if (m_worker_thread.joinable()) {
-        m_worker_thread.request_stop();
+        m_worker_thread;
     }
 }
 

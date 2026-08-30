@@ -3,7 +3,6 @@
 #include <string>
 #include <string_view>
 #include <memory>
-#include <format>
 #include <source_location>
 #include <chrono>
 #include <thread>
@@ -13,6 +12,8 @@
 #include <atomic>
 #include <fstream>
 #include <filesystem>
+#include <fmt/format.h>
+#include <fmt/chrono.h>
 
 namespace kal::logger {
 
@@ -81,32 +82,32 @@ public:
              const std::source_location& location = std::source_location::current());
     
     template<typename... Args>
-    void trace(std::format_string<Args...> fmt, Args&&... args) {
+    void trace(fmt::format_string<Args...> fmt, Args&&... args) {
         log_formatted(LogLevel::Trace, fmt, std::forward<Args>(args)...);
     }
     
     template<typename... Args>
-    void debug(std::format_string<Args...> fmt, Args&&... args) {
+    void debug(fmt::format_string<Args...> fmt, Args&&... args) {
         log_formatted(LogLevel::Debug, fmt, std::forward<Args>(args)...);
     }
     
     template<typename... Args>
-    void info(std::format_string<Args...> fmt, Args&&... args) {
+    void info(fmt::format_string<Args...> fmt, Args&&... args) {
         log_formatted(LogLevel::Info, fmt, std::forward<Args>(args)...);
     }
     
     template<typename... Args>
-    void warning(std::format_string<Args...> fmt, Args&&... args) {
+    void warning(fmt::format_string<Args...> fmt, Args&&... args) {
         log_formatted(LogLevel::Warning, fmt, std::forward<Args>(args)...);
     }
     
     template<typename... Args>
-    void error(std::format_string<Args...> fmt, Args&&... args) {
+    void error(fmt::format_string<Args...> fmt, Args&&... args) {
         log_formatted(LogLevel::Error, fmt, std::forward<Args>(args)...);
     }
     
     template<typename... Args>
-    void fatal(std::format_string<Args...> fmt, Args&&... args) {
+    void fatal(fmt::format_string<Args...> fmt, Args&&... args) {
         log_formatted(LogLevel::Fatal, fmt, std::forward<Args>(args)...);
     }
     
@@ -117,9 +118,9 @@ public:
     
 private:
     template<typename... Args>
-    void log_formatted(LogLevel level, std::format_string<Args...> fmt, Args&&... args) {
+    void log_formatted(LogLevel level, fmt::format_string<Args...> fmt, Args&&... args) {
         if (level >= m_min_level) {
-            log(level, std::format(fmt, std::forward<Args>(args)...));
+            log(level, fmt::format(fmt, std::forward<Args>(args)...));
         }
     }
     
@@ -135,7 +136,7 @@ private:
     std::condition_variable m_cv;
     
     std::vector<std::unique_ptr<LoggerBackend>> m_backends;
-    std::jthread m_worker_thread;
+    std::thread m_worker_thread;
     
     static constexpr size_t MAX_QUEUE_SIZE = 4096;
 };

@@ -104,7 +104,7 @@ Config::DatabaseConfig Config::database() const {
 }
 
 std::string Config::DatabaseConfig::connection_string() const {
-    return std::format(
+    return fmt::format(
         "dbname={} user={} password={} host={} port={}",
         database, username, password, host, port
     );
