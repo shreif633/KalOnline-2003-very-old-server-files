@@ -42,7 +42,7 @@ add_library(kal_common STATIC
 )
 
 target_include_directories(kal_common PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${PostgreSQL_INCLUDE_DIRS}
 )
 

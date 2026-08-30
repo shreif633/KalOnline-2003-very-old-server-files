@@ -2,6 +2,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <fmt/format.h>
 
 namespace kal::logger {
 
@@ -100,7 +101,7 @@ void AsyncLogger::shutdown() {
     m_cv.notify_all();
     
     if (m_worker_thread.joinable()) {
-        m_worker_thread;
+        m_worker_thread.join();
     }
 }
 
@@ -115,7 +116,7 @@ void AsyncLogger::log(LogLevel level, std::string_view message,
         .level = level,
         .message = std::string(message),
         .source_file = std::string(location.file_name()),
-        .source_line = location.line(),
+        .source_line = static_cast<int>(location.line()),
         .function = std::string(location.function_name()),
         .thread_id = std::this_thread::get_id()
     };
@@ -134,7 +135,7 @@ void AsyncLogger::log(LogLevel level, std::string_view message,
     m_cv.notify_one();
 }
 
-void AsyncLogger::add_backend(std::unique_ptr<LoggerBackend> backend) {
+void AsyncLogger::add_backend(std::unique_ptr<IBackend> backend) {
     m_backends.push_back(std::move(backend));
 }
 

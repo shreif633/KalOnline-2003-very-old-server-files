@@ -73,211 +73,211 @@ CMakeFiles/kal-main.dir/src/main/main.cpp.o: CMakeFiles/kal-main.dir/flags.make
 CMakeFiles/kal-main.dir/src/main/main.cpp.o: /workspace/kalonline-server/src/main/main.cpp
 CMakeFiles/kal-main.dir/src/main/main.cpp.o: CMakeFiles/kal-main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/kal-main.dir/src/main/main.cpp.o"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/main.cpp.o -MF CMakeFiles/kal-main.dir/src/main/main.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/main.cpp.o -c /workspace/kalonline-server/src/main/main.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/main.cpp.o -MF CMakeFiles/kal-main.dir/src/main/main.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/main.cpp.o -c /workspace/kalonline-server/src/main/main.cpp
 
 CMakeFiles/kal-main.dir/src/main/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-main.dir/src/main/main.cpp.i"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/main.cpp > CMakeFiles/kal-main.dir/src/main/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/main.cpp > CMakeFiles/kal-main.dir/src/main/main.cpp.i
 
 CMakeFiles/kal-main.dir/src/main/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-main.dir/src/main/main.cpp.s"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/main.cpp -o CMakeFiles/kal-main.dir/src/main/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/main.cpp -o CMakeFiles/kal-main.dir/src/main/main.cpp.s
 
 CMakeFiles/kal-main.dir/src/main/MainServer.cpp.o: CMakeFiles/kal-main.dir/flags.make
 CMakeFiles/kal-main.dir/src/main/MainServer.cpp.o: /workspace/kalonline-server/src/main/MainServer.cpp
 CMakeFiles/kal-main.dir/src/main/MainServer.cpp.o: CMakeFiles/kal-main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/kal-main.dir/src/main/MainServer.cpp.o"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/MainServer.cpp.o -MF CMakeFiles/kal-main.dir/src/main/MainServer.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/MainServer.cpp.o -c /workspace/kalonline-server/src/main/MainServer.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/MainServer.cpp.o -MF CMakeFiles/kal-main.dir/src/main/MainServer.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/MainServer.cpp.o -c /workspace/kalonline-server/src/main/MainServer.cpp
 
 CMakeFiles/kal-main.dir/src/main/MainServer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-main.dir/src/main/MainServer.cpp.i"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/MainServer.cpp > CMakeFiles/kal-main.dir/src/main/MainServer.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/MainServer.cpp > CMakeFiles/kal-main.dir/src/main/MainServer.cpp.i
 
 CMakeFiles/kal-main.dir/src/main/MainServer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-main.dir/src/main/MainServer.cpp.s"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/MainServer.cpp -o CMakeFiles/kal-main.dir/src/main/MainServer.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/MainServer.cpp -o CMakeFiles/kal-main.dir/src/main/MainServer.cpp.s
 
 CMakeFiles/kal-main.dir/src/main/GameServer.cpp.o: CMakeFiles/kal-main.dir/flags.make
 CMakeFiles/kal-main.dir/src/main/GameServer.cpp.o: /workspace/kalonline-server/src/main/GameServer.cpp
 CMakeFiles/kal-main.dir/src/main/GameServer.cpp.o: CMakeFiles/kal-main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/kal-main.dir/src/main/GameServer.cpp.o"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/GameServer.cpp.o -MF CMakeFiles/kal-main.dir/src/main/GameServer.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/GameServer.cpp.o -c /workspace/kalonline-server/src/main/GameServer.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/GameServer.cpp.o -MF CMakeFiles/kal-main.dir/src/main/GameServer.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/GameServer.cpp.o -c /workspace/kalonline-server/src/main/GameServer.cpp
 
 CMakeFiles/kal-main.dir/src/main/GameServer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-main.dir/src/main/GameServer.cpp.i"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/GameServer.cpp > CMakeFiles/kal-main.dir/src/main/GameServer.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/GameServer.cpp > CMakeFiles/kal-main.dir/src/main/GameServer.cpp.i
 
 CMakeFiles/kal-main.dir/src/main/GameServer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-main.dir/src/main/GameServer.cpp.s"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/GameServer.cpp -o CMakeFiles/kal-main.dir/src/main/GameServer.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/GameServer.cpp -o CMakeFiles/kal-main.dir/src/main/GameServer.cpp.s
 
 CMakeFiles/kal-main.dir/src/main/WorldManager.cpp.o: CMakeFiles/kal-main.dir/flags.make
 CMakeFiles/kal-main.dir/src/main/WorldManager.cpp.o: /workspace/kalonline-server/src/main/WorldManager.cpp
 CMakeFiles/kal-main.dir/src/main/WorldManager.cpp.o: CMakeFiles/kal-main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/kal-main.dir/src/main/WorldManager.cpp.o"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/WorldManager.cpp.o -MF CMakeFiles/kal-main.dir/src/main/WorldManager.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/WorldManager.cpp.o -c /workspace/kalonline-server/src/main/WorldManager.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/WorldManager.cpp.o -MF CMakeFiles/kal-main.dir/src/main/WorldManager.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/WorldManager.cpp.o -c /workspace/kalonline-server/src/main/WorldManager.cpp
 
 CMakeFiles/kal-main.dir/src/main/WorldManager.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-main.dir/src/main/WorldManager.cpp.i"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/WorldManager.cpp > CMakeFiles/kal-main.dir/src/main/WorldManager.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/WorldManager.cpp > CMakeFiles/kal-main.dir/src/main/WorldManager.cpp.i
 
 CMakeFiles/kal-main.dir/src/main/WorldManager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-main.dir/src/main/WorldManager.cpp.s"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/WorldManager.cpp -o CMakeFiles/kal-main.dir/src/main/WorldManager.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/WorldManager.cpp -o CMakeFiles/kal-main.dir/src/main/WorldManager.cpp.s
 
 CMakeFiles/kal-main.dir/src/main/EntityManager.cpp.o: CMakeFiles/kal-main.dir/flags.make
 CMakeFiles/kal-main.dir/src/main/EntityManager.cpp.o: /workspace/kalonline-server/src/main/EntityManager.cpp
 CMakeFiles/kal-main.dir/src/main/EntityManager.cpp.o: CMakeFiles/kal-main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/kal-main.dir/src/main/EntityManager.cpp.o"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/EntityManager.cpp.o -MF CMakeFiles/kal-main.dir/src/main/EntityManager.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/EntityManager.cpp.o -c /workspace/kalonline-server/src/main/EntityManager.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/EntityManager.cpp.o -MF CMakeFiles/kal-main.dir/src/main/EntityManager.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/EntityManager.cpp.o -c /workspace/kalonline-server/src/main/EntityManager.cpp
 
 CMakeFiles/kal-main.dir/src/main/EntityManager.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-main.dir/src/main/EntityManager.cpp.i"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/EntityManager.cpp > CMakeFiles/kal-main.dir/src/main/EntityManager.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/EntityManager.cpp > CMakeFiles/kal-main.dir/src/main/EntityManager.cpp.i
 
 CMakeFiles/kal-main.dir/src/main/EntityManager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-main.dir/src/main/EntityManager.cpp.s"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/EntityManager.cpp -o CMakeFiles/kal-main.dir/src/main/EntityManager.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/EntityManager.cpp -o CMakeFiles/kal-main.dir/src/main/EntityManager.cpp.s
 
 CMakeFiles/kal-main.dir/src/main/CombatSystem.cpp.o: CMakeFiles/kal-main.dir/flags.make
 CMakeFiles/kal-main.dir/src/main/CombatSystem.cpp.o: /workspace/kalonline-server/src/main/CombatSystem.cpp
 CMakeFiles/kal-main.dir/src/main/CombatSystem.cpp.o: CMakeFiles/kal-main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/kal-main.dir/src/main/CombatSystem.cpp.o"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/CombatSystem.cpp.o -MF CMakeFiles/kal-main.dir/src/main/CombatSystem.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/CombatSystem.cpp.o -c /workspace/kalonline-server/src/main/CombatSystem.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/CombatSystem.cpp.o -MF CMakeFiles/kal-main.dir/src/main/CombatSystem.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/CombatSystem.cpp.o -c /workspace/kalonline-server/src/main/CombatSystem.cpp
 
 CMakeFiles/kal-main.dir/src/main/CombatSystem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-main.dir/src/main/CombatSystem.cpp.i"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/CombatSystem.cpp > CMakeFiles/kal-main.dir/src/main/CombatSystem.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/CombatSystem.cpp > CMakeFiles/kal-main.dir/src/main/CombatSystem.cpp.i
 
 CMakeFiles/kal-main.dir/src/main/CombatSystem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-main.dir/src/main/CombatSystem.cpp.s"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/CombatSystem.cpp -o CMakeFiles/kal-main.dir/src/main/CombatSystem.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/CombatSystem.cpp -o CMakeFiles/kal-main.dir/src/main/CombatSystem.cpp.s
 
 CMakeFiles/kal-main.dir/src/main/SkillSystem.cpp.o: CMakeFiles/kal-main.dir/flags.make
 CMakeFiles/kal-main.dir/src/main/SkillSystem.cpp.o: /workspace/kalonline-server/src/main/SkillSystem.cpp
 CMakeFiles/kal-main.dir/src/main/SkillSystem.cpp.o: CMakeFiles/kal-main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/kal-main.dir/src/main/SkillSystem.cpp.o"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/SkillSystem.cpp.o -MF CMakeFiles/kal-main.dir/src/main/SkillSystem.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/SkillSystem.cpp.o -c /workspace/kalonline-server/src/main/SkillSystem.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/SkillSystem.cpp.o -MF CMakeFiles/kal-main.dir/src/main/SkillSystem.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/SkillSystem.cpp.o -c /workspace/kalonline-server/src/main/SkillSystem.cpp
 
 CMakeFiles/kal-main.dir/src/main/SkillSystem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-main.dir/src/main/SkillSystem.cpp.i"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/SkillSystem.cpp > CMakeFiles/kal-main.dir/src/main/SkillSystem.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/SkillSystem.cpp > CMakeFiles/kal-main.dir/src/main/SkillSystem.cpp.i
 
 CMakeFiles/kal-main.dir/src/main/SkillSystem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-main.dir/src/main/SkillSystem.cpp.s"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/SkillSystem.cpp -o CMakeFiles/kal-main.dir/src/main/SkillSystem.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/SkillSystem.cpp -o CMakeFiles/kal-main.dir/src/main/SkillSystem.cpp.s
 
 CMakeFiles/kal-main.dir/src/main/ItemSystem.cpp.o: CMakeFiles/kal-main.dir/flags.make
 CMakeFiles/kal-main.dir/src/main/ItemSystem.cpp.o: /workspace/kalonline-server/src/main/ItemSystem.cpp
 CMakeFiles/kal-main.dir/src/main/ItemSystem.cpp.o: CMakeFiles/kal-main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/kal-main.dir/src/main/ItemSystem.cpp.o"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/ItemSystem.cpp.o -MF CMakeFiles/kal-main.dir/src/main/ItemSystem.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/ItemSystem.cpp.o -c /workspace/kalonline-server/src/main/ItemSystem.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/ItemSystem.cpp.o -MF CMakeFiles/kal-main.dir/src/main/ItemSystem.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/ItemSystem.cpp.o -c /workspace/kalonline-server/src/main/ItemSystem.cpp
 
 CMakeFiles/kal-main.dir/src/main/ItemSystem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-main.dir/src/main/ItemSystem.cpp.i"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/ItemSystem.cpp > CMakeFiles/kal-main.dir/src/main/ItemSystem.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/ItemSystem.cpp > CMakeFiles/kal-main.dir/src/main/ItemSystem.cpp.i
 
 CMakeFiles/kal-main.dir/src/main/ItemSystem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-main.dir/src/main/ItemSystem.cpp.s"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/ItemSystem.cpp -o CMakeFiles/kal-main.dir/src/main/ItemSystem.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/ItemSystem.cpp -o CMakeFiles/kal-main.dir/src/main/ItemSystem.cpp.s
 
 CMakeFiles/kal-main.dir/src/main/SocialSystem.cpp.o: CMakeFiles/kal-main.dir/flags.make
 CMakeFiles/kal-main.dir/src/main/SocialSystem.cpp.o: /workspace/kalonline-server/src/main/SocialSystem.cpp
 CMakeFiles/kal-main.dir/src/main/SocialSystem.cpp.o: CMakeFiles/kal-main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/kal-main.dir/src/main/SocialSystem.cpp.o"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/SocialSystem.cpp.o -MF CMakeFiles/kal-main.dir/src/main/SocialSystem.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/SocialSystem.cpp.o -c /workspace/kalonline-server/src/main/SocialSystem.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/SocialSystem.cpp.o -MF CMakeFiles/kal-main.dir/src/main/SocialSystem.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/SocialSystem.cpp.o -c /workspace/kalonline-server/src/main/SocialSystem.cpp
 
 CMakeFiles/kal-main.dir/src/main/SocialSystem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-main.dir/src/main/SocialSystem.cpp.i"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/SocialSystem.cpp > CMakeFiles/kal-main.dir/src/main/SocialSystem.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/SocialSystem.cpp > CMakeFiles/kal-main.dir/src/main/SocialSystem.cpp.i
 
 CMakeFiles/kal-main.dir/src/main/SocialSystem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-main.dir/src/main/SocialSystem.cpp.s"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/SocialSystem.cpp -o CMakeFiles/kal-main.dir/src/main/SocialSystem.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/SocialSystem.cpp -o CMakeFiles/kal-main.dir/src/main/SocialSystem.cpp.s
 
 CMakeFiles/kal-main.dir/src/main/QuestSystem.cpp.o: CMakeFiles/kal-main.dir/flags.make
 CMakeFiles/kal-main.dir/src/main/QuestSystem.cpp.o: /workspace/kalonline-server/src/main/QuestSystem.cpp
 CMakeFiles/kal-main.dir/src/main/QuestSystem.cpp.o: CMakeFiles/kal-main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/kal-main.dir/src/main/QuestSystem.cpp.o"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/QuestSystem.cpp.o -MF CMakeFiles/kal-main.dir/src/main/QuestSystem.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/QuestSystem.cpp.o -c /workspace/kalonline-server/src/main/QuestSystem.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/QuestSystem.cpp.o -MF CMakeFiles/kal-main.dir/src/main/QuestSystem.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/QuestSystem.cpp.o -c /workspace/kalonline-server/src/main/QuestSystem.cpp
 
 CMakeFiles/kal-main.dir/src/main/QuestSystem.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-main.dir/src/main/QuestSystem.cpp.i"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/QuestSystem.cpp > CMakeFiles/kal-main.dir/src/main/QuestSystem.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/QuestSystem.cpp > CMakeFiles/kal-main.dir/src/main/QuestSystem.cpp.i
 
 CMakeFiles/kal-main.dir/src/main/QuestSystem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-main.dir/src/main/QuestSystem.cpp.s"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/QuestSystem.cpp -o CMakeFiles/kal-main.dir/src/main/QuestSystem.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/QuestSystem.cpp -o CMakeFiles/kal-main.dir/src/main/QuestSystem.cpp.s
 
 CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.o: CMakeFiles/kal-main.dir/flags.make
 CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.o: /workspace/kalonline-server/src/main/core/Entities.cpp
 CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.o: CMakeFiles/kal-main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.o"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.o -MF CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.o -c /workspace/kalonline-server/src/main/core/Entities.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.o -MF CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.o -c /workspace/kalonline-server/src/main/core/Entities.cpp
 
 CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.i"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/core/Entities.cpp > CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/core/Entities.cpp > CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.i
 
 CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.s"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/core/Entities.cpp -o CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/core/Entities.cpp -o CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.s
 
 CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.o: CMakeFiles/kal-main.dir/flags.make
 CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.o: /workspace/kalonline-server/src/main/network/PacketHandler.cpp
 CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.o: CMakeFiles/kal-main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.o"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.o -MF CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.o -c /workspace/kalonline-server/src/main/network/PacketHandler.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.o -MF CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.o -c /workspace/kalonline-server/src/main/network/PacketHandler.cpp
 
 CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.i"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/network/PacketHandler.cpp > CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/network/PacketHandler.cpp > CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.i
 
 CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.s"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/network/PacketHandler.cpp -o CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/network/PacketHandler.cpp -o CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.s
 
 CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.o: CMakeFiles/kal-main.dir/flags.make
 CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.o: /workspace/kalonline-server/src/main/system/MonsterAI.cpp
 CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.o: CMakeFiles/kal-main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.o"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.o -MF CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.o -c /workspace/kalonline-server/src/main/system/MonsterAI.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.o -MF CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.o -c /workspace/kalonline-server/src/main/system/MonsterAI.cpp
 
 CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.i"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/system/MonsterAI.cpp > CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/system/MonsterAI.cpp > CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.i
 
 CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.s"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/system/MonsterAI.cpp -o CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/system/MonsterAI.cpp -o CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.s
 
 CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.o: CMakeFiles/kal-main.dir/flags.make
 CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.o: /workspace/kalonline-server/src/main/system/SpawnManager.cpp
 CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.o: CMakeFiles/kal-main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.o"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.o -MF CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.o -c /workspace/kalonline-server/src/main/system/SpawnManager.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.o -MF CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.o.d -o CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.o -c /workspace/kalonline-server/src/main/system/SpawnManager.cpp
 
 CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.i"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/system/SpawnManager.cpp > CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/main/system/SpawnManager.cpp > CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.i
 
 CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.s"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/system/SpawnManager.cpp -o CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/main/system/SpawnManager.cpp -o CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.s
 
 CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.o: CMakeFiles/kal-main.dir/flags.make
 CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.o: /workspace/kalonline-server/src/assets/KsmParser.cpp
 CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.o: CMakeFiles/kal-main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.o"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.o -MF CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.o.d -o CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.o -c /workspace/kalonline-server/src/assets/KsmParser.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.o -MF CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.o.d -o CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.o -c /workspace/kalonline-server/src/assets/KsmParser.cpp
 
 CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.i"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/assets/KsmParser.cpp > CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/assets/KsmParser.cpp > CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.i
 
 CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.s"
-	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/assets/KsmParser.cpp -o CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/assets/KsmParser.cpp -o CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.s
 
 # Object files for target kal-main
 kal__main_OBJECTS = \
@@ -317,7 +317,12 @@ kal-main: CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.o
 kal-main: CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.o
 kal-main: CMakeFiles/kal-main.dir/build.make
 kal-main: libkal_common.a
-kal-main: /usr/lib/x86_64-linux-gnu/libpq.so
+kal-main: /root/.conan2/p/b/libpq441ef0303b2d0/p/lib/libpq.a
+kal-main: /root/.conan2/p/b/libpq441ef0303b2d0/p/lib/libpgcommon.a
+kal-main: /root/.conan2/p/b/libpq441ef0303b2d0/p/lib/libpgcommon_shlib.a
+kal-main: /root/.conan2/p/b/libpq441ef0303b2d0/p/lib/libpgport.a
+kal-main: /root/.conan2/p/b/libpq441ef0303b2d0/p/lib/libpgport_shlib.a
+kal-main: /root/.conan2/p/b/yaml-60ca5b141ec49/p/lib/libyaml-cpp.a
 kal-main: CMakeFiles/kal-main.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable kal-main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/kal-main.dir/link.txt --verbose=$(VERBOSE)
