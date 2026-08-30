@@ -7,6 +7,9 @@
 *.so
 *.a
 *.out
+build/
+dist/
+target/
 
 # Dependencies
 node_modules/
@@ -15,29 +18,24 @@ venv/
 __pycache__/
 .mypy_cache/
 .pytest_cache/
-target/
 .gradle/
-
-# Build directories
-build/
-dist/
-
-# Editors
-.vscode/
-.idea/
-*.swp
-*.swo
 
 # Logs and temp files
 *.log
 *.tmp
-
-# System files
-.DS_Store
-Thumbs.db
+*.swp
+*.swo
 
 # Environment
 .env
 .env.local
 *.env.*
+
+# Editors
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
 ```
