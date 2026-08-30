@@ -21,33 +21,36 @@ int main(int argc, char* argv[]) {
     signal(SIGTERM, signalHandler);
 
     try {
-        auto logger = kal::logger::Logger::getInstance();
-        logger->add_backend(std::make_unique<kal::logger::ConsoleBackend>());
-        logger->add_backend(std::make_unique<kal::logger::FileBackend>("logs/db_server.log"));
+        auto& logger = kal::logger::Logger::getInstance();
+        logger.add_backend(std::make_unique<kal::logger::ConsoleBackend>());
+        logger.add_backend(std::make_unique<kal::logger::FileBackend>("logs/db_server.log"));
         
         KAL_LOG_INFO("KalOnline DB Server starting...");
 
-        auto config = kal::config::Config::getInstance();
+        auto& config = kal::config::Config::getInstance();
         std::string configPath = (argc > 1) ? argv[1] : "config.yaml";
         
-        if (!config->load(configPath)) {
+        if (!config.load(configPath)) {
             KAL_LOG_ERROR("Failed to load configuration from {}", configPath);
             return 1;
         }
 
         g_ioContext = std::make_unique<asio::io_context>();
-        uint16_t port = static_cast<uint16_t>(config->get<int>("db.port", 9002));
+        uint16_t port = static_cast<uint16_t>(config.get<int>("db.port", 9002));
         
         g_dbServer = std::make_unique<kal::db::DbServer>(*g_ioContext, port);
         
-        if (!g_dbServer->initialize()) {
-            KAL_LOG_ERROR("Failed to initialize DB Server");
-            return 1;
-        }
-
         KAL_LOG_INFO("DB Server initialized on port {}. Starting service...", port);
         
+        // Start the server
+        g_dbServer->Start();
+        
         g_ioContext->run();
+
+        // Stop server
+        if (g_dbServer) {
+            g_dbServer->Stop();
+        }
 
         KAL_LOG_INFO("DB Server shut down gracefully.");
         return 0;

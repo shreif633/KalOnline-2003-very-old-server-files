@@ -1,6 +1,7 @@
 #pragma once
 #include "common/network/Network.hpp"
 #include "common/database/Database.hpp"
+#include "common/logger/Logger.hpp"
 #include <asio.hpp>
 #include <memory>
 #include <unordered_map>
@@ -11,6 +12,7 @@ namespace kal::auth {
 
 using namespace kal::network;
 using namespace kal::database;
+using namespace kal::logger;
 
 struct AuthStats {
     uint64_t totalLogins;
@@ -31,12 +33,13 @@ public:
 
 private:
     void DoAccept();
-    void OnClientConnected(std::shared_ptr<TcpConnection> connection);
+    void OnClientConnected(std::shared_ptr<kal::network::Connection> connection);
+    void OnPacketReceived(std::shared_ptr<kal::network::Connection> conn, std::span<const uint8_t> packet);
     
     // Packet handlers
-    void HandleLogin(std::shared_ptr<TcpConnection> conn, std::span<const uint8_t> packet);
-    void HandleRegister(std::shared_ptr<TcpConnection> conn, std::span<const uint8_t> packet);
-    void HandleServerList(std::shared_ptr<TcpConnection> conn, std::span<const uint8_t> packet);
+    void HandleLogin(std::shared_ptr<kal::network::Connection> conn, std::span<const uint8_t> packet);
+    void HandleRegister(std::shared_ptr<kal::network::Connection> conn, std::span<const uint8_t> packet);
+    void HandleServerList(std::shared_ptr<kal::network::Connection> conn, std::span<const uint8_t> packet);
     
     // Session management
     bool ValidateSession(const std::string& sessionToken);

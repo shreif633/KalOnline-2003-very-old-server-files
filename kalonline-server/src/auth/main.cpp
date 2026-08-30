@@ -22,36 +22,39 @@ int main(int argc, char* argv[]) {
 
     try {
         // Initialize logger first
-        auto logger = kal::logger::Logger::getInstance();
-        logger->add_backend(std::make_unique<kal::logger::ConsoleBackend>());
-        logger->add_backend(std::make_unique<kal::logger::FileBackend>("logs/auth_server.log"));
+        auto& logger = kal::logger::Logger::getInstance();
+        logger.add_backend(std::make_unique<kal::logger::ConsoleBackend>());
+        logger.add_backend(std::make_unique<kal::logger::FileBackend>("logs/auth_server.log"));
         
         KAL_LOG_INFO("KalOnline Auth Server starting...");
 
         // Load configuration
-        auto config = kal::config::Config::getInstance();
+        auto& config = kal::config::Config::getInstance();
         std::string configPath = (argc > 1) ? argv[1] : "config.yaml";
         
-        if (!config->load(configPath)) {
+        if (!config.load(configPath)) {
             KAL_LOG_ERROR("Failed to load configuration from {}", configPath);
             return 1;
         }
 
         // Create IO context and server
         g_ioContext = std::make_unique<asio::io_context>();
-        uint16_t port = static_cast<uint16_t>(config->get<int>("auth.port", 9001));
+        uint16_t port = static_cast<uint16_t>(config.get<int>("auth.port", 9001));
         
         g_authServer = std::make_unique<kal::auth::AuthServer>(*g_ioContext, port);
         
-        if (!g_authServer->initialize()) {
-            KAL_LOG_ERROR("Failed to initialize Auth Server");
-            return 1;
-        }
-
         KAL_LOG_INFO("Auth Server initialized on port {}. Starting service...", port);
+        
+        // Start the server
+        g_authServer->Start();
         
         // Run the io context (this blocks until stop() is called)
         g_ioContext->run();
+
+        // Stop server
+        if (g_authServer) {
+            g_authServer->Stop();
+        }
 
         KAL_LOG_INFO("Auth Server shut down gracefully.");
         return 0;

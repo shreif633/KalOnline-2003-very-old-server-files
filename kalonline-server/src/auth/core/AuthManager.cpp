@@ -1,8 +1,11 @@
 #include "AuthManager.hpp"
-#include "Logger.hpp"
-#include "Crypto.hpp"
+#include "common/logger/Logger.hpp"
+#include "common/crypto/Crypto.hpp"
+#include "common/database/Database.hpp"
 #include <random>
 #include <algorithm>
+
+namespace kal::auth {
 
 AuthManager::LoginResult AuthManager::Authenticate(
     const std::string& username, 
@@ -15,18 +18,62 @@ AuthManager::LoginResult AuthManager::Authenticate(
     
     // Check if IP is blocked
     if (IsIpBlocked(ip)) {
-        Logger::Warn("Login attempt from blocked IP: {}", ip);
+        KAL_LOG_WARN("Login attempt from blocked IP: {}", ip);
         return LoginResult::AccountLocked;
     }
     
     try {
-        auto db = Database::GetInstance();
+        auto db = kal::database::Database::GetInstance();
         
         // Query user from database
         auto result = db->ExecuteQuery(
             "SELECT id, password_hash, is_locked FROM users WHERE username = $1",
             {username}
         );
+        
+        if (!result || !result->Next()) {
+            KAL_LOG_WARN("Login failed: User {} not found", username);
+            return LoginResult::InvalidCredentials;
+        }
+        
+        outUserId = static_cast<uint32_t>(result->GetInt(0));
+        std::string storedHash = result->GetString(1);
+        bool isLocked = result->GetBool(2);
+        
+        if (isLocked) {
+            KAL_LOG_WARN("Login failed: Account {} is locked", username);
+            return LoginResult::AccountLocked;
+        }
+        
+        // Verify password hash
+        std::string inputHash = HashPassword(password);
+        if (inputHash != storedHash) {
+            KAL_LOG_WARN("Login failed: Invalid password for user {}", username);
+            return LoginResult::InvalidCredentials;
+        }
+        
+        // Generate session token
+        outToken = GenerateSessionToken();
+        
+        // Store session
+        SessionInfo session;
+        session.sessionToken = outToken;
+        session.userId = outUserId;
+        session.username = username;
+        session.createTime = std::chrono::steady_clock::now();
+        session.lastActivity = session.createTime;
+        session.ipAddress = ip;
+        
+        sessions_[outToken] = session;
+        
+        KAL_LOG_INFO("User {} logged in successfully (ID: {})", username, outUserId);
+        return LoginResult::Success;
+        
+    } catch (const std::exception& e) {
+        KAL_LOG_ERROR("Database error during authentication: {}", e.what());
+        return LoginResult::DatabaseError;
+    }
+}
         
         if (!result || !result->Next()) {
             RecordFailedAttempt(ip);
