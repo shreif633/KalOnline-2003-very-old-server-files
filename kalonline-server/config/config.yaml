@@ -1,0 +1,101 @@
+# KalOnline Server Configuration
+# Modern C++23 Server Suite
+
+# =============================================================================
+# Database Configuration (PostgreSQL)
+# =============================================================================
+database:
+  host: "localhost"
+  port: 5432
+  name: "kalonline"
+  username: "kaluser"
+  password: "changeme_in_production"
+  max_connections: 20
+  connection_timeout_sec: 10
+
+# =============================================================================
+# Network Configuration
+# =============================================================================
+network:
+  bind_address: "0.0.0.0"
+  auth_port: 11000
+  db_port: 11001
+  main_port: 11002
+  max_connections: 2000
+  backlog: 128
+  reuse_address: true
+  read_timeout_ms: 30000
+  write_timeout_ms: 10000
+
+# =============================================================================
+# Game Configuration
+# Preserve original 2003 KalOnline gameplay mechanics
+# =============================================================================
+game:
+  max_players: 2000
+  tick_rate_ms: 50          # 20 ticks per second for smooth gameplay
+  view_distance: 20         # Tiles visible to players
+  exp_multiplier: 1.0       # Keep original EXP curves
+  drop_rate_multiplier: 1.0 # Preserve original drop rates
+  gold_multiplier: 1.0      # Original economy balance
+  pvp_enabled: true
+  trade_enabled: true
+  warehouse_enabled: true
+  party_max_members: 4
+  guild_min_members: 3
+  guild_max_members: 50
+
+# =============================================================================
+# Security Configuration
+# =============================================================================
+security:
+  enable_encryption: true
+  encryption_key: "KalOnline2003Key!ChangeInProd"
+  max_login_attempts: 5
+  login_block_duration_min: 15
+  enable_ip_blocking: true
+  max_requests_per_minute: 100
+  admin_ips:
+    - "127.0.0.1"
+    # Add trusted admin IPs here
+
+# =============================================================================
+# Logging Configuration
+# =============================================================================
+logging:
+  level: "info"             # trace, debug, info, warning, error, fatal
+  directory: "logs"
+  console_output: true
+  file_output: true
+  rotate_daily: true
+  max_files: 30
+
+# =============================================================================
+# Auth Server Specific
+# =============================================================================
+auth:
+  session_timeout_min: 30
+  max_sessions_per_ip: 5
+  enable_bcrypt: true
+  bcrypt_cost: 12
+
+# =============================================================================
+# Database Server Specific
+# =============================================================================
+db_server:
+  query_queue_size: 1000
+  worker_threads: 4
+  enable_query_logging: false
+  slow_query_threshold_ms: 100
+
+# =============================================================================
+# Main Game Server Specific
+# =============================================================================
+main_server:
+  world_tick_interval_ms: 50
+  save_interval_sec: 300      # Auto-save every 5 minutes
+  mob_respawn_delay_sec: 10
+  item_despawn_delay_sec: 300
+  chat_message_limit_per_min: 60
+  enable_anti_cheat: true
+  movement_validation_tolerance: 0.5  # Tile tolerance for movement validation

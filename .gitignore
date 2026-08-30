@@ -1,48 +1,43 @@
 ```
-# CMake build artifacts
+# Build artifacts
 build/
 CMakeCache.txt
 CMakeFiles/
-Makefile
-cmake_install.cmake
-CPackConfig.cmake
-CPackSourceConfig.cmake
 
-# Compiled objects
+# Dependencies
+# (No specific dependency directories detected in changes)
+
+# Compiled files
 *.o
 *.obj
 *.a
 *.lib
-*.so
 *.dll
-*.exe
-
-# Dependencies
-node_modules/
-.venv/
-venv/
-__pycache__/
+*.so
+*.dylib
 
 # Logs and temp files
 *.log
 *.tmp
-*.swp
+
+# Editors
+.vscode/
+.idea/
 
 # Environment
 .env
 .env.local
 *.env.*
 
-# Editors
-.vscode/
-.idea/
-
 # Coverage reports
 coverage/
 htmlcov/
-.coverage
+*.coverage
 
-# OS generated files
-.DS_Store
-Thumbs.db
+# Python specific (if applicable)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
 ```
