@@ -1,87 +1,83 @@
-#include <iostream>
+#include "AuthServer.hpp"
+#include "Logger.hpp"
+#include "Config.hpp"
+#include "Database.hpp"
 #include <csignal>
 #include <atomic>
 
-#include "common/logger/Logger.hpp"
-#include "common/config/Config.hpp"
-#include "common/database/Database.hpp"
-#include "common/network/Network.hpp"
+std::atomic<bool> g_running(true);
 
-using namespace kal;
-
-static std::atomic<bool> g_running{true};
-
-void signal_handler(int signum) {
-    KAL_LOG_INFO("Received signal {}, shutting down...", signum);
+void SignalHandler(int signal) {
+    Logger::Info("Received signal {}, shutting down...", signal);
     g_running = false;
 }
 
 int main(int argc, char* argv[]) {
     // Setup signal handlers
-    std::signal(SIGINT, signal_handler);
-    std::signal(SIGTERM, signal_handler);
-    
-    // Initialize logger
-    logger::AsyncLogger::instance().initialize("KalAuthServer", logger::LogLevel::Info);
-    
-    KAL_LOG_INFO("========================================");
-    KAL_LOG_INFO("KalOnline Auth Server (C++23 Modern)");
-    KAL_LOG_INFO("========================================");
-    
-    // Load configuration
-    std::string config_path = "config/config.yaml";
-    if (argc > 1) {
-        config_path = argv[1];
-    }
-    
-    if (!config::Config::instance().load(config_path)) {
-        KAL_LOG_ERROR("Failed to load configuration from {}", config_path);
-        return EXIT_FAILURE;
-    }
-    
-    KAL_LOG_INFO("Configuration loaded from {}", config_path);
+    std::signal(SIGINT, SignalHandler);
+    std::signal(SIGTERM, SignalHandler);
     
     try {
-        // Initialize database
-        auto db_config = config::Config::instance().database();
-        database::DatabaseManager::instance().initialize(db_config);
+        // Initialize logging
+        Logger::Init("kal-auth", LogLevel::Info);
+        Logger::Info("KalOnline Auth Server starting...");
         
-        // Create IO context and server
-        asio::io_context io_context;
-        network::ConnectionManager conn_manager;
+        // Load configuration
+        auto configPath = (argc > 1) ? argv[1] : "config.yaml";
+        if (!Config::Load(configPath)) {
+            Logger::Error("Failed to load configuration from {}", configPath);
+            return 1;
+        }
         
-        uint16_t port = config::Config::instance().get_int("network.auth_port", 11000);
-        network::TcpServer server(io_context, port);
-        server.set_connection_manager(conn_manager);
+        // Initialize database connection
+        std::string dbHost = Config::GetString("database.host", "localhost");
+        uint16_t dbPort = static_cast<uint16_t>(Config::GetInt("database.port", 5432));
+        std::string dbName = Config::GetString("database.name", "kal_auth");
+        std::string dbUser = Config::GetString("database.user", "kalonline");
+        std::string dbPassword = Config::GetString("database.password", "");
         
-        // Start server
-        server.start();
+        if (!Database::Initialize(dbHost, dbPort, dbName, dbUser, dbPassword)) {
+            Logger::Error("Failed to initialize database connection");
+            return 1;
+        }
         
-        KAL_LOG_INFO("Auth server started on port {}", port);
-        KAL_LOG_INFO("Press Ctrl+C to stop...");
+        Logger::Info("Database connection established");
         
-        // Run IO context
+        // Get server port from config
+        uint16_t port = static_cast<uint16_t>(Config::GetInt("auth.port", 10001));
+        
+        // Create and start auth server
+        asio::io_context ioContext;
+        kal::auth::AuthServer authServer(ioContext, port);
+        
+        authServer.Start();
+        
+        Logger::Info("Auth Server is running. Press Ctrl+C to stop.");
+        
+        // Run event loop
         while (g_running) {
-            try {
-                io_context.run_for(std::chrono::milliseconds(100));
-            } catch (const std::exception& e) {
-                KAL_LOG_ERROR("IO context error: {}", e.what());
+            ioContext.poll_one();
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            
+            // Periodic cleanup
+            static auto lastCleanup = std::chrono::steady_clock::now();
+            auto now = std::chrono::steady_clock::now();
+            if (std::chrono::duration_cast<std::chrono::minutes>(now - lastCleanup).count() >= 5) {
+                // Cleanup expired sessions could be called here if needed
+                lastCleanup = now;
             }
         }
         
         // Graceful shutdown
-        KAL_LOG_INFO("Shutting down auth server...");
-        server.stop();
-        conn_manager.stop_all();
-        database::DatabaseManager::instance().shutdown();
-        logger::AsyncLogger::instance().shutdown();
+        Logger::Info("Shutting down Auth Server...");
+        authServer.Stop();
+        Database::Shutdown();
+        Logger::Info("Auth Server stopped gracefully");
         
-        KAL_LOG_INFO("Auth server stopped gracefully");
+        return 0;
         
     } catch (const std::exception& e) {
-        KAL_LOG_FATAL("Fatal error: {}", e.what());
-        return EXIT_FAILURE;
+        Logger::Error("Fatal error: {}", e.what());
+        return 1;
     }
-    
-    return EXIT_SUCCESS;
 }
