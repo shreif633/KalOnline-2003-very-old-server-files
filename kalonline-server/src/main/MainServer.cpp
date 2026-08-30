@@ -1,288 +1,310 @@
-#include "MainServer.hpp"
+#include "MainServer.h"
+#include "AssetLoader.h"
 #include "PacketHandler.h"
-#include "Config.h"
 #include <chrono>
 
-MainServer::MainServer() 
-    : worldManager_()
-    , entityManager_()
-    , combatSystem_()
-    , skillSystem_()
-    , itemSystem_()
-    , socialSystem_()
-    , questSystem_() {
-    
-    Logger::Info("MainServer constructed");
+MainServer::MainServer(Config& config) 
+    : config_(config),
+      running_(false),
+      assetLoader_(std::make_unique<AssetLoader>(config_.GetString("game.config_path", "../Config"))) {
 }
 
 MainServer::~MainServer() {
-    Stop();
-    Logger::Info("MainServer destroyed");
+    Shutdown();
 }
 
-bool MainServer::Start(uint16_t port) {
-    try {
-        // Load configuration
-        tickRateMs_ = static_cast<uint32_t>(Config::GetInt("main.tick_rate_ms", 33));
-        pvpEnabled_ = Config::GetBool("main.pvp_enabled", true);
-        expRate_ = Config::GetFloat("main.exp_rate", 1.0f);
-        dropRate_ = Config::GetFloat("main.drop_rate", 1.0f);
-        
-        Logger::Info("Main Server Configuration:");
-        Logger::Info("  Tick Rate: {}ms ({} Hz)", tickRateMs_, 1000 / tickRateMs_);
-        Logger::Info("  PvP Enabled: {}", pvpEnabled_ ? "Yes" : "No");
-        Logger::Info("  EXP Rate: x{}", expRate_);
-        Logger::Info("  Drop Rate: x{}", dropRate_);
-        
-        // Initialize world (load maps from database)
-        if (!worldManager_.LoadMapsFromDatabase()) {
-            Logger::Error("Failed to load world maps");
-            return false;
-        }
-        
-        // Initialize item templates
-        if (!itemSystem_.LoadItemTemplates()) {
-            Logger::Error("Failed to load item templates");
-            return false;
-        }
-        
-        // Initialize skill data
-        if (!skillSystem_.LoadSkillData()) {
-            Logger::Error("Failed to load skill data");
-            return false;
-        }
-        
-        // Initialize quest data
-        if (!questSystem_.LoadQuestData()) {
-            Logger::Error("Failed to load quest data");
-            return false;
-        }
-        
-        // Spawn monsters and NPCs
-        Logger::Info("Spawning monsters and NPCs...");
-        entityManager_.SpawnAllMonsters(worldManager_);
-        entityManager_.SpawnAllNPCs(worldManager_);
-        
-        // Create TCP server
-        server_ = std::make_unique<TcpServer>();
-        
-        // Set connection callback
-        server_->SetOnConnect([this](std::shared_ptr<TcpConnection> conn) {
-            OnPlayerConnect(conn);
-        });
-        
-        // Set disconnection callback
-        server_->SetOnDisconnect([this](std::shared_ptr<TcpConnection> conn) {
-            // Find player ID by connection
-            std::lock_guard<std::mutex> lock(sessionMutex_);
-            for (auto& [playerId, session] : playerSessions_) {
-                if (session && session->connection == conn) {
-                    OnPlayerDisconnect(playerId);
-                    break;
-                }
-            }
-        });
-        
-        // Set packet received callback
-        server_->SetOnReceive([this](std::shared_ptr<TcpConnection> conn, const uint8_t* data, size_t length) {
-            PacketHandler::HandlePacket(*this, conn, data, length);
-        });
-        
-        // Start listening
-        if (!server_->Listen(port)) {
-            Logger::Error("Failed to start TCP server on port {}", port);
-            return false;
-        }
-        
-        running_ = true;
-        
-        // Start game loop thread
-        gameLoopThread_ = std::thread(&MainServer::GameTick, this);
-        
-        Logger::Info("Main Server started successfully on port {}", port);
-        return true;
-        
-    } catch (const std::exception& e) {
-        Logger::Critical("Failed to start Main Server: {}", e.what());
+bool MainServer::Initialize() {
+    Logger::Info("Initializing Main Game Server...");
+    
+    // Load all game assets from original config files
+    if (!assetLoader_->LoadAll()) {
+        Logger::Error("Failed to load game assets");
         return false;
     }
-}
-
-void MainServer::Stop() {
-    if (!running_) return;
     
-    Logger::Info("Stopping Main Server...");
-    running_ = false;
-    
-    // Wait for game loop thread to finish
-    if (gameLoopThread_.joinable()) {
-        gameLoopThread_.join();
+    // Initialize database connection
+    if (!Database::Initialize(config_)) {
+        Logger::Error("Failed to initialize database");
+        return false;
     }
     
-    // Disconnect all players
-    {
-        std::lock_guard<std::mutex> lock(sessionMutex_);
-        for (auto& [playerId, session] : playerSessions_) {
-            if (session && session->connection) {
-                session->connection->Disconnect();
-            }
+    // Load maps from database
+    if (!worldManager_.LoadMapsFromDatabase()) {
+        Logger::Warn("Failed to load maps from database, using defaults");
+    }
+    
+    // Spawn initial monsters and NPCs based on loaded data
+    SpawnInitialEntities();
+    
+    // Initialize network server
+    int port = config_.GetInt("game.port", 9003);
+    networkServer_ = std::make_unique<NetworkServer>();
+    
+    if (!networkServer_->Start(port, [this](auto conn, auto data) {
+        HandlePacket(conn, data);
+    })) {
+        Logger::Error("Failed to start network server on port {}", port);
+        return false;
+    }
+    
+    Logger::Info("Main Game Server initialized successfully on port {}", port);
+    return true;
+}
+
+void MainServer::SpawnInitialEntities() {
+    Logger::Info("Spawning initial entities...");
+    
+    const auto& monsters = assetLoader_->GetMonsters();
+    const auto& npcs = assetLoader_->GetNPCs();
+    const auto& spawns = assetLoader_->GetGenMonsterSpawns();
+    
+    // Spawn NPCs
+    for (const auto& [index, npcTemplate] : npcs) {
+        auto npc = std::make_shared<NPC>(
+            GenerateEntityId(),
+            npcTemplate->index,
+            npcTemplate->mapId,
+            static_cast<float>(npcTemplate->position.first),
+            static_cast<float>(npcTemplate->position.second)
+        );
+        
+        npc->SetKind(npcTemplate->kind);
+        npc->SetShape(npcTemplate->shape);
+        npc->SetHtmlId(npcTemplate->htmlId);
+        
+        worldManager_.RegisterEntity(npc);
+    }
+    
+    // Spawn initial monsters at spawn points
+    for (const auto& spawn : spawns) {
+        auto monsterIt = monsters.find(spawn->index);
+        if (monsterIt == monsters.end()) continue;
+        
+        const auto& monsterTemplate = monsterIt->second;
+        
+        // Spawn up to maxCount monsters at this spawn point
+        for (int i = 0; i < spawn->maxCount; ++i) {
+            auto [minX, maxX, minY, maxY] = spawn->rect;
+            
+            float x = static_cast<float>(minX + (rand() % (maxX - minX + 1)));
+            float y = static_cast<float>(minY + (rand() % (maxY - minY + 1)));
+            
+            auto monster = std::make_shared<Monster>(
+                GenerateEntityId(),
+                monsterTemplate->index,
+                spawn->mapId,
+                x,
+                y
+            );
+            
+            // Set monster stats from template
+            monster->SetLevel(monsterTemplate->level);
+            monster->SetHP(monsterTemplate->hp);
+            monster->SetMaxHP(monsterTemplate->hp);
+            monster->SetMP(monsterTemplate->mp);
+            monster->SetMaxMP(monsterTemplate->mp);
+            monster->SetSTR(monsterTemplate->str);
+            monster->SetDEX(monsterTemplate->dex);
+            monster->SetINT(monsterTemplate->int_);
+            monster->SetWIS(monsterTemplate->wis);
+            monster->SetHTH(monsterTemplate->hth);
+            
+            monster->SetMinAttack(monsterTemplate->minAttack);
+            monster->SetMaxAttack(monsterTemplate->maxAttack);
+            monster->SetDefense(monsterTemplate->minDefense);
+            monster->SetAbsorb(monsterTemplate->absorb);
+            
+            monster->SetExpReward(monsterTemplate->exp);
+            monster->SetItemGroup(monsterTemplate->itemGroup);
+            
+            worldManager_.RegisterEntity(monster);
         }
-        playerSessions_.clear();
     }
     
-    // Save all player data
-    entityManager_.SaveAllPlayers();
-    
-    // Stop TCP server
-    if (server_) {
-        server_->Stop();
-        server_.reset();
-    }
-    
-    Logger::Info("Main Server stopped");
+    Logger::Info("Entity spawning complete");
 }
 
-void MainServer::Update() {
-    if (server_) {
-        server_->Poll();
+void MainServer::Run() {
+    if (!running_) {
+        running_ = true;
+        
+        Logger::Info("Starting main game loop...");
+        
+        auto lastTick = std::chrono::steady_clock::now();
+        int tickCount = 0;
+        
+        while (running_) {
+            auto now = std::chrono::steady_clock::now();
+            auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastTick).count();
+            
+            // Target 30 ticks per second (33ms per tick)
+            if (elapsed >= 33) {
+                GameTick();
+                lastTick = now;
+                tickCount++;
+                
+                // Log stats every 10 seconds
+                if (tickCount % 300 == 0) {
+                    Logger::Debug("Game tick stats: {} entities", worldManager_.GetEntityCount(0));
+                }
+            }
+            
+            // Small sleep to prevent CPU spinning
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        }
     }
 }
 
 void MainServer::GameTick() {
-    auto lastTime = std::chrono::steady_clock::now();
+    // Update all entities
+    auto allMaps = worldManager_.GetAllMaps();
     
-    while (running_) {
-        auto currentTime = std::chrono::steady_clock::now();
-        auto elapsedMs = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
+    for (const auto* map : allMaps) {
+        // Get all characters in this map
+        auto characters = worldManager_.GetCharactersInRange(map->mapId, 
+            (map->minX + map->maxX) / 2.0f,
+            (map->minY + map->maxY) / 2.0f,
+            std::max(map->maxX - map->minX, map->maxY - map->minY)
+        );
         
-        if (elapsedMs >= tickRateMs_) {
-            uint32_t deltaMs = static_cast<uint32_t>(elapsedMs);
+        for (auto& character : characters) {
+            // Update buffs/debuffs
+            character->UpdateBuffs(33); // 33ms tick
             
-            // Process network packets
-            ProcessPackets();
+            // Update cooldowns
+            character->UpdateCooldowns(33);
             
-            // Update all systems
-            UpdateEntities(deltaMs);
-            UpdateCombat(deltaMs);
-            UpdateSkills(deltaMs);
-            UpdateBuffs(deltaMs);
-            UpdateMonsterAI(deltaMs);
-            
-            tickCount_++;
-            lastTime = currentTime;
-            
-            // Optional: Log tick rate every 60 seconds
-            if (tickCount_ % 1800 == 0) { // ~60 sec at 30Hz
-                Logger::Debug("Server tick count: {}, Uptime: ~{} minutes", tickCount_, tickCount_ / 1800);
+            // If player, send updates
+            if (auto player = std::dynamic_pointer_cast<Player>(character)) {
+                // Send status updates to client
+                // This would be implemented in PacketHandler
             }
         }
         
-        // Small sleep to prevent CPU spinning
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
-    }
-}
-
-void MainServer::ProcessPackets() {
-    if (server_) {
-        server_->Poll();
-    }
-}
-
-void MainServer::UpdateEntities(uint32_t deltaMs) {
-    entityManager_.UpdateAll(deltaMs);
-}
-
-void MainServer::UpdateCombat(uint32_t deltaMs) {
-    // Process damage over time effects
-    combatSystem_.UpdateDoTs(deltaMs);
-    
-    // Check aggro and monster targets
-    auto& world = GetWorldManager();
-    auto maps = world.GetAllMaps();
-    
-    for (const auto* map : maps) {
-        auto monsters = world.GetMonstersInRange(map->mapId, 0, 0, std::numeric_limits<float>::max());
-        for (auto& monster : monsters) {
-            combatSystem_.UpdateAggro(monster, deltaMs);
-        }
-    }
-}
-
-void MainServer::UpdateSkills(uint32_t deltaMs) {
-    skillSystem_.UpdateCooldowns(deltaMs);
-}
-
-void MainServer::UpdateBuffs(uint32_t deltaMs) {
-    // Update all active buffs/debuffs on characters
-    auto& world = GetWorldManager();
-    auto maps = world.GetAllMaps();
-    
-    for (const auto* map : maps) {
-        auto characters = world.GetCharactersInRange(map->mapId, 0, 0, std::numeric_limits<float>::max());
-        for (auto& character : characters) {
-            skillSystem_.UpdateCharacterBuffs(character, deltaMs);
-        }
-    }
-}
-
-void MainServer::UpdateMonsterAI(uint32_t deltaMs) {
-    auto& world = GetWorldManager();
-    auto maps = world.GetAllMaps();
-    
-    for (const auto* map : maps) {
-        auto monsters = world.GetMonstersInRange(map->mapId, 0, 0, std::numeric_limits<float>::max());
-        for (auto& monster : monsters) {
-            entityManager_.UpdateMonsterAI(monster, world, deltaMs);
-        }
-    }
-}
-
-void MainServer::OnPlayerConnect(std::shared_ptr<TcpConnection> conn) {
-    Logger::Info("New connection from {}", conn->GetRemoteEndpoint());
-    
-    // Create a temporary session (will be fully initialized on character select)
-    auto session = std::make_shared<PlayerSession>();
-    session->connection = conn;
-    session->state = PlayerState::CONNECTED;
-    session->connectTime = std::chrono::system_clock::now();
-    
-    // Send welcome packet or protocol version check
-    // This is where you'd send initial protocol handshake
-}
-
-void MainServer::OnPlayerDisconnect(uint32_t playerId) {
-    Logger::Info("Player {} disconnected", playerId);
-    
-    std::lock_guard<std::mutex> lock(sessionMutex_);
-    
-    auto it = playerSessions_.find(playerId);
-    if (it != playerSessions_.end()) {
-        auto session = it->second;
+        // Update monsters
+        auto monsters = worldManager_.GetMonstersInRange(map->mapId,
+            (map->minX + map->maxX) / 2.0f,
+            (map->minY + map->maxY) / 2.0f,
+            std::max(map->maxX - map->minX, map->maxY - map->minY)
+        );
         
-        // Save player data before removing
-        if (session->player) {
-            entityManager_.SavePlayer(session->player);
+        for (auto& monster : monsters) {
+            monster->UpdateAI(33);
             
-            // Remove entity from world
-            worldManager_.UnregisterEntity(session->player->GetId());
+            // Check if monster should respawn HP/MP
+            if (monster->GetHP() < monster->GetMaxHP()) {
+                monster->SetHP(std::min(monster->GetMaxHP(), 
+                    monster->GetHP() + monster->GetMaxHP() / 100)); // 1% per tick
+            }
         }
-        
-        // Remove from party if in one
-        if (session->partyId > 0) {
-            socialSystem_.LeaveParty(playerId);
-        }
-        
-        playerSessions_.erase(it);
     }
+    
+    // Process combat actions
+    combatSystem_.ProcessPendingActions();
 }
 
-std::shared_ptr<PlayerSession> MainServer::GetPlayerSession(uint32_t playerId) const {
+void MainServer::HandlePacket(const std::shared_ptr<NetworkConnection>& conn, const std::vector<uint8_t>& data) {
+    if (data.size() < 4) return; // Minimum packet size
+    
+    // Parse packet header [Length:2][Opcode:2]
+    uint16_t length = data[0] | (data[1] << 8);
+    uint16_t opcode = data[2] | (data[3] << 8);
+    
+    if (length != data.size()) {
+        Logger::Warn("Packet length mismatch: declared {}, actual {}", length, data.size());
+        return;
+    }
+    
+    // Find or create session for this connection
+    auto sessionId = GetSessionId(conn);
+    
+    // Route packet to handler
+    PacketHandler handler(*this, conn, sessionId);
+    handler.HandlePacket(opcode, data);
+}
+
+uint32_t MainServer::GetSessionId(const std::shared_ptr<NetworkConnection>& conn) {
     std::lock_guard<std::mutex> lock(sessionMutex_);
     
-    auto it = playerSessions_.find(playerId);
-    if (it != playerSessions_.end()) {
+    auto it = connectionToSession_.find(conn);
+    if (it != connectionToSession_.end()) {
         return it->second;
     }
     
-    return nullptr;
+    // Create new session
+    uint32_t newSessionId = nextSessionId_++;
+    connectionToSession_[conn] = newSessionId;
+    sessionToConnection_[newSessionId] = conn;
+    
+    return newSessionId;
+}
+
+void MainServer::RemoveSession(const std::shared_ptr<NetworkConnection>& conn) {
+    std::lock_guard<std::mutex> lock(sessionMutex_);
+    
+    auto it = connectionToSession_.find(conn);
+    if (it != connectionToSession_.end()) {
+        uint32_t sessionId = it->second;
+        
+        // Remove player from world if exists
+        auto player = std::dynamic_pointer_cast<Player>(worldManager_.GetEntityBySession(sessionId));
+        if (player) {
+            worldManager_.UnregisterEntity(player->GetId());
+        }
+        
+        connectionToSession_.erase(it);
+        sessionToConnection_.erase(sessionId);
+    }
+}
+
+void MainServer::Shutdown() {
+    if (!running_) return;
+    
+    Logger::Info("Shutting down Main Game Server...");
+    running_ = false;
+    
+    // Stop network server
+    if (networkServer_) {
+        networkServer_->Stop();
+    }
+    
+    // Save all player data
+    SaveAllPlayers();
+    
+    // Clear world
+    worldManager_.ClearWorld();
+    
+    Logger::Info("Main Game Server shutdown complete");
+}
+
+void MainServer::SaveAllPlayers() {
+    Logger::Info("Saving all player data...");
+    
+    // Iterate through all players and save to database
+    // This would use the DBServer to queue save requests
+}
+
+uint32_t MainServer::GenerateEntityId() {
+    static std::atomic<uint32_t> idCounter{1000};
+    return idCounter.fetch_add(1);
+}
+
+// Singleton access
+static std::unique_ptr<MainServer> g_mainServer;
+
+MainServer& MainServer::GetInstance() {
+    if (!g_mainServer) {
+        throw std::runtime_error("MainServer not initialized");
+    }
+    return *g_mainServer;
+}
+
+void MainServer::CreateInstance(Config& config) {
+    if (!g_mainServer) {
+        g_mainServer = std::make_unique<MainServer>(config);
+    }
+}
+
+void MainServer::DestroyInstance() {
+    g_mainServer.reset();
 }
