@@ -1,12 +1,5 @@
-/workspace/kalonline-server/build/CMakeFiles/kal_common.dir
 /workspace/kalonline-server/build/CMakeFiles/kal-auth.dir
 /workspace/kalonline-server/build/CMakeFiles/kal-db.dir
 /workspace/kalonline-server/build/CMakeFiles/kal-main.dir
-/workspace/kalonline-server/build/CMakeFiles/package.dir
-/workspace/kalonline-server/build/CMakeFiles/package_source.dir
 /workspace/kalonline-server/build/CMakeFiles/edit_cache.dir
 /workspace/kalonline-server/build/CMakeFiles/rebuild_cache.dir
-/workspace/kalonline-server/build/CMakeFiles/list_install_components.dir
-/workspace/kalonline-server/build/CMakeFiles/install.dir
-/workspace/kalonline-server/build/CMakeFiles/install/local.dir
-/workspace/kalonline-server/build/CMakeFiles/install/strip.dir

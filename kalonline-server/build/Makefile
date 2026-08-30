@@ -65,26 +65,6 @@ CMAKE_BINARY_DIR = /workspace/kalonline-server/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target package
-package: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	/usr/bin/cpack --config ./CPackConfig.cmake
-.PHONY : package
-
-# Special rule for the target package
-package/fast: package
-.PHONY : package/fast
-
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	/usr/bin/cpack --config ./CPackSourceConfig.cmake /workspace/kalonline-server/build/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-.PHONY : package_source/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -104,51 +84,6 @@ rebuild_cache:
 # Special rule for the target rebuild_cache
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
-
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-.PHONY : list_install_components/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -180,19 +115,6 @@ preinstall/fast:
 depend:
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
-
-#=============================================================================
-# Target rules for targets named kal_common
-
-# Build rule for target.
-kal_common: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 kal_common
-.PHONY : kal_common
-
-# fast build rule for target.
-kal_common/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/build
-.PHONY : kal_common/fast
 
 #=============================================================================
 # Target rules for targets named kal-auth
@@ -238,7 +160,7 @@ src/assets/AssetLoader.o: src/assets/AssetLoader.cpp.o
 
 # target to build an object file
 src/assets/AssetLoader.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/assets/AssetLoader.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/assets/AssetLoader.cpp.o
 .PHONY : src/assets/AssetLoader.cpp.o
 
 src/assets/AssetLoader.i: src/assets/AssetLoader.cpp.i
@@ -246,7 +168,7 @@ src/assets/AssetLoader.i: src/assets/AssetLoader.cpp.i
 
 # target to preprocess a source file
 src/assets/AssetLoader.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/assets/AssetLoader.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/assets/AssetLoader.cpp.i
 .PHONY : src/assets/AssetLoader.cpp.i
 
 src/assets/AssetLoader.s: src/assets/AssetLoader.cpp.s
@@ -254,7 +176,7 @@ src/assets/AssetLoader.s: src/assets/AssetLoader.cpp.s
 
 # target to generate assembly for a file
 src/assets/AssetLoader.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/assets/AssetLoader.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/assets/AssetLoader.cpp.s
 .PHONY : src/assets/AssetLoader.cpp.s
 
 src/assets/KsmParser.o: src/assets/KsmParser.cpp.o
@@ -305,6 +227,30 @@ src/auth/AuthServer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.s
 .PHONY : src/auth/AuthServer.cpp.s
 
+src/auth/core/AuthManager.o: src/auth/core/AuthManager.cpp.o
+.PHONY : src/auth/core/AuthManager.o
+
+# target to build an object file
+src/auth/core/AuthManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/auth/core/AuthManager.cpp.o
+.PHONY : src/auth/core/AuthManager.cpp.o
+
+src/auth/core/AuthManager.i: src/auth/core/AuthManager.cpp.i
+.PHONY : src/auth/core/AuthManager.i
+
+# target to preprocess a source file
+src/auth/core/AuthManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/auth/core/AuthManager.cpp.i
+.PHONY : src/auth/core/AuthManager.cpp.i
+
+src/auth/core/AuthManager.s: src/auth/core/AuthManager.cpp.s
+.PHONY : src/auth/core/AuthManager.s
+
+# target to generate assembly for a file
+src/auth/core/AuthManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/auth/core/AuthManager.cpp.s
+.PHONY : src/auth/core/AuthManager.cpp.s
+
 src/auth/main.o: src/auth/main.cpp.o
 .PHONY : src/auth/main.o
 
@@ -334,7 +280,9 @@ src/common/config/Config.o: src/common/config/Config.cpp.o
 
 # target to build an object file
 src/common/config/Config.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/common/config/Config.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/common/config/Config.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/common/config/Config.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/common/config/Config.cpp.o
 .PHONY : src/common/config/Config.cpp.o
 
 src/common/config/Config.i: src/common/config/Config.cpp.i
@@ -342,7 +290,9 @@ src/common/config/Config.i: src/common/config/Config.cpp.i
 
 # target to preprocess a source file
 src/common/config/Config.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/common/config/Config.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/common/config/Config.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/common/config/Config.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/common/config/Config.cpp.i
 .PHONY : src/common/config/Config.cpp.i
 
 src/common/config/Config.s: src/common/config/Config.cpp.s
@@ -350,7 +300,9 @@ src/common/config/Config.s: src/common/config/Config.cpp.s
 
 # target to generate assembly for a file
 src/common/config/Config.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/common/config/Config.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/common/config/Config.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/common/config/Config.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/common/config/Config.cpp.s
 .PHONY : src/common/config/Config.cpp.s
 
 src/common/crypto/Crypto.o: src/common/crypto/Crypto.cpp.o
@@ -358,7 +310,9 @@ src/common/crypto/Crypto.o: src/common/crypto/Crypto.cpp.o
 
 # target to build an object file
 src/common/crypto/Crypto.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/common/crypto/Crypto.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/common/crypto/Crypto.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/common/crypto/Crypto.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/common/crypto/Crypto.cpp.o
 .PHONY : src/common/crypto/Crypto.cpp.o
 
 src/common/crypto/Crypto.i: src/common/crypto/Crypto.cpp.i
@@ -366,7 +320,9 @@ src/common/crypto/Crypto.i: src/common/crypto/Crypto.cpp.i
 
 # target to preprocess a source file
 src/common/crypto/Crypto.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/common/crypto/Crypto.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/common/crypto/Crypto.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/common/crypto/Crypto.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/common/crypto/Crypto.cpp.i
 .PHONY : src/common/crypto/Crypto.cpp.i
 
 src/common/crypto/Crypto.s: src/common/crypto/Crypto.cpp.s
@@ -374,7 +330,9 @@ src/common/crypto/Crypto.s: src/common/crypto/Crypto.cpp.s
 
 # target to generate assembly for a file
 src/common/crypto/Crypto.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/common/crypto/Crypto.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/common/crypto/Crypto.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/common/crypto/Crypto.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/common/crypto/Crypto.cpp.s
 .PHONY : src/common/crypto/Crypto.cpp.s
 
 src/common/database/Database.o: src/common/database/Database.cpp.o
@@ -382,7 +340,9 @@ src/common/database/Database.o: src/common/database/Database.cpp.o
 
 # target to build an object file
 src/common/database/Database.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/common/database/Database.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/common/database/Database.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/common/database/Database.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/common/database/Database.cpp.o
 .PHONY : src/common/database/Database.cpp.o
 
 src/common/database/Database.i: src/common/database/Database.cpp.i
@@ -390,7 +350,9 @@ src/common/database/Database.i: src/common/database/Database.cpp.i
 
 # target to preprocess a source file
 src/common/database/Database.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/common/database/Database.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/common/database/Database.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/common/database/Database.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/common/database/Database.cpp.i
 .PHONY : src/common/database/Database.cpp.i
 
 src/common/database/Database.s: src/common/database/Database.cpp.s
@@ -398,7 +360,9 @@ src/common/database/Database.s: src/common/database/Database.cpp.s
 
 # target to generate assembly for a file
 src/common/database/Database.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/common/database/Database.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/common/database/Database.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/common/database/Database.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/common/database/Database.cpp.s
 .PHONY : src/common/database/Database.cpp.s
 
 src/common/logger/Logger.o: src/common/logger/Logger.cpp.o
@@ -406,7 +370,9 @@ src/common/logger/Logger.o: src/common/logger/Logger.cpp.o
 
 # target to build an object file
 src/common/logger/Logger.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/common/logger/Logger.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/common/logger/Logger.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/common/logger/Logger.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/common/logger/Logger.cpp.o
 .PHONY : src/common/logger/Logger.cpp.o
 
 src/common/logger/Logger.i: src/common/logger/Logger.cpp.i
@@ -414,7 +380,9 @@ src/common/logger/Logger.i: src/common/logger/Logger.cpp.i
 
 # target to preprocess a source file
 src/common/logger/Logger.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/common/logger/Logger.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/common/logger/Logger.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/common/logger/Logger.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/common/logger/Logger.cpp.i
 .PHONY : src/common/logger/Logger.cpp.i
 
 src/common/logger/Logger.s: src/common/logger/Logger.cpp.s
@@ -422,7 +390,9 @@ src/common/logger/Logger.s: src/common/logger/Logger.cpp.s
 
 # target to generate assembly for a file
 src/common/logger/Logger.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/common/logger/Logger.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/common/logger/Logger.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/common/logger/Logger.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/common/logger/Logger.cpp.s
 .PHONY : src/common/logger/Logger.cpp.s
 
 src/common/network/Network.o: src/common/network/Network.cpp.o
@@ -430,7 +400,9 @@ src/common/network/Network.o: src/common/network/Network.cpp.o
 
 # target to build an object file
 src/common/network/Network.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/common/network/Network.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/common/network/Network.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/common/network/Network.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/common/network/Network.cpp.o
 .PHONY : src/common/network/Network.cpp.o
 
 src/common/network/Network.i: src/common/network/Network.cpp.i
@@ -438,7 +410,9 @@ src/common/network/Network.i: src/common/network/Network.cpp.i
 
 # target to preprocess a source file
 src/common/network/Network.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/common/network/Network.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/common/network/Network.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/common/network/Network.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/common/network/Network.cpp.i
 .PHONY : src/common/network/Network.cpp.i
 
 src/common/network/Network.s: src/common/network/Network.cpp.s
@@ -446,7 +420,9 @@ src/common/network/Network.s: src/common/network/Network.cpp.s
 
 # target to generate assembly for a file
 src/common/network/Network.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/common/network/Network.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/common/network/Network.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/common/network/Network.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/common/network/Network.cpp.s
 .PHONY : src/common/network/Network.cpp.s
 
 src/common/utils/Utils.o: src/common/utils/Utils.cpp.o
@@ -454,7 +430,9 @@ src/common/utils/Utils.o: src/common/utils/Utils.cpp.o
 
 # target to build an object file
 src/common/utils/Utils.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/common/utils/Utils.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/common/utils/Utils.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/common/utils/Utils.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/common/utils/Utils.cpp.o
 .PHONY : src/common/utils/Utils.cpp.o
 
 src/common/utils/Utils.i: src/common/utils/Utils.cpp.i
@@ -462,7 +440,9 @@ src/common/utils/Utils.i: src/common/utils/Utils.cpp.i
 
 # target to preprocess a source file
 src/common/utils/Utils.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/common/utils/Utils.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/common/utils/Utils.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/common/utils/Utils.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/common/utils/Utils.cpp.i
 .PHONY : src/common/utils/Utils.cpp.i
 
 src/common/utils/Utils.s: src/common/utils/Utils.cpp.s
@@ -470,7 +450,9 @@ src/common/utils/Utils.s: src/common/utils/Utils.cpp.s
 
 # target to generate assembly for a file
 src/common/utils/Utils.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/common/utils/Utils.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/common/utils/Utils.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/common/utils/Utils.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/common/utils/Utils.cpp.s
 .PHONY : src/common/utils/Utils.cpp.s
 
 src/db/DBServer.o: src/db/DBServer.cpp.o
@@ -497,29 +479,29 @@ src/db/DBServer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/db/DBServer.cpp.s
 .PHONY : src/db/DBServer.cpp.s
 
-src/db/QueryRouter.o: src/db/QueryRouter.cpp.o
-.PHONY : src/db/QueryRouter.o
+src/db/core/QueryRouter.o: src/db/core/QueryRouter.cpp.o
+.PHONY : src/db/core/QueryRouter.o
 
 # target to build an object file
-src/db/QueryRouter.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o
-.PHONY : src/db/QueryRouter.cpp.o
+src/db/core/QueryRouter.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/db/core/QueryRouter.cpp.o
+.PHONY : src/db/core/QueryRouter.cpp.o
 
-src/db/QueryRouter.i: src/db/QueryRouter.cpp.i
-.PHONY : src/db/QueryRouter.i
+src/db/core/QueryRouter.i: src/db/core/QueryRouter.cpp.i
+.PHONY : src/db/core/QueryRouter.i
 
 # target to preprocess a source file
-src/db/QueryRouter.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.i
-.PHONY : src/db/QueryRouter.cpp.i
+src/db/core/QueryRouter.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/db/core/QueryRouter.cpp.i
+.PHONY : src/db/core/QueryRouter.cpp.i
 
-src/db/QueryRouter.s: src/db/QueryRouter.cpp.s
-.PHONY : src/db/QueryRouter.s
+src/db/core/QueryRouter.s: src/db/core/QueryRouter.cpp.s
+.PHONY : src/db/core/QueryRouter.s
 
 # target to generate assembly for a file
-src/db/QueryRouter.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.s
-.PHONY : src/db/QueryRouter.cpp.s
+src/db/core/QueryRouter.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/src/db/core/QueryRouter.cpp.s
+.PHONY : src/db/core/QueryRouter.cpp.s
 
 src/db/main.o: src/db/main.cpp.o
 .PHONY : src/db/main.o
@@ -888,17 +870,10 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... install"
-	@echo "... install/local"
-	@echo "... install/strip"
-	@echo "... list_install_components"
-	@echo "... package"
-	@echo "... package_source"
 	@echo "... rebuild_cache"
 	@echo "... kal-auth"
 	@echo "... kal-db"
 	@echo "... kal-main"
-	@echo "... kal_common"
 	@echo "... src/assets/AssetLoader.o"
 	@echo "... src/assets/AssetLoader.i"
 	@echo "... src/assets/AssetLoader.s"
@@ -908,6 +883,9 @@ help:
 	@echo "... src/auth/AuthServer.o"
 	@echo "... src/auth/AuthServer.i"
 	@echo "... src/auth/AuthServer.s"
+	@echo "... src/auth/core/AuthManager.o"
+	@echo "... src/auth/core/AuthManager.i"
+	@echo "... src/auth/core/AuthManager.s"
 	@echo "... src/auth/main.o"
 	@echo "... src/auth/main.i"
 	@echo "... src/auth/main.s"
@@ -932,9 +910,9 @@ help:
 	@echo "... src/db/DBServer.o"
 	@echo "... src/db/DBServer.i"
 	@echo "... src/db/DBServer.s"
-	@echo "... src/db/QueryRouter.o"
-	@echo "... src/db/QueryRouter.i"
-	@echo "... src/db/QueryRouter.s"
+	@echo "... src/db/core/QueryRouter.o"
+	@echo "... src/db/core/QueryRouter.i"
+	@echo "... src/db/core/QueryRouter.s"
 	@echo "... src/db/main.o"
 	@echo "... src/db/main.i"
 	@echo "... src/db/main.s"

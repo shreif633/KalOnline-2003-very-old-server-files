@@ -1,96 +1,68 @@
-cmake_minimum_required(VERSION 3.25)
-project(KalOnlineServer VERSION 1.0.0 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.20)
+project(KalOnlineServer VERSION 1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Use libc++ for Clang to get C++23 std::format support
-if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
-endif()
-
-# Build options
-option(KAL_BUILD_TESTS "Build test suite" ON)
-option(KAL_BUILD_GUI "Build Qt6 management GUI" OFF)
-option(KAL_USE_CONAN "Use Conan for dependency management" ON)
-
-# Find dependencies
+# Find system packages
 find_package(Threads REQUIRED)
 find_package(PostgreSQL REQUIRED)
-find_package(nlohmann_json REQUIRED)
+find_package(yaml-cpp REQUIRED)
+find_package(Boost REQUIRED COMPONENTS system)
+find_package(fmt REQUIRED)
 
-# libpqxx from Conan
-if(EXISTS "${CMAKE_CURRENT_BINARY_DIR}/Release/generators/libpqxxTargets.cmake")
-    include("${CMAKE_CURRENT_BINARY_DIR}/Release/generators/libpqxxTargets.cmake")
-endif()
-find_package(libpqxx CONFIG QUIET)
-if(NOT libpqxx_FOUND)
-    find_library(LIBPQXX_LIB pqxx)
-    find_path(LIBPQXX_INCLUDE_DIR pqxx/pqxx)
-endif()
+# Include directories
+include_directories(
+    ${CMAKE_SOURCE_DIR}/src
+    ${PostgreSQL_INCLUDE_DIRS}
+    ${YAML_CPP_INCLUDE_DIR}
+    ${Boost_INCLUDE_DIRS}
+)
 
-find_package(yaml-cpp CONFIG QUIET)
-if(NOT yaml-cpp_FOUND)
-    find_library(YAML_CPP_LIB yaml-cpp)
-    find_path(YAML_CPP_INCLUDE_DIR yaml-cpp/yaml.h)
-endif()
-
-if(KAL_USE_CONAN)
-    # Conan dependencies will be loaded via toolchain
-endif()
-
-# Common library (shared across all servers)
-add_library(kal_common STATIC
+# Common sources
+set(COMMON_SOURCES
     src/common/logger/Logger.cpp
     src/common/config/Config.cpp
     src/common/crypto/Crypto.cpp
     src/common/network/Network.cpp
     src/common/database/Database.cpp
     src/common/utils/Utils.cpp
-    src/assets/AssetLoader.cpp
 )
-
-target_include_directories(kal_common PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-)
-
-target_link_libraries(kal_common PUBLIC
-    Threads::Threads
-    PostgreSQL::PostgreSQL
-    libpqxx::pqxx
-    nlohmann_json::nlohmann_json
-)
-
-if(TARGET yaml-cpp::yaml-cpp)
-    target_link_libraries(kal_common PUBLIC yaml-cpp::yaml-cpp)
-else()
-    target_include_directories(kal_common PUBLIC ${YAML_CPP_INCLUDE_DIR})
-    target_link_libraries(kal_common PUBLIC ${YAML_CPP_LIB})
-endif()
 
 # Auth Server
 add_executable(kal-auth
     src/auth/main.cpp
     src/auth/AuthServer.cpp
+    src/auth/core/AuthManager.cpp
+    ${COMMON_SOURCES}
+)
+target_link_libraries(kal-auth
+    Threads::Threads
+    ${PostgreSQL_LIBRARIES}
+    yaml-cpp
+    Boost::system
+    fmt::fmt
 )
 
-target_link_libraries(kal-auth PRIVATE kal_common)
-
-# Database Server
+# DB Server
 add_executable(kal-db
     src/db/main.cpp
     src/db/DBServer.cpp
-    src/db/QueryRouter.cpp
+    src/db/core/QueryRouter.cpp
+    ${COMMON_SOURCES}
 )
-
-target_link_libraries(kal-db PRIVATE kal_common)
+target_link_libraries(kal-db
+    Threads::Threads
+    ${PostgreSQL_LIBRARIES}
+    yaml-cpp
+    Boost::system
+    fmt::fmt
+)
 
 # Main Game Server
 add_executable(kal-main
     src/main/main.cpp
-    src/main/MainServer.cpp
     src/main/GameServer.cpp
     src/main/WorldManager.cpp
     src/main/EntityManager.cpp
@@ -99,64 +71,19 @@ add_executable(kal-main
     src/main/ItemSystem.cpp
     src/main/SocialSystem.cpp
     src/main/QuestSystem.cpp
-    src/main/core/Entities.cpp
-    src/main/network/PacketHandler.cpp
-    src/main/system/MonsterAI.cpp
+    src/main/MainServer.cpp
     src/main/system/SpawnManager.cpp
+    src/main/system/MonsterAI.cpp
+    src/main/network/PacketHandler.cpp
+    src/main/core/Entities.cpp
     src/assets/KsmParser.cpp
+    src/assets/AssetLoader.cpp
+    ${COMMON_SOURCES}
 )
-
-target_link_libraries(kal-main PRIVATE kal_common)
-
-# Tests - Disabled until test files are created
-# if(KAL_BUILD_TESTS)
-#     enable_testing()
-#     find_package(GTest REQUIRED)
-#     
-#     add_executable(kal_tests
-#         tests/test_crypto.cpp
-#         tests/test_logger.cpp
-#         tests/test_combat_formulas.cpp
-#     )
-#     
-#     target_link_libraries(kal_tests PRIVATE kal_common GTest::gtest_main)
-#     
-#     include(GoogleTest)
-#     gtest_discover_tests(kal_tests)
-# endif()
-
-# GUI (Optional)
-if(KAL_BUILD_GUI)
-    find_package(Qt6 REQUIRED COMPONENTS Widgets Network Sql)
-    qt_standard_project_setup()
-    
-    add_executable(kal-gui
-        src/gui/main.cpp
-        src/gui/MainWindow.cpp
-        src/gui/Dashboard.cpp
-        src/gui/LogViewer.cpp
-        src/gui/GMCommands.cpp
-    )
-    
-    target_link_libraries(kal-gui PRIVATE 
-        kal_common
-        Qt6::Widgets
-        Qt6::Network
-        Qt6::Sql
-    )
-endif()
-
-# Installation
-install(TARGETS kal-auth kal-db kal-main
-    RUNTIME DESTINATION bin
+target_link_libraries(kal-main
+    Threads::Threads
+    ${PostgreSQL_LIBRARIES}
+    yaml-cpp
+    Boost::system
+    fmt::fmt
 )
-
-install(FILES config/config.yaml.example
-    DESTINATION etc/kalonline
-)
-
-# CPack for packaging
-set(CPACK_PACKAGE_NAME "KalOnlineServer")
-set(CPACK_PACKAGE_VERSION "1.0.0")
-set(CPACK_PACKAGE_VENDOR "KalOnline Project")
-include(CPack)

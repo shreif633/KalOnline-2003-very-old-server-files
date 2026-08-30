@@ -1,2 +1,0 @@
-/usr/bin/ar qc libkal_common.a CMakeFiles/kal_common.dir/src/common/logger/Logger.cpp.o CMakeFiles/kal_common.dir/src/common/config/Config.cpp.o CMakeFiles/kal_common.dir/src/common/crypto/Crypto.cpp.o CMakeFiles/kal_common.dir/src/common/network/Network.cpp.o CMakeFiles/kal_common.dir/src/common/database/Database.cpp.o CMakeFiles/kal_common.dir/src/common/utils/Utils.cpp.o CMakeFiles/kal_common.dir/src/assets/AssetLoader.cpp.o
-/usr/bin/ranlib libkal_common.a
