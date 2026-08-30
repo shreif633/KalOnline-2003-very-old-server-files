@@ -1,0 +1,35 @@
+Title = "KAL Database Server"
+
+NumberOfThreads = 20
+KAL = 19e40333
+ODBC = "KAL_DB"
+
+SubNet = (("127.0.0.1" "255.255.255.0"))
+Port = 40001
+
+System = "3 4 5 6"
+Event = ""
+
+
+;Title - Window title.
+;NumberOfThreads - Do not change.
+;KAL - Do not change.
+;ODBC - Name of the ODBC youre using.
+;Subnet - Change 127.0.0.1 to your WAN IP.
+;Port - Database Port.
+;
+;System Options: (Format: "option, option, option") (Example: "1, 4 ,5 ,6")
+;0 - Reserved System
+;1 - Cosmo Server (Only for a Test Server.)
+;2 - Pay System
+;3 - Netmarble Authsocket Activate
+;4 - Party System
+;5 - Quest System
+;6 - Storage System
+;7 - Billing System
+;
+;Event Options: (Format: "option, option, option") (Example: "1, 2, 3")
+;0 - Double EXP
+;1 - PC Room Event
+;2 - Wake Wake Event
+;3 - Sponsor Event

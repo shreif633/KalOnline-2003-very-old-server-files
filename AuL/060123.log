@@ -1,0 +1,22 @@
+06/01/23 18:28:43 Server started
+06/01/23 18:28:44 Server ready on ports 50001/50002. (Version: 1 ENG)
+06/01/23 18:28:50 new connection 127.0.0.1
+06/01/23 18:30:18 Shutdown started
+06/01/23 18:30:18 close connection 127.0.0.1
+06/01/23 18:30:19 Shutdown completed. (MaxUser:0)
+06/01/23 18:31:25 Server started
+06/01/23 18:31:25 Server ready on ports 50001/50002. (Version: 1 ENG)
+06/01/23 18:31:31 Shutdown started
+06/01/23 18:31:32 Shutdown completed. (MaxUser:0)
+06/01/23 18:31:34 Server started
+06/01/23 18:31:34 Server ready on ports 50001/50002. (Version: 1 ENG)
+06/01/23 18:31:38 new connection 217.199.115.107
+06/01/23 19:55:26 close connection 217.199.115.107
+06/01/23 19:55:32 Shutdown started
+06/01/23 19:55:33 Shutdown completed. (MaxUser:0)
+06/01/23 19:55:42 Server started
+06/01/23 19:55:43 Server ready on ports 50001/50002. (Version: 1 ENG)
+06/01/23 19:55:49 new connection 217.199.115.107
+06/01/23 21:32:27 close connection 217.199.115.107
+06/01/23 21:32:28 Shutdown started
+06/01/23 21:32:29 Shutdown completed. (MaxUser:0)

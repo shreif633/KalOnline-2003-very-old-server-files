@@ -1,0 +1,6 @@
+[1758 2021/01/25 06:27:59]: Invalid packet Type at CSocket::OnRead
+[1758 2021/01/25 06:27:59]: LogPacket nType(56) nSize(3)
+[1758 2021/01/25 06:27:59]: 02734897: 020000
+[888 2021/01/25 06:28:06]: Invalid packet Type at CSocket::OnRead
+[888 2021/01/25 06:28:06]: LogPacket nType(56) nSize(3)
+[888 2021/01/25 06:28:06]: 02734897: 020000

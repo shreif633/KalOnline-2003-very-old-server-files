@@ -1,0 +1,37 @@
+Title = "KAL Main Server"
+
+NumberOfThreads = 20
+
+Language = "LangEN.txt"
+Country = 255
+KAL = 19e40333
+
+AuthPort = 50001
+DBPort = 40001
+Port = 30001
+AuthServer = "127.0.0.1"
+DBServer = "127.0.0.1"
+MaxUser = 100
+
+Map = "Map"
+ItemVer = 1
+ServerId = 1
+AgeLimit = 0
+System = "0 1 4 5"
+Event = "0"
+
+;MailServer = "127.0.0.1"
+;MailFrom = "KAL_MAIN18"
+;MailTo = "eversky@inixsoft.co.kr, sjpark@inixsoft.co.kr"
+
+;=======================================
+;System
+;0 ------- closed beta test
+;1 ------- don't send an alive packet (only for a test server)
+;2 ------- pay system
+;3 ------- netmarble authsocket activate
+;4 ------- party system
+;5 ------- quest system
+;=======================================
+;Event
+;=======================================
