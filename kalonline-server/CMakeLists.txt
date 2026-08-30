@@ -1,13 +1,9 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.25)
 project(KalOnlineServer VERSION 1.0.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-
-# Enable modules support
-set(CMAKE_EXPERIMENTAL_CXX_MODULE_CMAKE_API 2182bf5c-ef0d-489a-91da-49dbc309838a)
-set(CMAKE_EXPERIMENTAL_CXX_MODULE_DYNDEP 1)
 
 # Build options
 option(KAL_BUILD_TESTS "Build test suite" ON)
@@ -18,7 +14,11 @@ option(KAL_USE_CONAN "Use Conan for dependency management" ON)
 find_package(Threads REQUIRED)
 find_package(PostgreSQL REQUIRED)
 find_package(nlohmann_json REQUIRED)
-find_package(yaml-cpp REQUIRED)
+find_package(yaml-cpp CONFIG QUIET)
+if(NOT yaml-cpp_FOUND)
+    find_library(YAML_CPP_LIB yaml-cpp)
+    find_path(YAML_CPP_INCLUDE_DIR yaml-cpp/yaml.h)
+endif()
 
 if(KAL_USE_CONAN)
     # Conan dependencies will be loaded via toolchain
@@ -43,8 +43,14 @@ target_link_libraries(kal_common PUBLIC
     Threads::Threads
     ${PostgreSQL_LIBRARIES}
     nlohmann_json::nlohmann_json
-    yaml-cpp::yaml-cpp
 )
+
+if(TARGET yaml-cpp::yaml-cpp)
+    target_link_libraries(kal_common PUBLIC yaml-cpp::yaml-cpp)
+else()
+    target_include_directories(kal_common PUBLIC ${YAML_CPP_INCLUDE_DIR})
+    target_link_libraries(kal_common PUBLIC ${YAML_CPP_LIB})
+endif()
 
 # Auth Server
 add_executable(kal-auth
