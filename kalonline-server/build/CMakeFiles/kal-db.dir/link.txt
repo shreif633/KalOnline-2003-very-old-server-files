@@ -1,0 +1,1 @@
+/usr/bin/c++ "CMakeFiles/kal-db.dir/src/db/main.cpp.o" "CMakeFiles/kal-db.dir/src/db/DBServer.cpp.o" "CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o" -o kal-db  libkal_common.a /usr/lib/x86_64-linux-gnu/libpq.so 
