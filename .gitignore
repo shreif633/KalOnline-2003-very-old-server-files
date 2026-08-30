@@ -1,40 +1,41 @@
 ```
-# CMake build artifacts
+# Build artifacts
 build/
-CMakeCache.txt
 CMakeFiles/
-
-# Compiled objects and binaries
 *.o
 *.obj
-*.a
-*.lib
-*.so
-*.dll
 *.exe
+*.dll
+*.so
+*.a
 *.out
 
 # Dependencies
-vendor/
-third_party/
+venv/
+.venv/
+node_modules/
 
 # Logs and temp files
 *.log
 *.tmp
+*.swp
 
-# Editor/IDE files
+# Editors
 .vscode/
 .idea/
-*.swp
-*.swo
 
-# Coverage reports
+# Environment
+.env
+.env.local
+*.env.*
+
+# Coverage
 coverage/
 htmlcov/
 .coverage
 
-# Distribution packages
-dist/
-*.tar.gz
-*.zip
+# CMake specific
+CMakeCache.txt
+cmake_install.cmake
+Makefile
 ```

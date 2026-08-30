@@ -1,79 +1,58 @@
-#include <iostream>
-#include <csignal>
-#include <atomic>
-
 #include "common/logger/Logger.hpp"
 #include "common/config/Config.hpp"
-#include "common/database/Database.hpp"
 #include "common/network/Network.hpp"
+#include "main/GameServer.hpp"
+#include <iostream>
+#include <csignal>
+#include <memory>
 
-using namespace kal;
+std::unique_ptr<asio::io_context> g_ioContext;
+std::unique_ptr<kal::main::GameServer> g_gameServer;
 
-static std::atomic<bool> g_running{true};
-
-void signal_handler(int signum) {
-    KAL_LOG_INFO("Received signal {}, shutting down...", signum);
-    g_running = false;
+void signalHandler(int signum) {
+    KAL_LOG_INFO("Interrupt signal ({}) received. Shutting down...", signum);
+    if (g_ioContext) {
+        g_ioContext->stop();
+    }
 }
 
 int main(int argc, char* argv[]) {
-    std::signal(SIGINT, signal_handler);
-    std::signal(SIGTERM, signal_handler);
-    
-    logger::AsyncLogger::instance().initialize("KalMainServer", logger::LogLevel::Info);
-    
-    KAL_LOG_INFO("========================================");
-    KAL_LOG_INFO("KalOnline Main Game Server (C++23 Modern)");
-    KAL_LOG_INFO("========================================");
-    
-    std::string config_path = "config/config.yaml";
-    if (argc > 1) {
-        config_path = argv[1];
-    }
-    
-    if (!config::Config::instance().load(config_path)) {
-        KAL_LOG_ERROR("Failed to load configuration from {}", config_path);
-        return EXIT_FAILURE;
-    }
-    
-    KAL_LOG_INFO("Configuration loaded from {}", config_path);
-    
+    signal(SIGINT, signalHandler);
+    signal(SIGTERM, signalHandler);
+
     try {
-        auto db_config = config::Config::instance().database();
-        database::DatabaseManager::instance().initialize(db_config);
+        auto logger = kal::logger::Logger::getInstance();
+        logger->add_backend(std::make_unique<kal::logger::ConsoleBackend>());
+        logger->add_backend(std::make_unique<kal::logger::FileBackend>("logs/game_server.log"));
         
-        asio::io_context io_context;
-        network::ConnectionManager conn_manager;
+        KAL_LOG_INFO("KalOnline Game Server starting...");
+
+        auto config = kal::config::Config::getInstance();
+        std::string configPath = (argc > 1) ? argv[1] : "config.yaml";
         
-        uint16_t port = config::Config::instance().get_int("network.main_port", 11002);
-        network::TcpServer server(io_context, port);
-        server.set_connection_manager(conn_manager);
-        
-        server.start();
-        
-        KAL_LOG_INFO("Main game server started on port {}", port);
-        KAL_LOG_INFO("Press Ctrl+C to stop...");
-        
-        while (g_running) {
-            try {
-                io_context.run_for(std::chrono::milliseconds(100));
-            } catch (const std::exception& e) {
-                KAL_LOG_ERROR("IO context error: {}", e.what());
-            }
+        if (!config->load(configPath)) {
+            KAL_LOG_ERROR("Failed to load configuration from {}", configPath);
+            return 1;
         }
+
+        g_ioContext = std::make_unique<asio::io_context>();
+        uint16_t port = static_cast<uint16_t>(config->get<int>("game.port", 9003));
         
-        KAL_LOG_INFO("Shutting down main game server...");
-        server.stop();
-        conn_manager.stop_all();
-        database::DatabaseManager::instance().shutdown();
-        logger::AsyncLogger::instance().shutdown();
+        g_gameServer = std::make_unique<kal::main::GameServer>(*g_ioContext, port);
         
-        KAL_LOG_INFO("Main game server stopped gracefully");
+        if (!g_gameServer->initialize()) {
+            KAL_LOG_ERROR("Failed to initialize Game Server");
+            return 1;
+        }
+
+        KAL_LOG_INFO("Game Server initialized on port {}. Starting service...", port);
         
+        g_ioContext->run();
+
+        KAL_LOG_INFO("Game Server shut down gracefully.");
+        return 0;
     } catch (const std::exception& e) {
-        KAL_LOG_FATAL("Fatal error: {}", e.what());
-        return EXIT_FAILURE;
+        KAL_LOG_ERROR("Fatal error: {}", e.what());
+        return 1;
     }
-    
-    return EXIT_SUCCESS;
 }
