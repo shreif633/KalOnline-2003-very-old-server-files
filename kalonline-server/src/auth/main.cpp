@@ -1,83 +1,68 @@
-#include "AuthServer.hpp"
-#include "Logger.hpp"
-#include "Config.hpp"
-#include "Database.hpp"
+#include "common/logger/Logger.hpp"
+#include "common/config/Config.hpp"
+#include "common/network/Network.hpp"
+#include "auth/AuthServer.hpp"
+#include <iostream>
 #include <csignal>
-#include <atomic>
+#include <memory>
 
-std::atomic<bool> g_running(true);
+std::unique_ptr<asio::io_context> g_ioContext;
+std::unique_ptr<kal::auth::AuthServer> g_authServer;
 
-void SignalHandler(int signal) {
-    Logger::Info("Received signal {}, shutting down...", signal);
-    g_running = false;
+void signalHandler(int signum) {
+    KAL_LOG_INFO("Interrupt signal ({}) received. Shutting down...", signum);
+    if (g_ioContext) {
+        g_ioContext->stop();
+    }
 }
 
 int main(int argc, char* argv[]) {
-    // Setup signal handlers
-    std::signal(SIGINT, SignalHandler);
-    std::signal(SIGTERM, SignalHandler);
-    
+    signal(SIGINT, signalHandler);
+    signal(SIGTERM, signalHandler);
+
     try {
-        // Initialize logging
-        Logger::Init("kal-auth", LogLevel::Info);
-        Logger::Info("KalOnline Auth Server starting...");
+        // Initialize logger first
+        auto& logger = kal::logger::AsyncLogger::instance();
+        logger.add_backend(std::make_unique<kal::logger::ConsoleBackend>());
+        logger.add_backend(std::make_unique<kal::logger::FileBackend>("logs/auth_server.log"));
         
+        KAL_LOG_INFO("KalOnline Auth Server starting...");
+
         // Load configuration
-        auto configPath = (argc > 1) ? argv[1] : "config.yaml";
-        if (!Config::Load(configPath)) {
-            Logger::Error("Failed to load configuration from {}", configPath);
+        std::string configPath = (argc > 1) ? argv[1] : "../config/config.yaml";
+        
+        YAML::Node config;
+        try {
+            config = YAML::LoadFile(configPath);
+            KAL_LOG_INFO("Configuration loaded from {}", configPath);
+        } catch (const std::exception& e) {
+            KAL_LOG_ERROR("Failed to load configuration from {}: {}", configPath, e.what());
             return 1;
         }
+
+        // Create IO context and server
+        g_ioContext = std::make_unique<asio::io_context>();
+        uint16_t port = config["network"]["auth_port"].as<uint16_t>(11000);
         
-        // Initialize database connection
-        std::string dbHost = Config::GetString("database.host", "localhost");
-        uint16_t dbPort = static_cast<uint16_t>(Config::GetInt("database.port", 5432));
-        std::string dbName = Config::GetString("database.name", "kal_auth");
-        std::string dbUser = Config::GetString("database.user", "kalonline");
-        std::string dbPassword = Config::GetString("database.password", "");
+        g_authServer = std::make_unique<kal::auth::AuthServer>(*g_ioContext, port);
         
-        if (!Database::Initialize(dbHost, dbPort, dbName, dbUser, dbPassword)) {
-            Logger::Error("Failed to initialize database connection");
-            return 1;
+        KAL_LOG_INFO("Auth Server initialized on port {}. Starting service...", port);
+        
+        // Start the server
+        g_authServer->Start();
+        
+        // Run the io context (this blocks until stop() is called)
+        g_ioContext->run();
+
+        // Stop server
+        if (g_authServer) {
+            g_authServer->Stop();
         }
-        
-        Logger::Info("Database connection established");
-        
-        // Get server port from config
-        uint16_t port = static_cast<uint16_t>(Config::GetInt("auth.port", 10001));
-        
-        // Create and start auth server
-        asio::io_context ioContext;
-        kal::auth::AuthServer authServer(ioContext, port);
-        
-        authServer.Start();
-        
-        Logger::Info("Auth Server is running. Press Ctrl+C to stop.");
-        
-        // Run event loop
-        while (g_running) {
-            ioContext.poll_one();
-            std::this_thread::sleep_for(std::chrono::milliseconds(10));
-            
-            // Periodic cleanup
-            static auto lastCleanup = std::chrono::steady_clock::now();
-            auto now = std::chrono::steady_clock::now();
-            if (std::chrono::duration_cast<std::chrono::minutes>(now - lastCleanup).count() >= 5) {
-                // Cleanup expired sessions could be called here if needed
-                lastCleanup = now;
-            }
-        }
-        
-        // Graceful shutdown
-        Logger::Info("Shutting down Auth Server...");
-        authServer.Stop();
-        Database::Shutdown();
-        Logger::Info("Auth Server stopped gracefully");
-        
+
+        KAL_LOG_INFO("Auth Server shut down gracefully.");
         return 0;
-        
     } catch (const std::exception& e) {
-        Logger::Error("Fatal error: {}", e.what());
+        KAL_LOG_ERROR("Fatal error: {}", e.what());
         return 1;
     }
 }

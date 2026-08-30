@@ -4,40 +4,40 @@ build/
 CMakeCache.txt
 CMakeFiles/
 
-# Dependencies
-# (No specific dependency directories detected in changes)
-
 # Compiled files
 *.o
 *.obj
 *.a
 *.lib
-*.dll
 *.so
-*.dylib
+*.dll
+*.exe
+*.out
+
+# Dependencies
+vendor/
+.externalNativeBuild/
 
 # Logs and temp files
 *.log
 *.tmp
-
-# Editors
-.vscode/
-.idea/
+*.swp
 
 # Environment
 .env
 .env.local
 *.env.*
 
-# Coverage reports
+# Editors
+.vscode/
+.idea/
+
+# Coverage
 coverage/
 htmlcov/
-*.coverage
+.coverage
 
-# Python specific (if applicable)
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
+# OS generated files
+.DS_Store
+Thumbs.db
 ```

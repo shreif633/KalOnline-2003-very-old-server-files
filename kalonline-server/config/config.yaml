@@ -7,9 +7,9 @@
 database:
   host: "localhost"
   port: 5432
-  name: "kalonline"
-  username: "kaluser"
-  password: "changeme_in_production"
+  name: "kal_online"
+  username: "kal_user"
+  password: "kal_password"
   max_connections: 20
   connection_timeout_sec: 10
 

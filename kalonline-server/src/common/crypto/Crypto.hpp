@@ -66,4 +66,7 @@ private:
     BlowfishCipher m_blowfish;
 };
 
+// Helper functions for password hashing
+std::string SHA256(const std::string& input);
+
 } // namespace kal::crypto

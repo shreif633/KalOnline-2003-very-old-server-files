@@ -5,7 +5,7 @@
 #include <variant>
 #include <vector>
 #include <expected>
-#include "Database.hpp"
+#include "common/database/Database.hpp"
 
 namespace kal::db {
 

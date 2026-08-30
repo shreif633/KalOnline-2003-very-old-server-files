@@ -1,79 +1,61 @@
-#include <iostream>
-#include <csignal>
-#include <atomic>
-
 #include "common/logger/Logger.hpp"
 #include "common/config/Config.hpp"
-#include "common/database/Database.hpp"
 #include "common/network/Network.hpp"
+#include "DBServer.hpp"
+#include <iostream>
+#include <csignal>
+#include <memory>
 
-using namespace kal;
+std::unique_ptr<asio::io_context> g_ioContext;
+std::unique_ptr<kal::db::DbServer> g_dbServer;
 
-static std::atomic<bool> g_running{true};
-
-void signal_handler(int signum) {
-    KAL_LOG_INFO("Received signal {}, shutting down...", signum);
-    g_running = false;
+void signalHandler(int signum) {
+    KAL_LOG_INFO("Interrupt signal ({}) received. Shutting down...", signum);
+    if (g_ioContext) {
+        g_ioContext->stop();
+    }
 }
 
 int main(int argc, char* argv[]) {
-    std::signal(SIGINT, signal_handler);
-    std::signal(SIGTERM, signal_handler);
-    
-    logger::AsyncLogger::instance().initialize("KalDBServer", logger::LogLevel::Info);
-    
-    KAL_LOG_INFO("========================================");
-    KAL_LOG_INFO("KalOnline Database Server (C++23 Modern)");
-    KAL_LOG_INFO("========================================");
-    
-    std::string config_path = "config/config.yaml";
-    if (argc > 1) {
-        config_path = argv[1];
-    }
-    
-    if (!config::Config::instance().load(config_path)) {
-        KAL_LOG_ERROR("Failed to load configuration from {}", config_path);
-        return EXIT_FAILURE;
-    }
-    
-    KAL_LOG_INFO("Configuration loaded from {}", config_path);
-    
+    signal(SIGINT, signalHandler);
+    signal(SIGTERM, signalHandler);
+
     try {
-        auto db_config = config::Config::instance().database();
-        database::DatabaseManager::instance().initialize(db_config);
+        auto& logger = kal::logger::Logger::getInstance();
+        logger.add_backend(std::make_unique<kal::logger::ConsoleBackend>());
+        logger.add_backend(std::make_unique<kal::logger::FileBackend>("logs/db_server.log"));
         
-        asio::io_context io_context;
-        network::ConnectionManager conn_manager;
+        KAL_LOG_INFO("KalOnline DB Server starting...");
+
+        auto& config = kal::config::Config::getInstance();
+        std::string configPath = (argc > 1) ? argv[1] : "config.yaml";
         
-        uint16_t port = config::Config::instance().get_int("network.db_port", 11001);
-        network::TcpServer server(io_context, port);
-        server.set_connection_manager(conn_manager);
-        
-        server.start();
-        
-        KAL_LOG_INFO("DB server started on port {}", port);
-        KAL_LOG_INFO("Press Ctrl+C to stop...");
-        
-        while (g_running) {
-            try {
-                io_context.run_for(std::chrono::milliseconds(100));
-            } catch (const std::exception& e) {
-                KAL_LOG_ERROR("IO context error: {}", e.what());
-            }
+        if (!config.load(configPath)) {
+            KAL_LOG_ERROR("Failed to load configuration from {}", configPath);
+            return 1;
         }
+
+        g_ioContext = std::make_unique<asio::io_context>();
+        uint16_t port = static_cast<uint16_t>(config.get<int>("db.port", 9002));
         
-        KAL_LOG_INFO("Shutting down DB server...");
-        server.stop();
-        conn_manager.stop_all();
-        database::DatabaseManager::instance().shutdown();
-        logger::AsyncLogger::instance().shutdown();
+        g_dbServer = std::make_unique<kal::db::DbServer>(*g_ioContext, port);
         
-        KAL_LOG_INFO("DB server stopped gracefully");
+        KAL_LOG_INFO("DB Server initialized on port {}. Starting service...", port);
         
+        // Start the server
+        g_dbServer->Start();
+        
+        g_ioContext->run();
+
+        // Stop server
+        if (g_dbServer) {
+            g_dbServer->Stop();
+        }
+
+        KAL_LOG_INFO("DB Server shut down gracefully.");
+        return 0;
     } catch (const std::exception& e) {
-        KAL_LOG_FATAL("Fatal error: {}", e.what());
-        return EXIT_FAILURE;
+        KAL_LOG_ERROR("Fatal error: {}", e.what());
+        return 1;
     }
-    
-    return EXIT_SUCCESS;
 }

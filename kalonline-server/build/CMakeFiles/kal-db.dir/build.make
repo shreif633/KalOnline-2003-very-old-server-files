@@ -97,43 +97,135 @@ CMakeFiles/kal-db.dir/src/db/DBServer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-db.dir/src/db/DBServer.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/db/DBServer.cpp -o CMakeFiles/kal-db.dir/src/db/DBServer.cpp.s
 
-CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o: CMakeFiles/kal-db.dir/flags.make
-CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o: /workspace/kalonline-server/src/db/QueryRouter.cpp
-CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o: CMakeFiles/kal-db.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o -MF CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o.d -o CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o -c /workspace/kalonline-server/src/db/QueryRouter.cpp
+CMakeFiles/kal-db.dir/src/db/core/QueryRouter.cpp.o: CMakeFiles/kal-db.dir/flags.make
+CMakeFiles/kal-db.dir/src/db/core/QueryRouter.cpp.o: /workspace/kalonline-server/src/db/core/QueryRouter.cpp
+CMakeFiles/kal-db.dir/src/db/core/QueryRouter.cpp.o: CMakeFiles/kal-db.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/kal-db.dir/src/db/core/QueryRouter.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-db.dir/src/db/core/QueryRouter.cpp.o -MF CMakeFiles/kal-db.dir/src/db/core/QueryRouter.cpp.o.d -o CMakeFiles/kal-db.dir/src/db/core/QueryRouter.cpp.o -c /workspace/kalonline-server/src/db/core/QueryRouter.cpp
 
-CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/db/QueryRouter.cpp > CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.i
+CMakeFiles/kal-db.dir/src/db/core/QueryRouter.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-db.dir/src/db/core/QueryRouter.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/db/core/QueryRouter.cpp > CMakeFiles/kal-db.dir/src/db/core/QueryRouter.cpp.i
 
-CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/db/QueryRouter.cpp -o CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.s
+CMakeFiles/kal-db.dir/src/db/core/QueryRouter.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-db.dir/src/db/core/QueryRouter.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/db/core/QueryRouter.cpp -o CMakeFiles/kal-db.dir/src/db/core/QueryRouter.cpp.s
+
+CMakeFiles/kal-db.dir/src/common/logger/Logger.cpp.o: CMakeFiles/kal-db.dir/flags.make
+CMakeFiles/kal-db.dir/src/common/logger/Logger.cpp.o: /workspace/kalonline-server/src/common/logger/Logger.cpp
+CMakeFiles/kal-db.dir/src/common/logger/Logger.cpp.o: CMakeFiles/kal-db.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/kal-db.dir/src/common/logger/Logger.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-db.dir/src/common/logger/Logger.cpp.o -MF CMakeFiles/kal-db.dir/src/common/logger/Logger.cpp.o.d -o CMakeFiles/kal-db.dir/src/common/logger/Logger.cpp.o -c /workspace/kalonline-server/src/common/logger/Logger.cpp
+
+CMakeFiles/kal-db.dir/src/common/logger/Logger.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-db.dir/src/common/logger/Logger.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/common/logger/Logger.cpp > CMakeFiles/kal-db.dir/src/common/logger/Logger.cpp.i
+
+CMakeFiles/kal-db.dir/src/common/logger/Logger.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-db.dir/src/common/logger/Logger.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/common/logger/Logger.cpp -o CMakeFiles/kal-db.dir/src/common/logger/Logger.cpp.s
+
+CMakeFiles/kal-db.dir/src/common/config/Config.cpp.o: CMakeFiles/kal-db.dir/flags.make
+CMakeFiles/kal-db.dir/src/common/config/Config.cpp.o: /workspace/kalonline-server/src/common/config/Config.cpp
+CMakeFiles/kal-db.dir/src/common/config/Config.cpp.o: CMakeFiles/kal-db.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/kal-db.dir/src/common/config/Config.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-db.dir/src/common/config/Config.cpp.o -MF CMakeFiles/kal-db.dir/src/common/config/Config.cpp.o.d -o CMakeFiles/kal-db.dir/src/common/config/Config.cpp.o -c /workspace/kalonline-server/src/common/config/Config.cpp
+
+CMakeFiles/kal-db.dir/src/common/config/Config.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-db.dir/src/common/config/Config.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/common/config/Config.cpp > CMakeFiles/kal-db.dir/src/common/config/Config.cpp.i
+
+CMakeFiles/kal-db.dir/src/common/config/Config.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-db.dir/src/common/config/Config.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/common/config/Config.cpp -o CMakeFiles/kal-db.dir/src/common/config/Config.cpp.s
+
+CMakeFiles/kal-db.dir/src/common/crypto/Crypto.cpp.o: CMakeFiles/kal-db.dir/flags.make
+CMakeFiles/kal-db.dir/src/common/crypto/Crypto.cpp.o: /workspace/kalonline-server/src/common/crypto/Crypto.cpp
+CMakeFiles/kal-db.dir/src/common/crypto/Crypto.cpp.o: CMakeFiles/kal-db.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/kal-db.dir/src/common/crypto/Crypto.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-db.dir/src/common/crypto/Crypto.cpp.o -MF CMakeFiles/kal-db.dir/src/common/crypto/Crypto.cpp.o.d -o CMakeFiles/kal-db.dir/src/common/crypto/Crypto.cpp.o -c /workspace/kalonline-server/src/common/crypto/Crypto.cpp
+
+CMakeFiles/kal-db.dir/src/common/crypto/Crypto.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-db.dir/src/common/crypto/Crypto.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/common/crypto/Crypto.cpp > CMakeFiles/kal-db.dir/src/common/crypto/Crypto.cpp.i
+
+CMakeFiles/kal-db.dir/src/common/crypto/Crypto.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-db.dir/src/common/crypto/Crypto.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/common/crypto/Crypto.cpp -o CMakeFiles/kal-db.dir/src/common/crypto/Crypto.cpp.s
+
+CMakeFiles/kal-db.dir/src/common/network/Network.cpp.o: CMakeFiles/kal-db.dir/flags.make
+CMakeFiles/kal-db.dir/src/common/network/Network.cpp.o: /workspace/kalonline-server/src/common/network/Network.cpp
+CMakeFiles/kal-db.dir/src/common/network/Network.cpp.o: CMakeFiles/kal-db.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/kal-db.dir/src/common/network/Network.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-db.dir/src/common/network/Network.cpp.o -MF CMakeFiles/kal-db.dir/src/common/network/Network.cpp.o.d -o CMakeFiles/kal-db.dir/src/common/network/Network.cpp.o -c /workspace/kalonline-server/src/common/network/Network.cpp
+
+CMakeFiles/kal-db.dir/src/common/network/Network.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-db.dir/src/common/network/Network.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/common/network/Network.cpp > CMakeFiles/kal-db.dir/src/common/network/Network.cpp.i
+
+CMakeFiles/kal-db.dir/src/common/network/Network.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-db.dir/src/common/network/Network.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/common/network/Network.cpp -o CMakeFiles/kal-db.dir/src/common/network/Network.cpp.s
+
+CMakeFiles/kal-db.dir/src/common/database/Database.cpp.o: CMakeFiles/kal-db.dir/flags.make
+CMakeFiles/kal-db.dir/src/common/database/Database.cpp.o: /workspace/kalonline-server/src/common/database/Database.cpp
+CMakeFiles/kal-db.dir/src/common/database/Database.cpp.o: CMakeFiles/kal-db.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/kal-db.dir/src/common/database/Database.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-db.dir/src/common/database/Database.cpp.o -MF CMakeFiles/kal-db.dir/src/common/database/Database.cpp.o.d -o CMakeFiles/kal-db.dir/src/common/database/Database.cpp.o -c /workspace/kalonline-server/src/common/database/Database.cpp
+
+CMakeFiles/kal-db.dir/src/common/database/Database.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-db.dir/src/common/database/Database.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/common/database/Database.cpp > CMakeFiles/kal-db.dir/src/common/database/Database.cpp.i
+
+CMakeFiles/kal-db.dir/src/common/database/Database.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-db.dir/src/common/database/Database.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/common/database/Database.cpp -o CMakeFiles/kal-db.dir/src/common/database/Database.cpp.s
+
+CMakeFiles/kal-db.dir/src/common/utils/Utils.cpp.o: CMakeFiles/kal-db.dir/flags.make
+CMakeFiles/kal-db.dir/src/common/utils/Utils.cpp.o: /workspace/kalonline-server/src/common/utils/Utils.cpp
+CMakeFiles/kal-db.dir/src/common/utils/Utils.cpp.o: CMakeFiles/kal-db.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/kal-db.dir/src/common/utils/Utils.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-db.dir/src/common/utils/Utils.cpp.o -MF CMakeFiles/kal-db.dir/src/common/utils/Utils.cpp.o.d -o CMakeFiles/kal-db.dir/src/common/utils/Utils.cpp.o -c /workspace/kalonline-server/src/common/utils/Utils.cpp
+
+CMakeFiles/kal-db.dir/src/common/utils/Utils.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-db.dir/src/common/utils/Utils.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/common/utils/Utils.cpp > CMakeFiles/kal-db.dir/src/common/utils/Utils.cpp.i
+
+CMakeFiles/kal-db.dir/src/common/utils/Utils.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-db.dir/src/common/utils/Utils.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/common/utils/Utils.cpp -o CMakeFiles/kal-db.dir/src/common/utils/Utils.cpp.s
 
 # Object files for target kal-db
 kal__db_OBJECTS = \
 "CMakeFiles/kal-db.dir/src/db/main.cpp.o" \
 "CMakeFiles/kal-db.dir/src/db/DBServer.cpp.o" \
-"CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o"
+"CMakeFiles/kal-db.dir/src/db/core/QueryRouter.cpp.o" \
+"CMakeFiles/kal-db.dir/src/common/logger/Logger.cpp.o" \
+"CMakeFiles/kal-db.dir/src/common/config/Config.cpp.o" \
+"CMakeFiles/kal-db.dir/src/common/crypto/Crypto.cpp.o" \
+"CMakeFiles/kal-db.dir/src/common/network/Network.cpp.o" \
+"CMakeFiles/kal-db.dir/src/common/database/Database.cpp.o" \
+"CMakeFiles/kal-db.dir/src/common/utils/Utils.cpp.o"
 
 # External object files for target kal-db
 kal__db_EXTERNAL_OBJECTS =
 
 kal-db: CMakeFiles/kal-db.dir/src/db/main.cpp.o
 kal-db: CMakeFiles/kal-db.dir/src/db/DBServer.cpp.o
-kal-db: CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o
+kal-db: CMakeFiles/kal-db.dir/src/db/core/QueryRouter.cpp.o
+kal-db: CMakeFiles/kal-db.dir/src/common/logger/Logger.cpp.o
+kal-db: CMakeFiles/kal-db.dir/src/common/config/Config.cpp.o
+kal-db: CMakeFiles/kal-db.dir/src/common/crypto/Crypto.cpp.o
+kal-db: CMakeFiles/kal-db.dir/src/common/network/Network.cpp.o
+kal-db: CMakeFiles/kal-db.dir/src/common/database/Database.cpp.o
+kal-db: CMakeFiles/kal-db.dir/src/common/utils/Utils.cpp.o
 kal-db: CMakeFiles/kal-db.dir/build.make
-kal-db: libkal_common.a
-kal-db: /root/.conan2/p/b/libpq49f5cd2512a0e/p/lib/libpqxx.a
-kal-db: /root/.conan2/p/b/libpq441ef0303b2d0/p/lib/libpq.a
-kal-db: /root/.conan2/p/b/libpq441ef0303b2d0/p/lib/libpgcommon.a
-kal-db: /root/.conan2/p/b/libpq441ef0303b2d0/p/lib/libpgcommon_shlib.a
-kal-db: /root/.conan2/p/b/libpq441ef0303b2d0/p/lib/libpgport.a
-kal-db: /root/.conan2/p/b/libpq441ef0303b2d0/p/lib/libpgport_shlib.a
-kal-db: /root/.conan2/p/b/yaml-60ca5b141ec49/p/lib/libyaml-cpp.a
+kal-db: /usr/lib/x86_64-linux-gnu/libpq.so
+kal-db: /usr/lib/x86_64-linux-gnu/libyaml-cpp.so.0.7.0
+kal-db: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.74.0
+kal-db: /usr/lib/x86_64-linux-gnu/libfmt.so.9.1.0
 kal-db: CMakeFiles/kal-db.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable kal-db"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable kal-db"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/kal-db.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

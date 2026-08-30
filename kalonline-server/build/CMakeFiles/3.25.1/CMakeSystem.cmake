@@ -3,7 +3,7 @@ set(CMAKE_HOST_SYSTEM_NAME "Linux")
 set(CMAKE_HOST_SYSTEM_VERSION "4.19.91-c8dfc93.al7.x86_64")
 set(CMAKE_HOST_SYSTEM_PROCESSOR "x86_64")
 
-include("/workspace/kalonline-server/build/Release/generators/conan_toolchain.cmake")
+
 
 set(CMAKE_SYSTEM "Linux-4.19.91-c8dfc93.al7.x86_64")
 set(CMAKE_SYSTEM_NAME "Linux")
