@@ -56,7 +56,7 @@ void AuthServer::DoAccept() {
     acceptor_.async_accept(
         [this](asio::error_code ec, tcp::socket socket) {
             if (!ec) {
-                auto connection = std::make_shared<Connection>(std::move(socket));
+                auto connection = std::make_shared<Connection>(std::move(socket), connectionManager_);
                 OnClientConnected(connection);
             } else {
                 if (isRunning_) {
@@ -71,23 +71,23 @@ void AuthServer::DoAccept() {
 }
 
 void AuthServer::OnClientConnected(std::shared_ptr<kal::network::Connection> connection) {
-    KAL_LOG_DEBUG("Client connected from {}", connection->Socket().remote_endpoint().address().to_string());
+    KAL_LOG_DEBUG("Client connected from {}", connection->remote_endpoint());
     
-    connection->SetPacketHandler(
+    connection->set_packet_handler(
         [this, weakConn = std::weak_ptr<Connection>(connection)](
-            std::span<const uint8_t> packet) mutable {
-            auto conn = weakConn.lock();
-            if (conn) {
-                OnPacketReceived(conn, packet);
+            kal::network::ConnectionPtr conn, uint16_t opcode, std::span<const uint8_t> packet) mutable {
+            auto connection = weakConn.lock();
+            if (connection) {
+                OnPacketReceived(connection, packet);
             }
         });
     
-    connection->StartRead();
+    connection->start();
 }
 
 void AuthServer::OnPacketReceived(std::shared_ptr<kal::network::Connection> conn, std::span<const uint8_t> packet) {
     if (packet.size() < 4) {
-        KAL_LOG_WARN("Invalid packet size: {}", packet.size());
+        KAL_LOG_WARNING("Invalid packet size: {}", packet.size());
         return;
     }
     

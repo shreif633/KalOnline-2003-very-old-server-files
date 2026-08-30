@@ -48,6 +48,7 @@ private:
 
     asio::io_context& ioContext_;
     tcp::acceptor acceptor_;
+    ConnectionManager connectionManager_;
     uint16_t port_;
     std::atomic<bool> isRunning_;
     

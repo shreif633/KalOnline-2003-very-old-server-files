@@ -22,24 +22,27 @@ int main(int argc, char* argv[]) {
 
     try {
         // Initialize logger first
-        auto& logger = kal::logger::Logger::getInstance();
+        auto& logger = kal::logger::AsyncLogger::instance();
         logger.add_backend(std::make_unique<kal::logger::ConsoleBackend>());
         logger.add_backend(std::make_unique<kal::logger::FileBackend>("logs/auth_server.log"));
         
         KAL_LOG_INFO("KalOnline Auth Server starting...");
 
         // Load configuration
-        auto& config = kal::config::Config::getInstance();
-        std::string configPath = (argc > 1) ? argv[1] : "config.yaml";
+        std::string configPath = (argc > 1) ? argv[1] : "../config/config.yaml";
         
-        if (!config.load(configPath)) {
-            KAL_LOG_ERROR("Failed to load configuration from {}", configPath);
+        YAML::Node config;
+        try {
+            config = YAML::LoadFile(configPath);
+            KAL_LOG_INFO("Configuration loaded from {}", configPath);
+        } catch (const std::exception& e) {
+            KAL_LOG_ERROR("Failed to load configuration from {}: {}", configPath, e.what());
             return 1;
         }
 
         // Create IO context and server
         g_ioContext = std::make_unique<asio::io_context>();
-        uint16_t port = static_cast<uint16_t>(config.get<int>("auth.port", 9001));
+        uint16_t port = config["network"]["auth_port"].as<uint16_t>(11000);
         
         g_authServer = std::make_unique<kal::auth::AuthServer>(*g_ioContext, port);
         
