@@ -74,6 +74,7 @@ target_link_libraries(kal-db PRIVATE kal_common)
 add_executable(kal-main
     src/main/main.cpp
     src/main/MainServer.cpp
+    src/main/GameServer.cpp
     src/main/WorldManager.cpp
     src/main/EntityManager.cpp
     src/main/CombatSystem.cpp
@@ -81,6 +82,11 @@ add_executable(kal-main
     src/main/ItemSystem.cpp
     src/main/SocialSystem.cpp
     src/main/QuestSystem.cpp
+    src/main/core/Entities.cpp
+    src/main/network/PacketHandler.cpp
+    src/main/system/MonsterAI.cpp
+    src/main/system/SpawnManager.cpp
+    src/assets/KsmParser.cpp
 )
 
 target_link_libraries(kal-main PRIVATE kal_common)
