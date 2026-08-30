@@ -233,6 +233,54 @@ kal-main/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/build
 .PHONY : kal-main/fast
 
+src/assets/AssetLoader.o: src/assets/AssetLoader.cpp.o
+.PHONY : src/assets/AssetLoader.o
+
+# target to build an object file
+src/assets/AssetLoader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/assets/AssetLoader.cpp.o
+.PHONY : src/assets/AssetLoader.cpp.o
+
+src/assets/AssetLoader.i: src/assets/AssetLoader.cpp.i
+.PHONY : src/assets/AssetLoader.i
+
+# target to preprocess a source file
+src/assets/AssetLoader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/assets/AssetLoader.cpp.i
+.PHONY : src/assets/AssetLoader.cpp.i
+
+src/assets/AssetLoader.s: src/assets/AssetLoader.cpp.s
+.PHONY : src/assets/AssetLoader.s
+
+# target to generate assembly for a file
+src/assets/AssetLoader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/src/assets/AssetLoader.cpp.s
+.PHONY : src/assets/AssetLoader.cpp.s
+
+src/assets/KsmParser.o: src/assets/KsmParser.cpp.o
+.PHONY : src/assets/KsmParser.o
+
+# target to build an object file
+src/assets/KsmParser.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.o
+.PHONY : src/assets/KsmParser.cpp.o
+
+src/assets/KsmParser.i: src/assets/KsmParser.cpp.i
+.PHONY : src/assets/KsmParser.i
+
+# target to preprocess a source file
+src/assets/KsmParser.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.i
+.PHONY : src/assets/KsmParser.cpp.i
+
+src/assets/KsmParser.s: src/assets/KsmParser.cpp.s
+.PHONY : src/assets/KsmParser.s
+
+# target to generate assembly for a file
+src/assets/KsmParser.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.s
+.PHONY : src/assets/KsmParser.cpp.s
+
 src/auth/AuthServer.o: src/auth/AuthServer.cpp.o
 .PHONY : src/auth/AuthServer.o
 
@@ -256,30 +304,6 @@ src/auth/AuthServer.s: src/auth/AuthServer.cpp.s
 src/auth/AuthServer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.s
 .PHONY : src/auth/AuthServer.cpp.s
-
-src/auth/SessionManager.o: src/auth/SessionManager.cpp.o
-.PHONY : src/auth/SessionManager.o
-
-# target to build an object file
-src/auth/SessionManager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/auth/SessionManager.cpp.o
-.PHONY : src/auth/SessionManager.cpp.o
-
-src/auth/SessionManager.i: src/auth/SessionManager.cpp.i
-.PHONY : src/auth/SessionManager.i
-
-# target to preprocess a source file
-src/auth/SessionManager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/auth/SessionManager.cpp.i
-.PHONY : src/auth/SessionManager.cpp.i
-
-src/auth/SessionManager.s: src/auth/SessionManager.cpp.s
-.PHONY : src/auth/SessionManager.s
-
-# target to generate assembly for a file
-src/auth/SessionManager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/src/auth/SessionManager.cpp.s
-.PHONY : src/auth/SessionManager.cpp.s
 
 src/auth/main.o: src/auth/main.cpp.o
 .PHONY : src/auth/main.o
@@ -569,6 +593,30 @@ src/main/EntityManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/main/EntityManager.cpp.s
 .PHONY : src/main/EntityManager.cpp.s
 
+src/main/GameServer.o: src/main/GameServer.cpp.o
+.PHONY : src/main/GameServer.o
+
+# target to build an object file
+src/main/GameServer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/main/GameServer.cpp.o
+.PHONY : src/main/GameServer.cpp.o
+
+src/main/GameServer.i: src/main/GameServer.cpp.i
+.PHONY : src/main/GameServer.i
+
+# target to preprocess a source file
+src/main/GameServer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/main/GameServer.cpp.i
+.PHONY : src/main/GameServer.cpp.i
+
+src/main/GameServer.s: src/main/GameServer.cpp.s
+.PHONY : src/main/GameServer.s
+
+# target to generate assembly for a file
+src/main/GameServer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/main/GameServer.cpp.s
+.PHONY : src/main/GameServer.cpp.s
+
 src/main/ItemSystem.o: src/main/ItemSystem.cpp.o
 .PHONY : src/main/ItemSystem.o
 
@@ -713,6 +761,30 @@ src/main/WorldManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/main/WorldManager.cpp.s
 .PHONY : src/main/WorldManager.cpp.s
 
+src/main/core/Entities.o: src/main/core/Entities.cpp.o
+.PHONY : src/main/core/Entities.o
+
+# target to build an object file
+src/main/core/Entities.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.o
+.PHONY : src/main/core/Entities.cpp.o
+
+src/main/core/Entities.i: src/main/core/Entities.cpp.i
+.PHONY : src/main/core/Entities.i
+
+# target to preprocess a source file
+src/main/core/Entities.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.i
+.PHONY : src/main/core/Entities.cpp.i
+
+src/main/core/Entities.s: src/main/core/Entities.cpp.s
+.PHONY : src/main/core/Entities.s
+
+# target to generate assembly for a file
+src/main/core/Entities.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/main/core/Entities.cpp.s
+.PHONY : src/main/core/Entities.cpp.s
+
 src/main/main.o: src/main/main.cpp.o
 .PHONY : src/main/main.o
 
@@ -737,6 +809,78 @@ src/main/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/main/main.cpp.s
 .PHONY : src/main/main.cpp.s
 
+src/main/network/PacketHandler.o: src/main/network/PacketHandler.cpp.o
+.PHONY : src/main/network/PacketHandler.o
+
+# target to build an object file
+src/main/network/PacketHandler.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.o
+.PHONY : src/main/network/PacketHandler.cpp.o
+
+src/main/network/PacketHandler.i: src/main/network/PacketHandler.cpp.i
+.PHONY : src/main/network/PacketHandler.i
+
+# target to preprocess a source file
+src/main/network/PacketHandler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.i
+.PHONY : src/main/network/PacketHandler.cpp.i
+
+src/main/network/PacketHandler.s: src/main/network/PacketHandler.cpp.s
+.PHONY : src/main/network/PacketHandler.s
+
+# target to generate assembly for a file
+src/main/network/PacketHandler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/main/network/PacketHandler.cpp.s
+.PHONY : src/main/network/PacketHandler.cpp.s
+
+src/main/system/MonsterAI.o: src/main/system/MonsterAI.cpp.o
+.PHONY : src/main/system/MonsterAI.o
+
+# target to build an object file
+src/main/system/MonsterAI.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.o
+.PHONY : src/main/system/MonsterAI.cpp.o
+
+src/main/system/MonsterAI.i: src/main/system/MonsterAI.cpp.i
+.PHONY : src/main/system/MonsterAI.i
+
+# target to preprocess a source file
+src/main/system/MonsterAI.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.i
+.PHONY : src/main/system/MonsterAI.cpp.i
+
+src/main/system/MonsterAI.s: src/main/system/MonsterAI.cpp.s
+.PHONY : src/main/system/MonsterAI.s
+
+# target to generate assembly for a file
+src/main/system/MonsterAI.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/main/system/MonsterAI.cpp.s
+.PHONY : src/main/system/MonsterAI.cpp.s
+
+src/main/system/SpawnManager.o: src/main/system/SpawnManager.cpp.o
+.PHONY : src/main/system/SpawnManager.o
+
+# target to build an object file
+src/main/system/SpawnManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.o
+.PHONY : src/main/system/SpawnManager.cpp.o
+
+src/main/system/SpawnManager.i: src/main/system/SpawnManager.cpp.i
+.PHONY : src/main/system/SpawnManager.i
+
+# target to preprocess a source file
+src/main/system/SpawnManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.i
+.PHONY : src/main/system/SpawnManager.cpp.i
+
+src/main/system/SpawnManager.s: src/main/system/SpawnManager.cpp.s
+.PHONY : src/main/system/SpawnManager.s
+
+# target to generate assembly for a file
+src/main/system/SpawnManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.s
+.PHONY : src/main/system/SpawnManager.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -755,12 +899,15 @@ help:
 	@echo "... kal-db"
 	@echo "... kal-main"
 	@echo "... kal_common"
+	@echo "... src/assets/AssetLoader.o"
+	@echo "... src/assets/AssetLoader.i"
+	@echo "... src/assets/AssetLoader.s"
+	@echo "... src/assets/KsmParser.o"
+	@echo "... src/assets/KsmParser.i"
+	@echo "... src/assets/KsmParser.s"
 	@echo "... src/auth/AuthServer.o"
 	@echo "... src/auth/AuthServer.i"
 	@echo "... src/auth/AuthServer.s"
-	@echo "... src/auth/SessionManager.o"
-	@echo "... src/auth/SessionManager.i"
-	@echo "... src/auth/SessionManager.s"
 	@echo "... src/auth/main.o"
 	@echo "... src/auth/main.i"
 	@echo "... src/auth/main.s"
@@ -797,6 +944,9 @@ help:
 	@echo "... src/main/EntityManager.o"
 	@echo "... src/main/EntityManager.i"
 	@echo "... src/main/EntityManager.s"
+	@echo "... src/main/GameServer.o"
+	@echo "... src/main/GameServer.i"
+	@echo "... src/main/GameServer.s"
 	@echo "... src/main/ItemSystem.o"
 	@echo "... src/main/ItemSystem.i"
 	@echo "... src/main/ItemSystem.s"
@@ -815,9 +965,21 @@ help:
 	@echo "... src/main/WorldManager.o"
 	@echo "... src/main/WorldManager.i"
 	@echo "... src/main/WorldManager.s"
+	@echo "... src/main/core/Entities.o"
+	@echo "... src/main/core/Entities.i"
+	@echo "... src/main/core/Entities.s"
 	@echo "... src/main/main.o"
 	@echo "... src/main/main.i"
 	@echo "... src/main/main.s"
+	@echo "... src/main/network/PacketHandler.o"
+	@echo "... src/main/network/PacketHandler.i"
+	@echo "... src/main/network/PacketHandler.s"
+	@echo "... src/main/system/MonsterAI.o"
+	@echo "... src/main/system/MonsterAI.i"
+	@echo "... src/main/system/MonsterAI.s"
+	@echo "... src/main/system/SpawnManager.o"
+	@echo "... src/main/system/SpawnManager.i"
+	@echo "... src/main/system/SpawnManager.s"
 .PHONY : help
 
 

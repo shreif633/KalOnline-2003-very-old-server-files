@@ -73,61 +73,45 @@ CMakeFiles/kal-auth.dir/src/auth/main.cpp.o: CMakeFiles/kal-auth.dir/flags.make
 CMakeFiles/kal-auth.dir/src/auth/main.cpp.o: /workspace/kalonline-server/src/auth/main.cpp
 CMakeFiles/kal-auth.dir/src/auth/main.cpp.o: CMakeFiles/kal-auth.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/kal-auth.dir/src/auth/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-auth.dir/src/auth/main.cpp.o -MF CMakeFiles/kal-auth.dir/src/auth/main.cpp.o.d -o CMakeFiles/kal-auth.dir/src/auth/main.cpp.o -c /workspace/kalonline-server/src/auth/main.cpp
+	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-auth.dir/src/auth/main.cpp.o -MF CMakeFiles/kal-auth.dir/src/auth/main.cpp.o.d -o CMakeFiles/kal-auth.dir/src/auth/main.cpp.o -c /workspace/kalonline-server/src/auth/main.cpp
 
 CMakeFiles/kal-auth.dir/src/auth/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-auth.dir/src/auth/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/auth/main.cpp > CMakeFiles/kal-auth.dir/src/auth/main.cpp.i
+	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/auth/main.cpp > CMakeFiles/kal-auth.dir/src/auth/main.cpp.i
 
 CMakeFiles/kal-auth.dir/src/auth/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-auth.dir/src/auth/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/auth/main.cpp -o CMakeFiles/kal-auth.dir/src/auth/main.cpp.s
+	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/auth/main.cpp -o CMakeFiles/kal-auth.dir/src/auth/main.cpp.s
 
 CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.o: CMakeFiles/kal-auth.dir/flags.make
 CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.o: /workspace/kalonline-server/src/auth/AuthServer.cpp
 CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.o: CMakeFiles/kal-auth.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.o -MF CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.o.d -o CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.o -c /workspace/kalonline-server/src/auth/AuthServer.cpp
+	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.o -MF CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.o.d -o CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.o -c /workspace/kalonline-server/src/auth/AuthServer.cpp
 
 CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/auth/AuthServer.cpp > CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.i
+	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/auth/AuthServer.cpp > CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.i
 
 CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/auth/AuthServer.cpp -o CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.s
-
-CMakeFiles/kal-auth.dir/src/auth/SessionManager.cpp.o: CMakeFiles/kal-auth.dir/flags.make
-CMakeFiles/kal-auth.dir/src/auth/SessionManager.cpp.o: /workspace/kalonline-server/src/auth/SessionManager.cpp
-CMakeFiles/kal-auth.dir/src/auth/SessionManager.cpp.o: CMakeFiles/kal-auth.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/kal-auth.dir/src/auth/SessionManager.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-auth.dir/src/auth/SessionManager.cpp.o -MF CMakeFiles/kal-auth.dir/src/auth/SessionManager.cpp.o.d -o CMakeFiles/kal-auth.dir/src/auth/SessionManager.cpp.o -c /workspace/kalonline-server/src/auth/SessionManager.cpp
-
-CMakeFiles/kal-auth.dir/src/auth/SessionManager.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-auth.dir/src/auth/SessionManager.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/auth/SessionManager.cpp > CMakeFiles/kal-auth.dir/src/auth/SessionManager.cpp.i
-
-CMakeFiles/kal-auth.dir/src/auth/SessionManager.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-auth.dir/src/auth/SessionManager.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/auth/SessionManager.cpp -o CMakeFiles/kal-auth.dir/src/auth/SessionManager.cpp.s
+	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/auth/AuthServer.cpp -o CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.s
 
 # Object files for target kal-auth
 kal__auth_OBJECTS = \
 "CMakeFiles/kal-auth.dir/src/auth/main.cpp.o" \
-"CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.o" \
-"CMakeFiles/kal-auth.dir/src/auth/SessionManager.cpp.o"
+"CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.o"
 
 # External object files for target kal-auth
 kal__auth_EXTERNAL_OBJECTS =
 
 kal-auth: CMakeFiles/kal-auth.dir/src/auth/main.cpp.o
 kal-auth: CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.o
-kal-auth: CMakeFiles/kal-auth.dir/src/auth/SessionManager.cpp.o
 kal-auth: CMakeFiles/kal-auth.dir/build.make
 kal-auth: libkal_common.a
 kal-auth: /usr/lib/x86_64-linux-gnu/libpq.so
 kal-auth: CMakeFiles/kal-auth.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable kal-auth"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable kal-auth"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/kal-auth.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

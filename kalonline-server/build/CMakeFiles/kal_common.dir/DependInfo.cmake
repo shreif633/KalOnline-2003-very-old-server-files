@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/workspace/kalonline-server/src/assets/AssetLoader.cpp" "CMakeFiles/kal_common.dir/src/assets/AssetLoader.cpp.o" "gcc" "CMakeFiles/kal_common.dir/src/assets/AssetLoader.cpp.o.d"
   "/workspace/kalonline-server/src/common/config/Config.cpp" "CMakeFiles/kal_common.dir/src/common/config/Config.cpp.o" "gcc" "CMakeFiles/kal_common.dir/src/common/config/Config.cpp.o.d"
   "/workspace/kalonline-server/src/common/crypto/Crypto.cpp" "CMakeFiles/kal_common.dir/src/common/crypto/Crypto.cpp.o" "gcc" "CMakeFiles/kal_common.dir/src/common/crypto/Crypto.cpp.o.d"
   "/workspace/kalonline-server/src/common/database/Database.cpp" "CMakeFiles/kal_common.dir/src/common/database/Database.cpp.o" "gcc" "CMakeFiles/kal_common.dir/src/common/database/Database.cpp.o.d"

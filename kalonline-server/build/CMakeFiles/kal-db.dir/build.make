@@ -73,43 +73,43 @@ CMakeFiles/kal-db.dir/src/db/main.cpp.o: CMakeFiles/kal-db.dir/flags.make
 CMakeFiles/kal-db.dir/src/db/main.cpp.o: /workspace/kalonline-server/src/db/main.cpp
 CMakeFiles/kal-db.dir/src/db/main.cpp.o: CMakeFiles/kal-db.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/kal-db.dir/src/db/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-db.dir/src/db/main.cpp.o -MF CMakeFiles/kal-db.dir/src/db/main.cpp.o.d -o CMakeFiles/kal-db.dir/src/db/main.cpp.o -c /workspace/kalonline-server/src/db/main.cpp
+	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-db.dir/src/db/main.cpp.o -MF CMakeFiles/kal-db.dir/src/db/main.cpp.o.d -o CMakeFiles/kal-db.dir/src/db/main.cpp.o -c /workspace/kalonline-server/src/db/main.cpp
 
 CMakeFiles/kal-db.dir/src/db/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-db.dir/src/db/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/db/main.cpp > CMakeFiles/kal-db.dir/src/db/main.cpp.i
+	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/db/main.cpp > CMakeFiles/kal-db.dir/src/db/main.cpp.i
 
 CMakeFiles/kal-db.dir/src/db/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-db.dir/src/db/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/db/main.cpp -o CMakeFiles/kal-db.dir/src/db/main.cpp.s
+	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/db/main.cpp -o CMakeFiles/kal-db.dir/src/db/main.cpp.s
 
 CMakeFiles/kal-db.dir/src/db/DBServer.cpp.o: CMakeFiles/kal-db.dir/flags.make
 CMakeFiles/kal-db.dir/src/db/DBServer.cpp.o: /workspace/kalonline-server/src/db/DBServer.cpp
 CMakeFiles/kal-db.dir/src/db/DBServer.cpp.o: CMakeFiles/kal-db.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/kal-db.dir/src/db/DBServer.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-db.dir/src/db/DBServer.cpp.o -MF CMakeFiles/kal-db.dir/src/db/DBServer.cpp.o.d -o CMakeFiles/kal-db.dir/src/db/DBServer.cpp.o -c /workspace/kalonline-server/src/db/DBServer.cpp
+	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-db.dir/src/db/DBServer.cpp.o -MF CMakeFiles/kal-db.dir/src/db/DBServer.cpp.o.d -o CMakeFiles/kal-db.dir/src/db/DBServer.cpp.o -c /workspace/kalonline-server/src/db/DBServer.cpp
 
 CMakeFiles/kal-db.dir/src/db/DBServer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-db.dir/src/db/DBServer.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/db/DBServer.cpp > CMakeFiles/kal-db.dir/src/db/DBServer.cpp.i
+	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/db/DBServer.cpp > CMakeFiles/kal-db.dir/src/db/DBServer.cpp.i
 
 CMakeFiles/kal-db.dir/src/db/DBServer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-db.dir/src/db/DBServer.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/db/DBServer.cpp -o CMakeFiles/kal-db.dir/src/db/DBServer.cpp.s
+	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/db/DBServer.cpp -o CMakeFiles/kal-db.dir/src/db/DBServer.cpp.s
 
 CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o: CMakeFiles/kal-db.dir/flags.make
 CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o: /workspace/kalonline-server/src/db/QueryRouter.cpp
 CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o: CMakeFiles/kal-db.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o -MF CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o.d -o CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o -c /workspace/kalonline-server/src/db/QueryRouter.cpp
+	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o -MF CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o.d -o CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o -c /workspace/kalonline-server/src/db/QueryRouter.cpp
 
 CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/db/QueryRouter.cpp > CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.i
+	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /workspace/kalonline-server/src/db/QueryRouter.cpp > CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.i
 
 CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/db/QueryRouter.cpp -o CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.s
+	/usr/bin/clang++-16 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /workspace/kalonline-server/src/db/QueryRouter.cpp -o CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.s
 
 # Object files for target kal-db
 kal__db_OBJECTS = \

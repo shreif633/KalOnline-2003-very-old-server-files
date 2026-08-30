@@ -1,1 +1,1 @@
-/usr/bin/c++ "CMakeFiles/kal-auth.dir/src/auth/main.cpp.o" "CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.o" "CMakeFiles/kal-auth.dir/src/auth/SessionManager.cpp.o" -o kal-auth  libkal_common.a /usr/lib/x86_64-linux-gnu/libpq.so 
+/usr/bin/clang++-16  -stdlib=libc++ -O3 -DNDEBUG  -stdlib=libc++ "CMakeFiles/kal-auth.dir/src/auth/main.cpp.o" "CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.o" -o kal-auth  libkal_common.a /usr/lib/x86_64-linux-gnu/libpq.so 

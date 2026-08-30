@@ -87,12 +87,12 @@ clean: CMakeFiles/kal-main.dir/clean
 CMakeFiles/kal_common.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal_common.dir/build.make CMakeFiles/kal_common.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=19,20,21,22,23,24,25 "Built target kal_common"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=24,25,26,27,28,29,30,31 "Built target kal_common"
 .PHONY : CMakeFiles/kal_common.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/kal_common.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /workspace/kalonline-server/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspace/kalonline-server/build/CMakeFiles 8
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/kal_common.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /workspace/kalonline-server/build/CMakeFiles 0
 .PHONY : CMakeFiles/kal_common.dir/rule
@@ -113,7 +113,7 @@ CMakeFiles/kal_common.dir/clean:
 CMakeFiles/kal-auth.dir/all: CMakeFiles/kal_common.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-auth.dir/build.make CMakeFiles/kal-auth.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=1,2,3,4 "Built target kal-auth"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=1,2,3 "Built target kal-auth"
 .PHONY : CMakeFiles/kal-auth.dir/all
 
 # Build rule for subdir invocation for target.
@@ -139,12 +139,12 @@ CMakeFiles/kal-auth.dir/clean:
 CMakeFiles/kal-db.dir/all: CMakeFiles/kal_common.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-db.dir/build.make CMakeFiles/kal-db.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=5,6,7,8 "Built target kal-db"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=4,5,6,7 "Built target kal-db"
 .PHONY : CMakeFiles/kal-db.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/kal-db.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /workspace/kalonline-server/build/CMakeFiles 11
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspace/kalonline-server/build/CMakeFiles 12
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/kal-db.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /workspace/kalonline-server/build/CMakeFiles 0
 .PHONY : CMakeFiles/kal-db.dir/rule
@@ -165,12 +165,12 @@ CMakeFiles/kal-db.dir/clean:
 CMakeFiles/kal-main.dir/all: CMakeFiles/kal_common.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kal-main.dir/build.make CMakeFiles/kal-main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=9,10,11,12,13,14,15,16,17,18 "Built target kal-main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/workspace/kalonline-server/build/CMakeFiles --progress-num=8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23 "Built target kal-main"
 .PHONY : CMakeFiles/kal-main.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/kal-main.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /workspace/kalonline-server/build/CMakeFiles 17
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspace/kalonline-server/build/CMakeFiles 24
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/kal-main.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /workspace/kalonline-server/build/CMakeFiles 0
 .PHONY : CMakeFiles/kal-main.dir/rule

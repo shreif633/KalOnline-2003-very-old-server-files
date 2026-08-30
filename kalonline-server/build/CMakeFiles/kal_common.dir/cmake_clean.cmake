@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/kal_common.dir/src/assets/AssetLoader.cpp.o"
+  "CMakeFiles/kal_common.dir/src/assets/AssetLoader.cpp.o.d"
   "CMakeFiles/kal_common.dir/src/common/config/Config.cpp.o"
   "CMakeFiles/kal_common.dir/src/common/config/Config.cpp.o.d"
   "CMakeFiles/kal_common.dir/src/common/crypto/Crypto.cpp.o"
