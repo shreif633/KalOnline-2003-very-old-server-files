@@ -125,6 +125,7 @@ kal-db: CMakeFiles/kal-db.dir/src/db/DBServer.cpp.o
 kal-db: CMakeFiles/kal-db.dir/src/db/QueryRouter.cpp.o
 kal-db: CMakeFiles/kal-db.dir/build.make
 kal-db: libkal_common.a
+kal-db: /root/.conan2/p/b/libpq49f5cd2512a0e/p/lib/libpqxx.a
 kal-db: /root/.conan2/p/b/libpq441ef0303b2d0/p/lib/libpq.a
 kal-db: /root/.conan2/p/b/libpq441ef0303b2d0/p/lib/libpgcommon.a
 kal-db: /root/.conan2/p/b/libpq441ef0303b2d0/p/lib/libpgcommon_shlib.a

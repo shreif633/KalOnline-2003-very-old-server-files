@@ -109,6 +109,7 @@ kal-auth: CMakeFiles/kal-auth.dir/src/auth/main.cpp.o
 kal-auth: CMakeFiles/kal-auth.dir/src/auth/AuthServer.cpp.o
 kal-auth: CMakeFiles/kal-auth.dir/build.make
 kal-auth: libkal_common.a
+kal-auth: /root/.conan2/p/b/libpq49f5cd2512a0e/p/lib/libpqxx.a
 kal-auth: /root/.conan2/p/b/libpq441ef0303b2d0/p/lib/libpq.a
 kal-auth: /root/.conan2/p/b/libpq441ef0303b2d0/p/lib/libpgcommon.a
 kal-auth: /root/.conan2/p/b/libpq441ef0303b2d0/p/lib/libpgcommon_shlib.a

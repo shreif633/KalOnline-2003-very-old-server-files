@@ -20,6 +20,17 @@ option(KAL_USE_CONAN "Use Conan for dependency management" ON)
 find_package(Threads REQUIRED)
 find_package(PostgreSQL REQUIRED)
 find_package(nlohmann_json REQUIRED)
+
+# libpqxx from Conan
+if(EXISTS "${CMAKE_CURRENT_BINARY_DIR}/Release/generators/libpqxxTargets.cmake")
+    include("${CMAKE_CURRENT_BINARY_DIR}/Release/generators/libpqxxTargets.cmake")
+endif()
+find_package(libpqxx CONFIG QUIET)
+if(NOT libpqxx_FOUND)
+    find_library(LIBPQXX_LIB pqxx)
+    find_path(LIBPQXX_INCLUDE_DIR pqxx/pqxx)
+endif()
+
 find_package(yaml-cpp CONFIG QUIET)
 if(NOT yaml-cpp_FOUND)
     find_library(YAML_CPP_LIB yaml-cpp)
@@ -43,12 +54,12 @@ add_library(kal_common STATIC
 
 target_include_directories(kal_common PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${PostgreSQL_INCLUDE_DIRS}
 )
 
 target_link_libraries(kal_common PUBLIC
     Threads::Threads
-    ${PostgreSQL_LIBRARIES}
+    PostgreSQL::PostgreSQL
+    libpqxx::pqxx
     nlohmann_json::nlohmann_json
 )
 

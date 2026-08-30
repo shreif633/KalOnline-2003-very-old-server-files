@@ -38,6 +38,7 @@ Connection::Connection(tcp::socket socket, ConnectionManager& manager)
     , m_manager(manager)
     , m_connected(true)
     , m_writing(false) {
+    m_read_header_buffer.fill(0);
 }
 
 Connection::~Connection() {
@@ -106,32 +107,40 @@ void Connection::send(std::span<const uint8_t> data) {
         return;
     }
     
-    bool expected = false;
-    if (!m_writing.compare_exchange_strong(expected, true)) {
+    {
         std::lock_guard<std::mutex> lock(m_write_queue_mutex);
-        m_write_queue.emplace(data.begin(), data.end());
-        return;
+        m_write_queue.emplace_back(data.begin(), data.end());
     }
     
-    m_current_write.assign(data.begin(), data.end());
-    do_write();
+    bool expected = false;
+    if (m_writing.compare_exchange_strong(expected, true)) {
+        do_write();
+    }
 }
 
 void Connection::do_write() {
     auto self = shared_from_this();
-    asio::async_write(m_socket, asio::buffer(m_current_write),
-        [this, self](std::error_code ec, std::size_t /*bytes_transferred*/) {
+    
+    std::vector<uint8_t> data_to_send;
+    {
+        std::lock_guard<std::mutex> lock(m_write_queue_mutex);
+        if (m_write_queue.empty()) {
+            m_writing.store(false);
+            return;
+        }
+        data_to_send = std::move(m_write_queue.front());
+        m_write_queue.pop_front();
+    }
+    
+    asio::async_write(m_socket, asio::buffer(data_to_send),
+        [this, self, data_to_send](std::error_code ec, std::size_t /*bytes_transferred*/) mutable {
             if (!ec && m_connected) {
                 bool expected = true;
                 if (m_writing.compare_exchange_strong(expected, false)) {
                     std::lock_guard<std::mutex> lock(m_write_queue_mutex);
                     if (!m_write_queue.empty()) {
-                        m_current_write = std::move(m_write_queue.front());
-                        m_write_queue.pop();
-                        expected = false;
-                        if (m_writing.compare_exchange_strong(expected, true)) {
-                            do_write();
-                        }
+                        m_writing.store(true);
+                        do_write();
                     }
                 }
             } else {

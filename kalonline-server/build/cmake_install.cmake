@@ -54,7 +54,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/kal-auth")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/kal-auth"
-         OLD_RPATH "/root/.conan2/p/b/libpq441ef0303b2d0/p/lib:/root/.conan2/p/b/yaml-60ca5b141ec49/p/lib:"
+         OLD_RPATH "/root/.conan2/p/b/libpq441ef0303b2d0/p/lib:/root/.conan2/p/b/libpq49f5cd2512a0e/p/lib:/root/.conan2/p/b/yaml-60ca5b141ec49/p/lib:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/kal-auth")
@@ -74,7 +74,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/kal-db")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/kal-db"
-         OLD_RPATH "/root/.conan2/p/b/libpq441ef0303b2d0/p/lib:/root/.conan2/p/b/yaml-60ca5b141ec49/p/lib:"
+         OLD_RPATH "/root/.conan2/p/b/libpq441ef0303b2d0/p/lib:/root/.conan2/p/b/libpq49f5cd2512a0e/p/lib:/root/.conan2/p/b/yaml-60ca5b141ec49/p/lib:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/kal-db")
@@ -94,7 +94,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/kal-main")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/kal-main"
-         OLD_RPATH "/root/.conan2/p/b/libpq441ef0303b2d0/p/lib:/root/.conan2/p/b/yaml-60ca5b141ec49/p/lib:"
+         OLD_RPATH "/root/.conan2/p/b/libpq441ef0303b2d0/p/lib:/root/.conan2/p/b/libpq49f5cd2512a0e/p/lib:/root/.conan2/p/b/yaml-60ca5b141ec49/p/lib:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/kal-main")

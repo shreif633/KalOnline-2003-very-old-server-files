@@ -317,6 +317,7 @@ kal-main: CMakeFiles/kal-main.dir/src/main/system/SpawnManager.cpp.o
 kal-main: CMakeFiles/kal-main.dir/src/assets/KsmParser.cpp.o
 kal-main: CMakeFiles/kal-main.dir/build.make
 kal-main: libkal_common.a
+kal-main: /root/.conan2/p/b/libpq49f5cd2512a0e/p/lib/libpqxx.a
 kal-main: /root/.conan2/p/b/libpq441ef0303b2d0/p/lib/libpq.a
 kal-main: /root/.conan2/p/b/libpq441ef0303b2d0/p/lib/libpgcommon.a
 kal-main: /root/.conan2/p/b/libpq441ef0303b2d0/p/lib/libpgcommon_shlib.a

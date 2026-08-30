@@ -4,7 +4,10 @@
 #include <memory>
 #include <span>
 #include <vector>
+#include <deque>
+#include <array>
 #include <mutex>
+#include <atomic>
 #include <unordered_map>
 #include <functional>
 #include <expected>
@@ -52,18 +55,18 @@ private:
     tcp::socket m_socket;
     ConnectionManager& m_manager;
     
-    std::vector<uint8_t> m_read_buffer;
-    std::vector<std::vector<uint8_t>> m_write_queue;
+    std::array<uint8_t, 2> m_read_header_buffer;
+    std::vector<uint8_t> m_read_payload;
+    std::deque<std::vector<uint8_t>> m_write_queue;
     
-    bool m_connected = false;
-    bool m_writing = false;
-    uint16_t m_expected_payload_length = 0;
+    std::atomic<bool> m_connected = false;
+    std::atomic<bool> m_writing = false;
     
     PacketCallback m_packet_handler;
     
-    mutable std::mutex m_write_mutex;
+    mutable std::mutex m_write_queue_mutex;
     
-    static constexpr size_t HEADER_SIZE = 4;
+    static constexpr size_t HEADER_SIZE = 2;
 };
 
 class TcpServer {

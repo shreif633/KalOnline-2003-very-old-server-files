@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DYAML_CPP_STATIC_DEFINE
 
-CXX_INCLUDES = -I/workspace/kalonline-server/src -isystem /root/.conan2/p/nlohm0567ffc90cfc1/p/include -isystem /root/.conan2/p/b/yaml-60ca5b141ec49/p/include
+CXX_INCLUDES = -I/workspace/kalonline-server/src -isystem /root/.conan2/p/b/libpq49f5cd2512a0e/p/include -isystem /root/.conan2/p/nlohm0567ffc90cfc1/p/include -isystem /root/.conan2/p/b/yaml-60ca5b141ec49/p/include
 
 CXX_FLAGS = -m64 -O3 -DNDEBUG -std=c++23
 
