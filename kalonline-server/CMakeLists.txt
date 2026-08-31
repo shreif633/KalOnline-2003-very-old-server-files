@@ -40,6 +40,7 @@ add_executable(kal-auth
 target_link_libraries(kal-auth
     Threads::Threads
     ${PostgreSQL_LIBRARIES}
+    pqxx
     yaml-cpp
     Boost::system
     fmt::fmt
@@ -55,6 +56,7 @@ add_executable(kal-db
 target_link_libraries(kal-db
     Threads::Threads
     ${PostgreSQL_LIBRARIES}
+    pqxx
     yaml-cpp
     Boost::system
     fmt::fmt

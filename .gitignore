@@ -4,40 +4,36 @@ build/
 CMakeCache.txt
 CMakeFiles/
 
-# Compiled files
-*.o
-*.obj
+# Dependencies
 *.a
 *.lib
 *.so
 *.dll
+*.dylib
 *.exe
-*.out
 
-# Dependencies
-vendor/
-.externalNativeBuild/
-
-# Logs and temp files
-*.log
+# Temporary files
 *.tmp
+*.log
+*~
+
+# IDE files
+.vscode/
+.idea/
 *.swp
+*.swo
 
 # Environment
 .env
 .env.local
 *.env.*
 
-# Editors
-.vscode/
-.idea/
-
-# Coverage
+# Coverage reports
 coverage/
 htmlcov/
 .coverage
 
-# OS generated files
+# OS specific
 .DS_Store
 Thumbs.db
 ```
