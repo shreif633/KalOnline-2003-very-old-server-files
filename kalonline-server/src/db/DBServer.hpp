@@ -2,6 +2,7 @@
 #include "common/network/Network.hpp"
 #include "common/database/Database.hpp"
 #include "db/core/QueryRouter.hpp"
+#include "db/DatabasePool.hpp"
 #include <asio.hpp>
 #include <memory>
 #include <atomic>
@@ -91,8 +92,6 @@ struct DBStats {
     std::atomic<uint64_t> active_connections{0};
     std::atomic<uint64_t> avg_response_time_us{0};
 };
-
-class DatabasePool;
 
 class DBServer {
 public:
