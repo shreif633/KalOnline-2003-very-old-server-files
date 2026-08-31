@@ -1,10 +1,11 @@
 ```
 # Build artifacts
 build/
-CMakeCache.txt
+cmake-build-*/
 CMakeFiles/
-
-# Compiled files
+CMakeCache.txt
+*.cmake
+Makefile
 *.o
 *.obj
 *.a
@@ -12,32 +13,44 @@ CMakeFiles/
 *.so
 *.dll
 *.exe
-*.out
 
 # Dependencies
-vendor/
 .externalNativeBuild/
+.gradle/
+node_modules/
+vendor/
 
-# Logs and temp files
-*.log
-*.tmp
+# IDE files
+.vscode/
+.idea/
 *.swp
+*.swo
+*.tmp
+
+# Logs
+*.log
 
 # Environment
 .env
 .env.local
 *.env.*
 
-# Editors
-.vscode/
-.idea/
+# OS files
+.DS_Store
+Thumbs.db
 
 # Coverage
 coverage/
 htmlcov/
 .coverage
 
-# OS generated files
-.DS_Store
-Thumbs.db
+# Python specific
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.Pytest_cache/
+.mypy_cache/
 ```
