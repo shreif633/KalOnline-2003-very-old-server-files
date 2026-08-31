@@ -37,18 +37,18 @@ int main(int argc, char* argv[]) {
         g_ioContext = std::make_unique<asio::io_context>();
         uint16_t port = static_cast<uint16_t>(config.get_int("network.db_port", 9002));
         
-        g_dbServer = std::make_unique<kal::db::DBServer>(*g_ioContext, port);
+        g_dbServer = std::make_unique<kal::db::DBServer>(*g_ioContext, port, nullptr);
         
         KAL_LOG_INFO("DB Server initialized on port {}. Starting service...", port);
         
         // Start the server
-        g_dbServer->Start();
+        g_dbServer->start();
         
         g_ioContext->run();
 
         // Stop server
         if (g_dbServer) {
-            g_dbServer->Stop();
+            g_dbServer->stop();
         }
 
         KAL_LOG_INFO("DB Server shut down gracefully.");

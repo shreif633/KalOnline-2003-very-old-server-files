@@ -1,10 +1,12 @@
 #include "db/DBServer.hpp"
-#include <format>
+#include <fmt/format.h>
 #include <bit>
 
 namespace kal::db {
 
 using namespace logger;
+using Opcode = ServerQueryOpcode;
+using Result = ServerQueryResult;
 
 DBServer::DBServer(asio::io_context& io_context, uint16_t port,
                    std::shared_ptr<DatabasePool> db_pool)
@@ -13,7 +15,7 @@ DBServer::DBServer(asio::io_context& io_context, uint16_t port,
 {
     m_stats.start_time = std::chrono::system_clock::now();
     register_handlers();
-    LOG_INFO("DBServer initialized on port {}", port);
+    KAL_LOG_INFO("DBServer initialized on port {}", port);
 }
 
 DBServer::~DBServer() {
@@ -22,13 +24,13 @@ DBServer::~DBServer() {
 
 void DBServer::start() {
     if (m_running.exchange(true)) {
-        LOG_WARN("DBServer already running");
+        KAL_LOG_WARNING("DBServer already running");
         return;
     }
     
-    LOG_INFO("Starting DBServer...");
+    KAL_LOG_INFO("Starting DBServer...");
     TcpServer::start();
-    LOG_INFO("DBServer started successfully");
+    KAL_LOG_INFO("DBServer started successfully");
 }
 
 void DBServer::stop() {
@@ -36,112 +38,112 @@ void DBServer::stop() {
         return;
     }
     
-    LOG_INFO("Stopping DBServer...");
+    KAL_LOG_INFO("Stopping DBServer...");
     TcpServer::stop();
-    LOG_INFO("DBServer stopped");
+    KAL_LOG_INFO("DBServer stopped");
 }
 
 void DBServer::register_handlers() {
     std::unique_lock lock(m_handlers_mutex);
     
     // Character operations
-    m_handlers[QueryOpcode::LoadCharacter] = [this](auto&&... args) { 
+    m_handlers[Opcode::LoadCharacter] = [this](auto&&... args) { 
         handle_load_character(std::forward<decltype(args)>(args)...); 
     };
-    m_handlers[QueryOpcode::SaveCharacter] = [this](auto&&... args) { 
+    m_handlers[Opcode::SaveCharacter] = [this](auto&&... args) { 
         handle_save_character(std::forward<decltype(args)>(args)...); 
     };
-    m_handlers[QueryOpcode::CreateCharacter] = [this](auto&&... args) { 
+    m_handlers[Opcode::CreateCharacter] = [this](auto&&... args) { 
         handle_create_character(std::forward<decltype(args)>(args)...); 
     };
-    m_handlers[QueryOpcode::DeleteCharacter] = [this](auto&&... args) { 
+    m_handlers[Opcode::DeleteCharacter] = [this](auto&&... args) { 
         handle_delete_character(std::forward<decltype(args)>(args)...); 
     };
     
     // Inventory operations
-    m_handlers[QueryOpcode::LoadInventory] = [this](auto&&... args) { 
+    m_handlers[Opcode::LoadInventory] = [this](auto&&... args) { 
         handle_load_inventory(std::forward<decltype(args)>(args)...); 
     };
-    m_handlers[QueryOpcode::SaveInventory] = [this](auto&&... args) { 
+    m_handlers[Opcode::SaveInventory] = [this](auto&&... args) { 
         handle_save_inventory(std::forward<decltype(args)>(args)...); 
     };
-    m_handlers[QueryOpcode::MoveItem] = [this](auto&&... args) { 
+    m_handlers[Opcode::MoveItem] = [this](auto&&... args) { 
         handle_move_item(std::forward<decltype(args)>(args)...); 
     };
-    m_handlers[QueryOpcode::DropItem] = [this](auto&&... args) { 
+    m_handlers[Opcode::DropItem] = [this](auto&&... args) { 
         handle_drop_item(std::forward<decltype(args)>(args)...); 
     };
-    m_handlers[QueryOpcode::EquipItem] = [this](auto&&... args) { 
+    m_handlers[Opcode::EquipItem] = [this](auto&&... args) { 
         handle_equip_item(std::forward<decltype(args)>(args)...); 
     };
-    m_handlers[QueryOpcode::UnequipItem] = [this](auto&&... args) { 
+    m_handlers[Opcode::UnequipItem] = [this](auto&&... args) { 
         handle_unequip_item(std::forward<decltype(args)>(args)...); 
     };
     
     // Skill operations
-    m_handlers[QueryOpcode::LoadSkills] = [this](auto&&... args) { 
+    m_handlers[Opcode::LoadSkills] = [this](auto&&... args) { 
         handle_load_skills(std::forward<decltype(args)>(args)...); 
     };
-    m_handlers[QueryOpcode::LearnSkill] = [this](auto&&... args) { 
+    m_handlers[Opcode::LearnSkill] = [this](auto&&... args) { 
         handle_learn_skill(std::forward<decltype(args)>(args)...); 
     };
-    m_handlers[QueryOpcode::UnlearnSkill] = [this](auto&&... args) { 
+    m_handlers[Opcode::UnlearnSkill] = [this](auto&&... args) { 
         handle_unlearn_skill(std::forward<decltype(args)>(args)...); 
     };
     
     // Quest operations
-    m_handlers[QueryOpcode::LoadQuests] = [this](auto&&... args) { 
+    m_handlers[Opcode::LoadQuests] = [this](auto&&... args) { 
         handle_load_quests(std::forward<decltype(args)>(args)...); 
     };
-    m_handlers[QueryOpcode::UpdateQuest] = [this](auto&&... args) { 
+    m_handlers[Opcode::UpdateQuest] = [this](auto&&... args) { 
         handle_update_quest(std::forward<decltype(args)>(args)...); 
     };
-    m_handlers[QueryOpcode::CompleteQuest] = [this](auto&&... args) { 
+    m_handlers[Opcode::CompleteQuest] = [this](auto&&... args) { 
         handle_complete_quest(std::forward<decltype(args)>(args)...); 
     };
     
     // Social operations
-    m_handlers[QueryOpcode::LoadFriends] = [this](auto&&... args) { 
+    m_handlers[Opcode::LoadFriends] = [this](auto&&... args) { 
         handle_load_friends(std::forward<decltype(args)>(args)...); 
     };
-    m_handlers[QueryOpcode::AddFriend] = [this](auto&&... args) { 
+    m_handlers[Opcode::AddFriend] = [this](auto&&... args) { 
         handle_add_friend(std::forward<decltype(args)>(args)...); 
     };
-    m_handlers[QueryOpcode::RemoveFriend] = [this](auto&&... args) { 
+    m_handlers[Opcode::RemoveFriend] = [this](auto&&... args) { 
         handle_remove_friend(std::forward<decltype(args)>(args)...); 
     };
-    m_handlers[QueryOpcode::LoadGuild] = [this](auto&&... args) { 
+    m_handlers[Opcode::LoadGuild] = [this](auto&&... args) { 
         handle_load_guild(std::forward<decltype(args)>(args)...); 
     };
-    m_handlers[QueryOpcode::CreateGuild] = [this](auto&&... args) { 
+    m_handlers[Opcode::CreateGuild] = [this](auto&&... args) { 
         handle_create_guild(std::forward<decltype(args)>(args)...); 
     };
     
     // Mail operations
-    m_handlers[QueryOpcode::LoadMail] = [this](auto&&... args) { 
+    m_handlers[Opcode::LoadMail] = [this](auto&&... args) { 
         handle_load_mail(std::forward<decltype(args)>(args)...); 
     };
-    m_handlers[QueryOpcode::SendMail] = [this](auto&&... args) { 
+    m_handlers[Opcode::SendMail] = [this](auto&&... args) { 
         handle_send_mail(std::forward<decltype(args)>(args)...); 
     };
-    m_handlers[QueryOpcode::DeleteMail] = [this](auto&&... args) { 
+    m_handlers[Opcode::DeleteMail] = [this](auto&&... args) { 
         handle_delete_mail(std::forward<decltype(args)>(args)...); 
     };
     
     // Economy operations
-    m_handlers[QueryOpcode::BuyItem] = [this](auto&&... args) { 
+    m_handlers[Opcode::BuyItem] = [this](auto&&... args) { 
         handle_buy_item(std::forward<decltype(args)>(args)...); 
     };
-    m_handlers[QueryOpcode::SellItem] = [this](auto&&... args) { 
+    m_handlers[Opcode::SellItem] = [this](auto&&... args) { 
         handle_sell_item(std::forward<decltype(args)>(args)...); 
     };
     
-    LOG_INFO("Registered {} query handlers", m_handlers.size());
+    KAL_LOG_INFO("Registered {} query handlers", m_handlers.size());
 }
 
 void DBServer::on_packet_received(ConnectionPtr conn, const Packet& packet) {
     if (packet.size() < sizeof(uint16_t) * 2) {
-        LOG_WARN("Invalid packet from {}: too small", conn->get_endpoint());
+        KAL_LOG_WARNING("Invalid packet from {}: too small", conn->get_endpoint());
         conn->close();
         return;
     }
@@ -152,7 +154,7 @@ void DBServer::on_packet_received(ConnectionPtr conn, const Packet& packet) {
     
     auto start_time = std::chrono::steady_clock::now();
     
-    LOG_DEBUG("Received DB query: opcode={:#06x}, size={}", 
+    KAL_LOG_INFO("Received DB query: opcode={:#06x}, size={}", 
               static_cast<uint16_t>(opcode), packet.size());
     
     // Find and execute handler
@@ -170,15 +172,15 @@ void DBServer::on_packet_received(ConnectionPtr conn, const Packet& packet) {
                 log_query_performance(opcode, duration, true);
                 m_stats.total_queries.fetch_add(1, std::memory_order_relaxed);
             } catch (const std::exception& e) {
-                LOG_ERROR("Query handler exception: {}", e.what());
-                auto response = create_response(opcode, QueryResult::DatabaseError);
+                KAL_LOG_ERROR("Query handler exception: {}", e.what());
+                auto response = create_response(opcode, Result::DatabaseError);
                 conn->send(response);
                 
                 m_stats.failed_queries.fetch_add(1, std::memory_order_relaxed);
             }
         } else {
-            LOG_WARN("Unknown query opcode: {:#06x}", static_cast<uint16_t>(opcode));
-            auto response = create_response(opcode, QueryResult::InvalidData);
+            KAL_LOG_WARNING("Unknown query opcode: {:#06x}", static_cast<uint16_t>(opcode));
+            auto response = create_response(opcode, Result::InvalidData);
             conn->send(response);
         }
     }
@@ -214,7 +216,7 @@ Packet DBServer::create_response(QueryOpcode opcode, QueryResult result,
 
 void DBServer::log_query_performance(QueryOpcode opcode, uint64_t duration_us, bool success) {
     if (!success) {
-        LOG_WARN("Query failed: opcode={:#06x}, duration={}us", 
+        KAL_LOG_WARNING("Query failed: opcode={:#06x}, duration={}us", 
                  static_cast<uint16_t>(opcode), duration_us);
         return;
     }
@@ -229,7 +231,7 @@ void DBServer::log_query_performance(QueryOpcode opcode, uint64_t duration_us, b
     
     // Log slow queries (>10ms)
     if (duration_us > 10000) {
-        LOG_WARN("Slow query detected: opcode={:#06x}, duration={}us", 
+        KAL_LOG_WARNING("Slow query detected: opcode={:#06x}, duration={}us", 
                  static_cast<uint16_t>(opcode), duration_us);
     }
 }
@@ -240,7 +242,7 @@ void DBServer::log_query_performance(QueryOpcode opcode, uint64_t duration_us, b
 
 void DBServer::handle_character_query(ConnectionPtr conn, const Packet& packet) {
     if (packet.size() < sizeof(uint16_t) * 2) {
-        LOG_WARN("Invalid character query packet");
+        KAL_LOG_WARNING("Invalid character query packet");
         return;
     }
     
@@ -248,20 +250,20 @@ void DBServer::handle_character_query(ConnectionPtr conn, const Packet& packet) 
     auto sub_opcode = std::bit_cast<QueryOpcode>(data[sizeof(uint16_t)]);
     
     switch (sub_opcode) {
-        case QueryOpcode::LoadCharacter:
+        case Opcode::LoadCharacter:
             handle_load_character(conn, packet);
             break;
-        case QueryOpcode::SaveCharacter:
+        case Opcode::SaveCharacter:
             handle_save_character(conn, packet);
             break;
-        case QueryOpcode::CreateCharacter:
+        case Opcode::CreateCharacter:
             handle_create_character(conn, packet);
             break;
-        case QueryOpcode::DeleteCharacter:
+        case Opcode::DeleteCharacter:
             handle_delete_character(conn, packet);
             break;
         default:
-            LOG_WARN("Unknown character sub-opcode");
+            KAL_LOG_WARNING("Unknown character sub-opcode");
             break;
     }
 }
@@ -269,9 +271,9 @@ void DBServer::handle_character_query(ConnectionPtr conn, const Packet& packet) 
 void DBServer::handle_load_character(ConnectionPtr conn, const Packet& packet) {
     // Expected format: [Length:2][Opcode:2][CharacterID:4]
     if (packet.size() < sizeof(uint16_t) * 2 + sizeof(uint32_t)) {
-        LOG_WARN("Invalid load character packet size");
-        auto response = create_response(QueryOpcode::LoadCharacter, 
-                                       QueryResult::InvalidData);
+        KAL_LOG_WARNING("Invalid load character packet size");
+        auto response = create_response(Opcode::LoadCharacter, 
+                                       Result::InvalidData);
         conn->send(response);
         return;
     }
@@ -280,7 +282,7 @@ void DBServer::handle_load_character(ConnectionPtr conn, const Packet& packet) {
     uint32_t character_id;
     std::memcpy(&character_id, data + sizeof(uint16_t) * 2, sizeof(uint32_t));
     
-    LOG_DEBUG("Loading character ID: {}", character_id);
+    KAL_LOG_INFO("Loading character ID: {}", character_id);
     
     try {
         auto db = m_db_pool->get_connection();
@@ -295,9 +297,9 @@ void DBServer::handle_load_character(ConnectionPtr conn, const Packet& packet) {
         );
         
         if (result.empty()) {
-            LOG_WARN("Character not found: {}", character_id);
-            auto response = create_response(QueryOpcode::LoadCharacter, 
-                                           QueryResult::NotFound);
+            KAL_LOG_WARNING("Character not found: {}", character_id);
+            auto response = create_response(Opcode::LoadCharacter, 
+                                           Result::NotFound);
             conn->send(response);
             return;
         }
@@ -325,6 +327,12 @@ void DBServer::handle_load_character(ConnectionPtr conn, const Packet& packet) {
             size_t pos = payload.size();
             payload.resize(pos + sizeof(uint32_t));
             std::memcpy(payload.data() + pos, &val, sizeof(uint32_t));
+        };
+        
+        auto append_uint8 = [&payload](uint8_t val) {
+            size_t pos = payload.size();
+            payload.resize(pos + sizeof(uint8_t));
+            std::memcpy(payload.data() + pos, &val, sizeof(uint8_t));
         };
         
         append_uint16(row["level"].as<uint16_t>());
@@ -366,37 +374,37 @@ void DBServer::handle_load_character(ConnectionPtr conn, const Packet& packet) {
         append_uint32(row["party_id"].is_null() ? 0 : row["party_id"].as<uint32_t>());
         append_uint32(row["quest_progress"].is_null() ? 0 : row["quest_progress"].as<uint32_t>());
         
-        auto response = create_response(QueryOpcode::LoadCharacter, 
-                                       QueryResult::Success, payload);
+        auto response = create_response(Opcode::LoadCharacter, 
+                                       Result::Success, payload);
         conn->send(response);
         
     } catch (const std::exception& e) {
-        LOG_ERROR("Failed to load character {}: {}", character_id, e.what());
-        auto response = create_response(QueryOpcode::LoadCharacter, 
-                                       QueryResult::DatabaseError);
+        KAL_LOG_ERROR("Failed to load character {}: {}", character_id, e.what());
+        auto response = create_response(Opcode::LoadCharacter, 
+                                       Result::DatabaseError);
         conn->send(response);
     }
 }
 
 void DBServer::handle_save_character(ConnectionPtr conn, const Packet& packet) {
     // Implementation for saving character data
-    LOG_DEBUG("Save character request received");
+    KAL_LOG_INFO("Save character request received");
     // TODO: Implement character save logic
-    auto response = create_response(QueryOpcode::SaveCharacter, QueryResult::Success);
+    auto response = create_response(Opcode::SaveCharacter, Result::Success);
     conn->send(response);
 }
 
 void DBServer::handle_create_character(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Create character request received");
+    KAL_LOG_INFO("Create character request received");
     // TODO: Implement character creation
-    auto response = create_response(QueryOpcode::CreateCharacter, QueryResult::Success);
+    auto response = create_response(Opcode::CreateCharacter, Result::Success);
     conn->send(response);
 }
 
 void DBServer::handle_delete_character(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Delete character request received");
+    KAL_LOG_INFO("Delete character request received");
     // TODO: Implement character deletion
-    auto response = create_response(QueryOpcode::DeleteCharacter, QueryResult::Success);
+    auto response = create_response(Opcode::DeleteCharacter, Result::Success);
     conn->send(response);
 }
 
@@ -411,9 +419,9 @@ void DBServer::handle_inventory_query(ConnectionPtr conn, const Packet& packet) 
 
 void DBServer::handle_load_inventory(ConnectionPtr conn, const Packet& packet) {
     if (packet.size() < sizeof(uint16_t) * 2 + sizeof(uint32_t)) {
-        LOG_WARN("Invalid load inventory packet");
-        auto response = create_response(QueryOpcode::LoadInventory, 
-                                       QueryResult::InvalidData);
+        KAL_LOG_WARNING("Invalid load inventory packet");
+        auto response = create_response(Opcode::LoadInventory, 
+                                       Result::InvalidData);
         conn->send(response);
         return;
     }
@@ -422,7 +430,7 @@ void DBServer::handle_load_inventory(ConnectionPtr conn, const Packet& packet) {
     uint32_t character_id;
     std::memcpy(&character_id, data + sizeof(uint16_t) * 2, sizeof(uint32_t));
     
-    LOG_DEBUG("Loading inventory for character {}", character_id);
+    KAL_LOG_INFO("Loading inventory for character {}", character_id);
     
     try {
         auto db = m_db_pool->get_connection();
@@ -434,8 +442,8 @@ void DBServer::handle_load_inventory(ConnectionPtr conn, const Packet& packet) {
         
         if (result.empty()) {
             // No inventory yet, return empty
-            auto response = create_response(QueryOpcode::LoadInventory, 
-                                           QueryResult::Success);
+            auto response = create_response(Opcode::LoadInventory, 
+                                           Result::Success);
             conn->send(response);
             return;
         }
@@ -443,46 +451,46 @@ void DBServer::handle_load_inventory(ConnectionPtr conn, const Packet& packet) {
         const auto& row = result[0];
         auto blob = row["item_blob"].as<std::vector<uint8_t>>();
         
-        auto response = create_response(QueryOpcode::LoadInventory, 
-                                       QueryResult::Success, blob);
+        auto response = create_response(Opcode::LoadInventory, 
+                                       Result::Success, blob);
         conn->send(response);
         
     } catch (const std::exception& e) {
-        LOG_ERROR("Failed to load inventory: {}", e.what());
-        auto response = create_response(QueryOpcode::LoadInventory, 
-                                       QueryResult::DatabaseError);
+        KAL_LOG_ERROR("Failed to load inventory: {}", e.what());
+        auto response = create_response(Opcode::LoadInventory, 
+                                       Result::DatabaseError);
         conn->send(response);
     }
 }
 
 void DBServer::handle_save_inventory(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Save inventory request received");
+    KAL_LOG_INFO("Save inventory request received");
     // TODO: Implement inventory save with blob serialization
-    auto response = create_response(QueryOpcode::SaveInventory, QueryResult::Success);
+    auto response = create_response(Opcode::SaveInventory, Result::Success);
     conn->send(response);
 }
 
 void DBServer::handle_move_item(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Move item request received");
-    auto response = create_response(QueryOpcode::MoveItem, QueryResult::Success);
+    KAL_LOG_INFO("Move item request received");
+    auto response = create_response(Opcode::MoveItem, Result::Success);
     conn->send(response);
 }
 
 void DBServer::handle_drop_item(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Drop item request received");
-    auto response = create_response(QueryOpcode::DropItem, QueryResult::Success);
+    KAL_LOG_INFO("Drop item request received");
+    auto response = create_response(Opcode::DropItem, Result::Success);
     conn->send(response);
 }
 
 void DBServer::handle_equip_item(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Equip item request received");
-    auto response = create_response(QueryOpcode::EquipItem, QueryResult::Success);
+    KAL_LOG_INFO("Equip item request received");
+    auto response = create_response(Opcode::EquipItem, Result::Success);
     conn->send(response);
 }
 
 void DBServer::handle_unequip_item(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Unequip item request received");
-    auto response = create_response(QueryOpcode::UnequipItem, QueryResult::Success);
+    KAL_LOG_INFO("Unequip item request received");
+    auto response = create_response(Opcode::UnequipItem, Result::Success);
     conn->send(response);
 }
 
@@ -496,9 +504,9 @@ void DBServer::handle_skill_query(ConnectionPtr conn, const Packet& packet) {
 
 void DBServer::handle_load_skills(ConnectionPtr conn, const Packet& packet) {
     if (packet.size() < sizeof(uint16_t) * 2 + sizeof(uint32_t)) {
-        LOG_WARN("Invalid load skills packet");
-        auto response = create_response(QueryOpcode::LoadSkills, 
-                                       QueryResult::InvalidData);
+        KAL_LOG_WARNING("Invalid load skills packet");
+        auto response = create_response(Opcode::LoadSkills, 
+                                       Result::InvalidData);
         conn->send(response);
         return;
     }
@@ -507,7 +515,7 @@ void DBServer::handle_load_skills(ConnectionPtr conn, const Packet& packet) {
     uint32_t character_id;
     std::memcpy(&character_id, data + sizeof(uint16_t) * 2, sizeof(uint32_t));
     
-    LOG_DEBUG("Loading skills for character {}", character_id);
+    KAL_LOG_INFO("Loading skills for character {}", character_id);
     
     try {
         auto db = m_db_pool->get_connection();
@@ -518,8 +526,8 @@ void DBServer::handle_load_skills(ConnectionPtr conn, const Packet& packet) {
         );
         
         if (result.empty()) {
-            auto response = create_response(QueryOpcode::LoadSkills, 
-                                           QueryResult::Success);
+            auto response = create_response(Opcode::LoadSkills, 
+                                           Result::Success);
             conn->send(response);
             return;
         }
@@ -527,27 +535,27 @@ void DBServer::handle_load_skills(ConnectionPtr conn, const Packet& packet) {
         const auto& row = result[0];
         auto blob = row["skill_blob"].as<std::vector<uint8_t>>();
         
-        auto response = create_response(QueryOpcode::LoadSkills, 
-                                       QueryResult::Success, blob);
+        auto response = create_response(Opcode::LoadSkills, 
+                                       Result::Success, blob);
         conn->send(response);
         
     } catch (const std::exception& e) {
-        LOG_ERROR("Failed to load skills: {}", e.what());
-        auto response = create_response(QueryOpcode::LoadSkills, 
-                                       QueryResult::DatabaseError);
+        KAL_LOG_ERROR("Failed to load skills: {}", e.what());
+        auto response = create_response(Opcode::LoadSkills, 
+                                       Result::DatabaseError);
         conn->send(response);
     }
 }
 
 void DBServer::handle_learn_skill(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Learn skill request received");
-    auto response = create_response(QueryOpcode::LearnSkill, QueryResult::Success);
+    KAL_LOG_INFO("Learn skill request received");
+    auto response = create_response(Opcode::LearnSkill, Result::Success);
     conn->send(response);
 }
 
 void DBServer::handle_unlearn_skill(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Unlearn skill request received");
-    auto response = create_response(QueryOpcode::UnlearnSkill, QueryResult::Success);
+    KAL_LOG_INFO("Unlearn skill request received");
+    auto response = create_response(Opcode::UnlearnSkill, Result::Success);
     conn->send(response);
 }
 
@@ -560,20 +568,20 @@ void DBServer::handle_quest_query(ConnectionPtr conn, const Packet& packet) {
 }
 
 void DBServer::handle_load_quests(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Load quests request received");
-    auto response = create_response(QueryOpcode::LoadQuests, QueryResult::Success);
+    KAL_LOG_INFO("Load quests request received");
+    auto response = create_response(Opcode::LoadQuests, Result::Success);
     conn->send(response);
 }
 
 void DBServer::handle_update_quest(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Update quest request received");
-    auto response = create_response(QueryOpcode::UpdateQuest, QueryResult::Success);
+    KAL_LOG_INFO("Update quest request received");
+    auto response = create_response(Opcode::UpdateQuest, Result::Success);
     conn->send(response);
 }
 
 void DBServer::handle_complete_quest(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Complete quest request received");
-    auto response = create_response(QueryOpcode::CompleteQuest, QueryResult::Success);
+    KAL_LOG_INFO("Complete quest request received");
+    auto response = create_response(Opcode::CompleteQuest, Result::Success);
     conn->send(response);
 }
 
@@ -586,32 +594,32 @@ void DBServer::handle_social_query(ConnectionPtr conn, const Packet& packet) {
 }
 
 void DBServer::handle_load_friends(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Load friends request received");
-    auto response = create_response(QueryOpcode::LoadFriends, QueryResult::Success);
+    KAL_LOG_INFO("Load friends request received");
+    auto response = create_response(Opcode::LoadFriends, Result::Success);
     conn->send(response);
 }
 
 void DBServer::handle_add_friend(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Add friend request received");
-    auto response = create_response(QueryOpcode::AddFriend, QueryResult::Success);
+    KAL_LOG_INFO("Add friend request received");
+    auto response = create_response(Opcode::AddFriend, Result::Success);
     conn->send(response);
 }
 
 void DBServer::handle_remove_friend(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Remove friend request received");
-    auto response = create_response(QueryOpcode::RemoveFriend, QueryResult::Success);
+    KAL_LOG_INFO("Remove friend request received");
+    auto response = create_response(Opcode::RemoveFriend, Result::Success);
     conn->send(response);
 }
 
 void DBServer::handle_load_guild(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Load guild request received");
-    auto response = create_response(QueryOpcode::LoadGuild, QueryResult::Success);
+    KAL_LOG_INFO("Load guild request received");
+    auto response = create_response(Opcode::LoadGuild, Result::Success);
     conn->send(response);
 }
 
 void DBServer::handle_create_guild(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Create guild request received");
-    auto response = create_response(QueryOpcode::CreateGuild, QueryResult::Success);
+    KAL_LOG_INFO("Create guild request received");
+    auto response = create_response(Opcode::CreateGuild, Result::Success);
     conn->send(response);
 }
 
@@ -624,20 +632,20 @@ void DBServer::handle_mail_query(ConnectionPtr conn, const Packet& packet) {
 }
 
 void DBServer::handle_load_mail(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Load mail request received");
-    auto response = create_response(QueryOpcode::LoadMail, QueryResult::Success);
+    KAL_LOG_INFO("Load mail request received");
+    auto response = create_response(Opcode::LoadMail, Result::Success);
     conn->send(response);
 }
 
 void DBServer::handle_send_mail(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Send mail request received");
-    auto response = create_response(QueryOpcode::SendMail, QueryResult::Success);
+    KAL_LOG_INFO("Send mail request received");
+    auto response = create_response(Opcode::SendMail, Result::Success);
     conn->send(response);
 }
 
 void DBServer::handle_delete_mail(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Delete mail request received");
-    auto response = create_response(QueryOpcode::DeleteMail, QueryResult::Success);
+    KAL_LOG_INFO("Delete mail request received");
+    auto response = create_response(Opcode::DeleteMail, Result::Success);
     conn->send(response);
 }
 
@@ -646,18 +654,18 @@ void DBServer::handle_delete_mail(ConnectionPtr conn, const Packet& packet) {
 // ============================================================================
 
 void DBServer::handle_economy_query(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Economy query received");
+    KAL_LOG_INFO("Economy query received");
 }
 
 void DBServer::handle_buy_item(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Buy item request received");
-    auto response = create_response(QueryOpcode::BuyItem, QueryResult::Success);
+    KAL_LOG_INFO("Buy item request received");
+    auto response = create_response(Opcode::BuyItem, Result::Success);
     conn->send(response);
 }
 
 void DBServer::handle_sell_item(ConnectionPtr conn, const Packet& packet) {
-    LOG_DEBUG("Sell item request received");
-    auto response = create_response(QueryOpcode::SellItem, QueryResult::Success);
+    KAL_LOG_INFO("Sell item request received");
+    auto response = create_response(Opcode::SellItem, Result::Success);
     conn->send(response);
 }
 

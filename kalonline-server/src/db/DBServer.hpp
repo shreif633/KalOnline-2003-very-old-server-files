@@ -18,8 +18,19 @@
 namespace kal::db {
 
 // Forward declarations
-struct Item;
-struct Skill;
+struct Item {
+    uint32_t id{0};
+    uint32_t type_id{0};
+    uint32_t quantity{1};
+    uint8_t slot{0};
+    uint8_t grade{0};
+    uint16_t durability{0};
+};
+
+struct Skill {
+    uint32_t id{0};
+    uint8_t level{1};
+};
 
 enum class ServerQueryOpcode : uint16_t {
     // Character operations
